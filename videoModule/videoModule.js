@@ -62,15 +62,22 @@
   const WT_BACK_GRAD_FROM = '#FFF8';
   const WT_BACK_GRAD_TO = '#FFFC';
 
-  const DT_BAR_GRAD_START = '#FF7';
-  const DT_BAR_GRAD_HALF_PROG = '#FF0';
-  const DT_BAR_GRAD_PROG = '#FF7';
-  const DT_BAR_GRAD_END = '#FF70';
+  const DT_BAR_GRAD_START = '#77F';
+  const DT_BAR_GRAD_HALF_PROG = '#00F';
+  const DT_BAR_GRAD_PROG = '#77F';
+  const DT_BAR_GRAD_END = '#77F0';
 
-  const WT_BAR_GRAD_START = '#FF7';
-  const WT_BAR_GRAD_HALF_PROG = '#FF0';
-  const WT_BAR_GRAD_PROG = '#FF7';
-  const WT_BAR_GRAD_END = '#FF70';
+  const WT_BAR_GRAD_START = '#77F';
+  const WT_BAR_GRAD_HALF_PROG = '#00F';
+  const WT_BAR_GRAD_PROG = '#77F';
+  const WT_BAR_GRAD_END = '#77F0';
+
+
+  const DT_OVERLAY_GRAD_FROM = '#000F';
+  const DT_OVERLAY_GRAD_TO = '#0004';
+  
+  const WT_OVERLAY_GRAD_FROM = '#FFFF';
+  const WT_OVERLAY_GRAD_TO = '#FFF0';
 
 
   /* other very important funtions */
@@ -141,6 +148,13 @@
   overlay.style.alignItems = 'center';
   overlay.style.justifyContent = 'space-between';
   let overlayTimeout = OVERLAY_TIMEOUT_SECONDS;
+
+  if (isDarkTheme) {
+    overlay.style.background = `linear-gradient(${DT_OVERLAY_GRAD_FROM}, ${DT_OVERLAY_GRAD_TO})`;
+  } else {
+    overlay.style.background = `linear-gradient(${WT_OVERLAY_GRAD_FROM}, ${WT_OVERLAY_GRAD_TO})`;
+  }
+
 
   /* INITIALIZATION   creating canvas to copy the video in*/
   let canvas = document.createElement('canvas');
@@ -402,7 +416,7 @@
       inputField.style.opacity = 0;
       inputFieldResetButton.style.opacity = 0;
     } else {
-      overlayTimeout -= dt;
+      overlayTimeout -= dt/1000;
     }
 
     /* better progress bar drawer */
@@ -532,6 +546,7 @@
     } else if (e.key == 't' || e.key == 'е') {
       if (isDarkTheme) {
         isDarkTheme = 0;
+        overlay.style.background = `linear-gradient(${WT_OVERLAY_GRAD_FROM}, ${WT_OVERLAY_GRAD_TO})`;
         clockOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
         clockOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
         clockOverlay.style.color = WT_FONT_COLOR;
@@ -546,6 +561,7 @@
         displayTotalDuration.style.color = WT_FONT_COLOR;
       } else {
         isDarkTheme = 1;
+        overlay.style.background = `linear-gradient(${DT_OVERLAY_GRAD_FROM}, ${DT_OVERLAY_GRAD_TO})`;
         clockOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
         clockOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;
         clockOverlay.style.color = DT_FONT_COLOR;

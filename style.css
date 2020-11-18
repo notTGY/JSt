@@ -52,7 +52,6 @@
   display: block;
   bottom: 0px;
   left: 0px;
-  background: linear-gradient(#000, rgba(0,0,0,0.21));
   visibility: visible;
   z-index: 2147483647;
 }

@@ -133,6 +133,18 @@
     }
   }
 
+  /* INIT local storage thing*/
+  let localStorage = window.localStorage;
+
+
+  /* INIT   theme configuration */
+  let isDarkTheme = 1;
+  if (localStorage.getItem('JSt_isDarkTheme')) {
+    isDarkTheme = Number(localStorage.getItem('JSt_isDarkTheme'));
+  } else {
+    localStorage.setItem('JSt_isDarkTheme', '1');
+  }
+
 
 
   /* INITIALIZATION    creating overlay */
@@ -169,11 +181,6 @@
   wrapper.id = WRAPPER_ID;
   wrapper.style.position = 'relative';
   insertAfter(canvas, overlay);
-
-
-  /* INIT   theme configuration */
-  let isDarkTheme = 1;
-
 
 
   /* INIT     gamma setting variable */
@@ -546,6 +553,7 @@
     } else if (e.key == 't' || e.key == 'е') {
       if (isDarkTheme) {
         isDarkTheme = 0;
+        localStorage.setItem('JSt_isDarkTheme', '0');
         overlay.style.background = `linear-gradient(${WT_OVERLAY_GRAD_FROM}, ${WT_OVERLAY_GRAD_TO})`;
         clockOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
         clockOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
@@ -561,6 +569,7 @@
         displayTotalDuration.style.color = WT_FONT_COLOR;
       } else {
         isDarkTheme = 1;
+        localStorage.setItem('JSt_isDarkTheme', '1');
         overlay.style.background = `linear-gradient(${DT_OVERLAY_GRAD_FROM}, ${DT_OVERLAY_GRAD_TO})`;
         clockOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
         clockOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;

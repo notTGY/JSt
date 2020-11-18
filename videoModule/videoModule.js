@@ -342,11 +342,11 @@
   let ctx = canvas.getContext('2d');
 
   let mainInterval = 1;
-  let prevTimeInSeconds = (new Date()).parse();
+  let prevTimeInSeconds = (new Date()).getTime();
 
   /* main interval definition */
   const mainIntervalFunction = ()=>{
-    let dt = (new Date()).parse() - prevTimeInSeconds;
+    let dt = (new Date()).getTime() - prevTimeInSeconds;
     ctx.drawImage(vidElem, 0, 0, canvas.width, canvas.height);
 
     /* Gamma drawing */
@@ -421,7 +421,7 @@
     reevaluateCurrentDuration();
 
     /* next step */
-    prevTimeInSeconds = (new Date()).parse();
+    prevTimeInSeconds = (new Date()).getTime();
     if (mainInterval) {
       requestAnimationFrame(mainIntervalFunction);
     }

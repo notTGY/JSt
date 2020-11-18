@@ -42,6 +42,8 @@
   const COUNTDOWN_FONT_SIZE = 70 * QUALIFIER;
   const FONT_SIZE = 16 * QUALIFIER;
   const BAR_WIDTH = (THIS_WIDTH-700) * QUALIFIER;
+  const ONE_PIXEL = 1 * QUALIFIER;
+
   const OVERLAY_TIMEOUT_SECONDS = 5;
   const WRAPPER_ID = 'wrapper_video_module';
   const PROGRESS_BAR_ID = 'progress_bar_video_module';
@@ -50,6 +52,25 @@
   const CLOCK_INPUT_ID = 'clock_input_video_module';
 
 
+  const DT_FONT_COLOR = '#FFF';
+  const WT_FONT_COLOR = '#000';
+  const DT_BORDER_COLOR = '#FFFE';
+  const WT_BORDER_COLOR = '#000E';
+
+  const DT_BACK_GRAD_FROM = '#0008';
+  const DT_BACK_GRAD_TO = '#000C';
+  const WT_BACK_GRAD_FROM = '#FFF8';
+  const WT_BACK_GRAD_TO = '#FFFC';
+
+  const DT_BAR_GRAD_START = '#FF7';
+  const DT_BAR_GRAD_HALF_PROG = '#FF0';
+  const DT_BAR_GRAD_PROG = '#FF7';
+  const DT_BAR_GRAD_END = '#FF70';
+
+  const WT_BAR_GRAD_START = '#FF7';
+  const WT_BAR_GRAD_HALF_PROG = '#FF0';
+  const WT_BAR_GRAD_PROG = '#FF7';
+  const WT_BAR_GRAD_END = '#FF70';
 
 
   /* other very important funtions */
@@ -158,13 +179,13 @@
   clockOverlay.style.fontSize = FONT_SIZE + 'px';
   clockOverlay.style.height = CLOCK_HEIGHT + 'px';
   if (isDarkTheme) {
-    clockOverlay.style.border = '1px solid #FFFE';
-    clockOverlay.style.background = 'radial-gradient(#0008, #000C)';
-    clockOverlay.style.color = '#FFF';
+    clockOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+    clockOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;
+    clockOverlay.style.color = DT_FONT_COLOR;
   } else {
-    clockOverlay.style.border = '1px solid #000E';
-    clockOverlay.style.background = 'radial-gradient(#FFF8, #FFFC)';
-    clockOverlay.style.color = '#000';
+    clockOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+    clockOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
+    clockOverlay.style.color = WT_FONT_COLOR;
   }
 
   wrapper.appendChild(clockOverlay);
@@ -182,11 +203,11 @@
   clockDropdownOverlay.style.opacity = 0;
   clockDropdownOverlay.style.height = 2*CLOCK_HEIGHT + 'px';
   if (isDarkTheme) {
-    clockDropdownOverlay.style.border = '1px solid #FFFE';
-    clockDropdownOverlay.style.background = 'radial-gradient(#0008, #000C)';
+    clockDropdownOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+    clockDropdownOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;
   } else {
-    clockDropdownOverlay.style.border = '1px solid #000E';
-    clockDropdownOverlay.style.background = 'radial-gradient(#FFF8, #FFFC)';
+    clockDropdownOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+    clockDropdownOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
   }
 
   wrapper.appendChild(clockDropdownOverlay);
@@ -262,13 +283,13 @@
   countdownOverlay.style.display = 'flex';
   countdownOverlay.style.fontSize = COUNTDOWN_FONT_SIZE + 'px';
   if (isDarkTheme) {
-    countdownOverlay.style.color = '#FFF';
-    countdownOverlay.style.border = '1px solid #FFFE';
-    countdownOverlay.style.background = 'radial-gradient(#0008, #000C)';
+    countdownOverlay.style.color = DT_FONT_COLOR;
+    countdownOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+    countdownOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;
   } else {
-    countdownOverlay.style.color = '#000';
-    countdownOverlay.style.border = '1px solid #000E';
-    countdownOverlay.style.background = 'radial-gradient(#FFF8, #FFFC)';
+    countdownOverlay.style.color = WT_FONT_COLOR;
+    countdownOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+    countdownOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
   }
   wrapper.appendChild(countdownOverlay);
   countdownOverlay.style.opacity = 0;
@@ -318,12 +339,21 @@
   wrapper.appendChild(betterProgressBar);
 
   function drawBetterProgressBar() {
-    let str = 'linear-gradient(to right, #FF7 0%, #FF0 ';
-    let prog = vidElem.currentTime / vidElem.duration;
-    str += Math.floor(10000*prog/2)/100 + '%, #FF7 ';
-    str += Math.floor(10000*prog)/100 + '%, #FF70 '
-    str += Math.floor(10000*prog)/100 + 1 + '%, #FF70 100%)';
-    betterProgressBar.style.background = str;
+    if (isDarkTheme) {
+      let str = `linear-gradient(to right, ${DT_BAR_GRAD_START} 0%, ${DT_BAR_GRAD_HALF_PROG} `;
+      let prog = vidElem.currentTime / vidElem.duration;
+      str += Math.floor(10000*prog/2)/100 + `%, ${DT_BAR_GRAD_PROG} `;
+      str += Math.floor(10000*prog)/100 + `%, ${DT_BAR_GRAD_END} `;
+      str += Math.floor(10000*prog)/100 + 1 + `%, ${DT_BAR_GRAD_END} 100%)`;
+      betterProgressBar.style.background = str;
+    } else {
+      let str = `linear-gradient(to right, ${WT_BAR_GRAD_START} 0%, ${WT_BAR_GRAD_HALF_PROG} `;
+      let prog = vidElem.currentTime / vidElem.duration;
+      str += Math.floor(10000*prog/2)/100 + `%, ${WT_BAR_GRAD_PROG} `;
+      str += Math.floor(10000*prog)/100 + `%, ${WT_BAR_GRAD_END} `;
+      str += Math.floor(10000*prog)/100 + 1 + `%, ${WT_BAR_GRAD_END} 100%)`;
+      betterProgressBar.style.background = str;
+    }
   }
 
 
@@ -409,12 +439,21 @@
 
     /* progress bar updating */
     if (bar) {
-      let str = 'linear-gradient(to right, #FF7 0%, #FF0 ';
-      let prog = vidElem.currentTime / vidElem.duration;
-      str += Math.floor(10000*prog/2)/100 + '%, #FF7 ';
-      str += Math.floor(10000*prog)/100 + '%, #FF70 '
-      str += Math.floor(10000*prog)/100 + 1 + '%, #FF70 100%)';
-      bar.style.background = str;
+      if (isDarkTheme) {
+        let str = `linear-gradient(to right, ${DT_BAR_GRAD_START} 0%, ${DT_BAR_GRAD_HALF_PROG} `;
+        let prog = vidElem.currentTime / vidElem.duration;
+        str += Math.floor(10000*prog/2)/100 + `%, ${DT_BAR_GRAD_PROG} `;
+        str += Math.floor(10000*prog)/100 + `%, ${DT_BAR_GRAD_END} `;
+        str += Math.floor(10000*prog)/100 + 1 + `%, ${DT_BAR_GRAD_END} 100%)`;
+        bar.style.background = str;
+      } else {
+        let str = `linear-gradient(to right, ${WT_BAR_GRAD_START} 0%, ${WT_BAR_GRAD_HALF_PROG} `;
+        let prog = vidElem.currentTime / vidElem.duration;
+        str += Math.floor(10000*prog/2)/100 + `%, ${WT_BAR_GRAD_PROG} `;
+        str += Math.floor(10000*prog)/100 + `%, ${WT_BAR_GRAD_END} `;
+        str += Math.floor(10000*prog)/100 + 1 + `%, ${WT_BAR_GRAD_END} 100%)`;
+        bar.style.background = str;
+      }
     }
 
     /* updating current progress in numbers */
@@ -493,8 +532,32 @@
     } else if (e.key == 't' || e.key == 'е') {
       if (isDarkTheme) {
         isDarkTheme = 0;
+        clockOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+        clockOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
+        clockOverlay.style.color = WT_FONT_COLOR;
+        clockDropdownOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+        clockDropdownOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
+        countdownOverlay.style.color = WT_FONT_COLOR;
+        countdownOverlay.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+        countdownOverlay.style.background = `radial-gradient(${WT_BACK_GRAD_FROM}, ${WT_BACK_GRAD_TO})`;
+        volumeDisplay.style.color = WT_FONT_COLOR;
+        playbackRateDisplay.style.color = WT_FONT_COLOR;
+        displayCurrentDuration.style.color = WT_FONT_COLOR;
+        displayTotalDuration.style.color = WT_FONT_COLOR;
       } else {
         isDarkTheme = 1;
+        clockOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+        clockOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;
+        clockOverlay.style.color = DT_FONT_COLOR;
+        clockDropdownOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+        clockDropdownOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;
+        countdownOverlay.style.color = DT_FONT_COLOR;
+        countdownOverlay.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+        countdownOverlay.style.background = `radial-gradient(${DT_BACK_GRAD_FROM}, ${DT_BACK_GRAD_TO})`;
+        volumeDisplay.style.color = DT_FONT_COLOR;
+        playbackRateDisplay.style.color = DT_FONT_COLOR;
+        displayCurrentDuration.style.color = DT_FONT_COLOR;
+        displayTotalDuration.style.color = DT_FONT_COLOR;
       }
     }
   };
@@ -666,7 +729,9 @@
   volumeDisplay.style.height = WIDGET_SIZE + 'px';
   overlayLeft.appendChild(volumeDisplay);
   if (isDarkTheme) {
-    volumeDisplay.style.color = '#FFF';
+    volumeDisplay.style.color = DT_FONT_COLOR;
+  } else {
+    volumeDisplay.style.color = WT_FONT_COLOR;
   }
 
 
@@ -754,9 +819,9 @@
   playbackRateDisplay.style.height = WIDGET_SIZE + 'px';
   overlayRight.appendChild(playbackRateDisplay);
   if (isDarkTheme) {
-    playbackRateDisplay.style.color = '#FFF';
+    playbackRateDisplay.style.color = DT_FONT_COLOR;
   } else {
-    playbackRateDisplay.style.color = '#000';
+    playbackRateDisplay.style.color = WT_FONT_COLOR;
   }
 
 
@@ -814,9 +879,9 @@
   displayCurrentDuration.style.height = WIDGET_SIZE + 'px';
   overlayCenter.appendChild(displayCurrentDuration);
   if (isDarkTheme) {
-    displayCurrentDuration.style.color = '#FFF';
+    displayCurrentDuration.style.color = DT_FONT_COLOR;
   } else {
-    displayCurrentDuration.style.color = '#000';
+    displayCurrentDuration.style.color = WT_FONT_COLOR;
   }
 
   /* callback function to update current state */
@@ -874,9 +939,9 @@
   displayTotalDuration.style.display = 'flex';
   displayTotalDuration.style.alignItems = 'center';
   if (isDarkTheme) {
-    displayTotalDuration.style.color = '#FFF';
+    displayTotalDuration.style.color = DT_FONT_COLOR;
   } else {
-    displayTotalDuration.style.color = '#000';
+    displayTotalDuration.style.color = WT_FONT_COLOR;
   }
 
 

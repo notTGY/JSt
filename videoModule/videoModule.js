@@ -282,7 +282,7 @@
 
   clockDropdownOverlay.appendChild(inputField);
   clockDropdownOverlay.appendChild(inputFieldResetButton);
-  inputFieldResetButton.innerHTML = '\D7';
+  inputFieldResetButton.innerHTML = 'x';
 
 
 

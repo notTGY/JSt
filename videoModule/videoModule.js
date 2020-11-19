@@ -112,7 +112,7 @@
       elem = tmp.elem;
       this.width = tmp.width;
       elem.width = tmp.width;
-      this.switchTheme = e=>{tmp.themeSwitcher(e)};
+      this.switchTheme = e=>{playButtonThemeCallback(e)};
     }
     if (style) {
       Object.keys(style).forEach(e => {
@@ -825,7 +825,7 @@
       e.height = e.width = WIDGET_SIZE;
       e.getContext('2d').drawImage(playButton, 0, 0, WIDGET_SIZE, WIDGET_SIZE);
       f.appendChild(e);
-      return {elem: e , width: WIDGET_SIZE, themeSwitcher(e){playButtonThemeCallback(e)}};
+      return {elem: e , width: WIDGET_SIZE};
     },
     e=>{hookPlayButton(e)},
     {

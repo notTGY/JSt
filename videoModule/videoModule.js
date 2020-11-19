@@ -51,6 +51,8 @@
   const OTHER_OVERLAY_CLASS = 'other_overlay_class_video_module';
   const CLOCK_INPUT_ID = 'clock_input_video_module';
 
+  const DEFAULT_FONT = 'Arial';
+
 
   const DT_FONT_COLOR = '#FFF';
   const WT_FONT_COLOR = '#000';
@@ -73,11 +75,11 @@
   const WT_BAR_GRAD_END = '#77F0';
 
 
-  const DT_OVERLAY_GRAD_FROM = '#000F';
-  const DT_OVERLAY_GRAD_TO = '#0004';
+  const DT_OVERLAY_GRAD_FROM = '#0004';
+  const DT_OVERLAY_GRAD_TO = '#000F';
   
-  const WT_OVERLAY_GRAD_FROM = '#FFFF';
-  const WT_OVERLAY_GRAD_TO = '#FFF0';
+  const WT_OVERLAY_GRAD_FROM = '#FFF4';
+  const WT_OVERLAY_GRAD_TO = '#FFFF';
 
 
   /* other very important funtions */
@@ -98,12 +100,21 @@
         elem.style[e] = style[e];
       });
     }
+    this.imagePath = imagePath;
     this.callback = callback;
     elem.addEventListener('click', this.callback);
     this.element = elem;
     this.remove = _ => {
       this.element.removeEventListener('click', this.callback);
       this.element.remove();
+    };
+    this.switchTheme = e => {
+      let isDark = e;
+      if (isDark) {
+        this.element.src = this.imagePath + 'DT?' + new Date();
+      } else {
+        this.element.src = this.imagePath + '?' + new Date();
+      }
     };
   }
 
@@ -196,7 +207,7 @@
   clockOverlay.style.width = CLOCK_WIDTH + 'px';
   clockOverlay.style.textAlign = 'center';
   clockOverlay.style.opacity = 1;
-  clockOverlay.style.font = 'monospace';
+  clockOverlay.style.font = DEFAULT_FONT;
   clockOverlay.style.fontSize = FONT_SIZE + 'px';
   clockOverlay.style.height = CLOCK_HEIGHT + 'px';
   if (isDarkTheme) {
@@ -300,7 +311,7 @@
   countdownOverlay.style.textAlign = 'center';
   countdownOverlay.style.top = Math.floor(window.screen.height/2 - 50)+'px';
   countdownOverlay.style.left = Math.floor(window.screen.width/2 - 150)+'px';
-  countdownOverlay.style.font = 'monospace';
+  countdownOverlay.style.font = DEFAULT_FONT;
   countdownOverlay.style.display = 'flex';
   countdownOverlay.style.fontSize = COUNTDOWN_FONT_SIZE + 'px';
   if (isDarkTheme) {
@@ -344,6 +355,9 @@
     countdownOverlay.innerHTML = str;
   }
 
+
+  /* array of smaller widgets */
+  let overlayControls = [];
 
 
 
@@ -584,6 +598,11 @@
         displayCurrentDuration.style.color = DT_FONT_COLOR;
         displayTotalDuration.style.color = DT_FONT_COLOR;
       }
+    
+    overlayControls.forEach(e=>{
+      e.switchTheme(isDarkTheme);
+    });
+
     }
   };
   document.body.addEventListener('keydown', handler);
@@ -658,10 +677,6 @@
   overlay.appendChild(overlayLeft);
   overlay.appendChild(overlayCenter);
   overlay.appendChild(overlayRight);
-
-
-  /* array of smaller widgets */
-  let overlayControls = [];
 
 
 
@@ -747,7 +762,7 @@
 
   /* volume display initialization */
   volumeDisplay = document.createElement('div');
-  volumeDisplay.style.font = 'monospace';
+  volumeDisplay.style.font = DEFAULT_FONT;
   volumeDisplay.style.fontSize = FONT_SIZE + 'px';
   volumeDisplay.style.display = 'flex';
   volumeDisplay.style.alignItems = 'center';
@@ -837,7 +852,7 @@
 
   /* playbackrate info-box appending and styles */
   playbackRateDisplay = document.createElement('div');
-  playbackRateDisplay.style.font = 'monospace';
+  playbackRateDisplay.style.font = DEFAULT_FONT;
   playbackRateDisplay.style.fontSize = FONT_SIZE + 'px';
   playbackRateDisplay.style.display = 'flex';
   playbackRateDisplay.style.alignItems = 'center';
@@ -958,7 +973,7 @@
 
   /* displaying total duration of the video */
   let displayTotalDuration = document.createElement('div');
-  displayTotalDuration.style.font = 'monospace';
+  displayTotalDuration.style.font = DEFAULT_FONT;
   displayTotalDuration.style.fontSize = FONT_SIZE + 'px';
   displayTotalDuration.style.height = WIDGET_SIZE + 'px';
   displayTotalDuration.style.display = 'flex';
@@ -984,6 +999,10 @@
     displayTotalDuration.innerHTML = '' + hours + ':' + minutes + ':' + seconds;
   }
 
+
+  overlayControls.forEach(e=>{
+    e.switchTheme(isDarkTheme);
+  });
 
 
   /* getting pointer to the main bar */

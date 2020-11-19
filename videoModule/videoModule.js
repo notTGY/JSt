@@ -100,7 +100,7 @@
         elem.style[e] = style[e];
       });
     }
-    this.imagePath = imagePath;
+    this.imagePath = imagePath.substring(0,-4);
     this.callback = callback;
     elem.addEventListener('click', this.callback);
     this.element = elem;
@@ -111,9 +111,9 @@
     this.switchTheme = e => {
       let isDark = e;
       if (isDark) {
-        this.element.src = this.imagePath + 'DT?' + new Date();
+        this.element.src = this.imagePath + 'DT.png?' + new Date();
       } else {
-        this.element.src = this.imagePath + '?' + new Date();
+        this.element.src = this.imagePath + '.png?' + new Date();
       }
     };
   }

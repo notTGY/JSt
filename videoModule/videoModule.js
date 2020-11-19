@@ -43,6 +43,8 @@
   const FONT_SIZE = 16 * QUALIFIER;
   const BAR_WIDTH = (THIS_WIDTH-700) * QUALIFIER;
   const ONE_PIXEL = 1 * QUALIFIER;
+  const BIG_MENU_WIDTH = 500 * QUALIFIER;
+
 
   const OVERLAY_TIMEOUT_SECONDS = 5;
   const WRAPPER_ID = 'wrapper_video_module';
@@ -81,15 +83,21 @@
   const WT_OVERLAY_GRAD_FROM = '#FFF4';
   const WT_OVERLAY_GRAD_TO = '#FFFF';
 
+  const DT_MENU_GRAD_FROM = '#0003';
+  const DT_MENU_GRAD_TO = '#0009';
+  const WT_MENU_GRAD_FROM = '#FFF3';
+  const WT_MENU_GRAD_TO = '#FFF9';
+
 
   /* other very important funtions */
-  function ControlElement (fatherElement, imagePath, callback, style) {
+  function ControlElement (fatherElement, imagePath, callback, style, type = '') {
     let elem;
     if (typeof(imagePath) == 'string') {
       elem = document.createElement('img');
       elem.src  = imagePath + '?' + new Date();
+      elem.title = type;
       fatherElement.appendChild(elem);
-      this.imagePath = imagePath.substring(0,-4);
+      this.imagePath = imagePath.substring(0,imagePath.length -4);
       this.switchTheme = e => {
         let isDark = e;
         if (isDark) {
@@ -371,6 +379,74 @@
   let overlayControls = [];
 
 
+  /* INIT   big menu */
+  
+
+  let bigMenu = document.createElement('div');
+  bigMenu.classList.add(OTHER_OVERLAY_CLASS);
+  bigMenu.style.width = BIG_MENU_WIDTH + 'px';
+  bigMenu.style.height = Math.floor(window.screen.height) - OVERLAY_HEIGHT + 'px';
+  bigMenu.style.justifyContent = 'center';
+  bigMenu.style.alignItems = 'center';
+  bigMenu.style.textAlign = 'center';
+  bigMenu.style.top = '0px';
+  bigMenu.style.right = '0px';
+  bigMenu.style.display = 'flex';
+  if (isDarkTheme) {
+    bigMenu.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+    bigMenu.style.background = `radial-gradient(${DT_MENU_GRAD_FROM}, ${DT_MENU_GRAD_TO})`;
+  } else {
+    bigMenu.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+    bigMenu.style.background = `radial-gradient(${WT_MENU_GRAD_FROM}, ${WT_MENU_GRAD_TO})`;
+  }
+  wrapper.appendChild(bigMenu);
+  bigMenu.style.opacity = 0;
+
+
+
+  const menuChangeStyle = e => {
+    let isDark = e;
+    if (isDark) {
+      bigMenu.style.border = ONE_PIXEL + 'px solid ' + DT_BORDER_COLOR;
+      bigMenu.style.background = `radial-gradient(${DT_MENU_GRAD_FROM}, ${DT_MENU_GRAD_TO})`;
+    } else {     
+      bigMenu.style.border = ONE_PIXEL + 'px solid ' + WT_BORDER_COLOR;
+      bigMenu.style.background = `radial-gradient(${WT_MENU_GRAD_FROM}, ${WT_MENU_GRAD_TO})`;
+    }
+  }
+
+  const bigMenuAppearance = e => {
+    bigMenu.style.opacity += .001;
+    if (bigMenu.style.opacity < 1) {
+      requestAnimationFrame(bigMenuAppearance);
+    }
+  }
+
+  const bigMenuDisappearance = e => {
+    bigMenu.style.opacity -= .001;
+    if (bigMenu.style.opacity > 0) {
+      requestAnimationFrame(bigMenuDisappearance);
+    }
+  }
+
+  const toggleBigMenu = e => {
+
+    return 0; // FIX ME
+
+
+
+    if (bigMenu.style.opacity == 0) {
+      bigMenuAppearance();
+    } else if (bigMenu.style.opacity == 1) {
+      bigMenuDisappearance();
+    }
+  };
+
+
+  /* INIT   menu control elements */
+  let menuControls = []; 
+
+
 
   /* INIT     better progress bar */
 
@@ -614,6 +690,8 @@
       e.switchTheme(isDarkTheme);
     });
 
+    menuChangeStyle(isDarkTheme);
+    
     }
   };
   document.body.addEventListener('keydown', handler);
@@ -696,6 +774,8 @@
   let pauseButton = document.createElement('img');
   playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModule.png'+'?'+new Date();
   pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModule.png'+'?'+new Date();
+  playButton.title = 'play (space)';
+  playButton.title = 'pause (space)';
   playButton.hidden = true;
   pauseButton.hidden = true;
   wrapper.appendChild(playButton);
@@ -773,7 +853,8 @@
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'quiter (down arrow)'
   );
 
 
@@ -808,7 +889,8 @@
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'louder (up arrow)'
   );
 
 
@@ -824,7 +906,8 @@
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'fast backward (left arrow)'
   );
 
 
@@ -840,7 +923,8 @@
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'fast forward (right arrow)'
   );
 
 
@@ -863,7 +947,8 @@
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'decrease speed (<)'
   );
 
 
@@ -896,23 +981,22 @@
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'increase speed (>)'
   );
-
 
 
   overlayControls[overlayControls.length] = new ControlElement(
     overlayRight,
-    'https://nottgy.github.io/JSt/videoModule/gammaButtonVideoModule.png',
-    e=>{toggleGamma()},
+    'https://nottgy.github.io/JSt/videoModule/menuButtonVideoModule.png',
+    e=>{toggleBigMenu()},
     {
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'menu (m)'
   );
-
-
 
 
   overlayControls[overlayControls.length] = new ControlElement(
@@ -923,7 +1007,8 @@
       margin: WIDGET_MARGIN + 'px',
       width: WIDGET_SIZE + 'px',
       height: WIDGET_SIZE + 'px'
-    }
+    },
+    'quit (q)'
   );
 
 
@@ -985,7 +1070,9 @@
     {
       margin: WIDGET_MARGIN + 'px',
       width: BAR_WIDTH+'px',
-      height: BAR_HEIGHT + 'px'}
+      height: BAR_HEIGHT + 'px'
+    },
+    'progress bar'
   );
 
   /* displaying total duration of the video */
@@ -1015,6 +1102,22 @@
     let seconds = dur - hours*3600 - minutes*60;
     displayTotalDuration.innerHTML = '' + hours + ':' + minutes + ':' + seconds;
   }
+
+
+
+
+  /* gamma button
+  overlayControls[overlayControls.length] = new ControlElement(
+    overlayRight,
+    'https://nottgy.github.io/JSt/videoModule/gammaButtonVideoModule.png',
+    e=>{toggleGamma()},
+    {
+      margin: WIDGET_MARGIN + 'px',
+      width: WIDGET_SIZE + 'px',
+      height: WIDGET_SIZE + 'px'
+    }
+  );
+  */
 
 
   overlayControls.forEach(e=>{

@@ -90,20 +90,21 @@
 
 
   /* other very important funtions */
+  let cacheDate = new Date();
   function ControlElement (fatherElement, imagePath, callback, style, type = '') {
     let elem;
     if (typeof(imagePath) == 'string') {
       elem = document.createElement('img');
-      elem.src  = imagePath + '?' + new Date();
+      elem.src  = imagePath + '?' + cacheDate;
       elem.title = type;
       fatherElement.appendChild(elem);
       this.imagePath = imagePath.substring(0,imagePath.length -4);
       this.switchTheme = e => {
         let isDark = e;
         if (isDark) {
-          this.element.src = this.imagePath + 'DT.png?' + new Date();
+          this.element.src = this.imagePath + 'DT.png?' + cacheDate;
         } else {
-         this.element.src = this.imagePath + '.png?' + new Date();
+         this.element.src = this.imagePath + '.png?' + cacheDate;
        }
       };
     } else {
@@ -111,7 +112,7 @@
       elem = tmp.elem;
       this.width = tmp.width;
       elem.width = tmp.width;
-      this.switchTheme = tmp.themeSwitcher;
+      this.switchTheme = e=>{tmp.themeSwitcher(e)};
     }
     if (style) {
       Object.keys(style).forEach(e => {
@@ -772,10 +773,10 @@
   /* play button images loading and initialization */
   let playButton = document.createElement('img');
   let pauseButton = document.createElement('img');
-  playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModule.png'+'?'+new Date();
-  pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModule.png'+'?'+new Date();
+  playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModule.png'+'?'+cacheDate;
+  pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModule.png'+'?'+cacheDate;
   playButton.title = 'play (space)';
-  playButton.title = 'pause (space)';
+  pauseButton.title = 'pause (space)';
   playButton.hidden = true;
   pauseButton.hidden = true;
   wrapper.appendChild(playButton);
@@ -785,11 +786,15 @@
   const playButtonThemeCallback = e => {
     let isDark = e;
         if (isDark) {
-          playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModuleDT.png'+'?'+new Date();
-          pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModuleDT.png'+'?'+new Date();
+          playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModuleDT.png'+'?'+cacheDate;
+          pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModuleDT.png'+'?'+cacheDate;
+          playButton.title = 'play (space)';
+          pauseButton.title = 'pause (space)';
         } else {
-          playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModule.png'+'?'+new Date();
-          pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModule.png'+'?'+new Date();
+          playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModule.png'+'?'+cacheDate;
+          pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModule.png'+'?'+cacheDate;
+          playButton.title = 'play (space)';
+          pauseButton.title = 'pause (space)';
        }
   }
 
@@ -820,7 +825,7 @@
       e.height = e.width = WIDGET_SIZE;
       e.getContext('2d').drawImage(playButton, 0, 0, WIDGET_SIZE, WIDGET_SIZE);
       f.appendChild(e);
-      return {elem: e , width: WIDGET_SIZE, themeSwitcher: playButtonThemeCallback};
+      return {elem: e , width: WIDGET_SIZE, themeSwitcher: e=>{playButtonThemeCallback(e)}};
     },
     e=>{hookPlayButton(e)},
     {

@@ -89,32 +89,43 @@
       elem = document.createElement('img');
       elem.src  = imagePath + '?' + new Date();
       fatherElement.appendChild(elem);
+      this.imagePath = imagePath.substring(0,-4);
+      this.switchTheme = e => {
+        let isDark = e;
+        if (isDark) {
+          this.element.src = this.imagePath + 'DT.png?' + new Date();
+        } else {
+         this.element.src = this.imagePath + '.png?' + new Date();
+       }
+      };
     } else {
       let tmp = imagePath(fatherElement);
       elem = tmp.elem;
       this.width = tmp.width;
       elem.width = tmp.width;
+      this.switchTheme = tmp.themeSwitcher;
     }
     if (style) {
       Object.keys(style).forEach(e => {
         elem.style[e] = style[e];
       });
     }
-    this.imagePath = imagePath.substring(0,-4);
     this.callback = callback;
+    this.mouseenter = e => {
+      this.element.style.opacity = 0.7;
+    }
+    this.mouseleave = e => {
+      this.element.style.opacity = 1;
+    }
     elem.addEventListener('click', this.callback);
+    elem.addEventListener('mouseenter', this.mouseenter);
+    elem.addEventListener('mouseleave', this.mouseleave);
     this.element = elem;
     this.remove = _ => {
       this.element.removeEventListener('click', this.callback);
+      this.element.removeEventListener('mouseenter', this.mouseenter);
+      this.element.removeEventListener('mouseleave', this.mouseleave);
       this.element.remove();
-    };
-    this.switchTheme = e => {
-      let isDark = e;
-      if (isDark) {
-        this.element.src = this.imagePath + 'DT.png?' + new Date();
-      } else {
-        this.element.src = this.imagePath + '.png?' + new Date();
-      }
     };
   }
 
@@ -690,10 +701,16 @@
   wrapper.appendChild(playButton);
   wrapper.appendChild(pauseButton);
 
-  playButton.onload = _=>{
-    let element = document.querySelector('#'+PLAY_BUTTON_ID);
-    element.height = element.width = WIDGET_SIZE;
-    element.getContext('2d').drawImage(playButton, 0, 0, WIDGET_SIZE, WIDGET_SIZE);
+
+  const playButtonThemeCallback = e => {
+    let isDark = e;
+        if (isDark) {
+          playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModuleDT.png'+'?'+new Date();
+          pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModuleDT.png'+'?'+new Date();
+        } else {
+          playButton.src = 'https://nottgy.github.io/JSt/videoModule/playButtonVideoModule.png'+'?'+new Date();
+          pauseButton.src = 'https://nottgy.github.io/JSt/videoModule/pauseButtonVideoModule.png'+'?'+new Date();
+       }
   }
 
 
@@ -723,7 +740,7 @@
       e.height = e.width = WIDGET_SIZE;
       e.getContext('2d').drawImage(playButton, 0, 0, WIDGET_SIZE, WIDGET_SIZE);
       f.appendChild(e);
-      return {elem: e , width: WIDGET_SIZE};
+      return {elem: e , width: WIDGET_SIZE, themeSwitcher: playButtonThemeCallback};
     },
     e=>{hookPlayButton(e)},
     {

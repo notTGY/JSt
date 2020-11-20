@@ -1,5 +1,6 @@
 let imgInitialWidth, imgInitialHeight;
 let img = document.querySelector('#icon');
+let hint = document.querySelector('#hint');
 let title = document.querySelector('#name_of_product');
 let pageOne = document.querySelector('#slide_one');
 let pageTwo = document.querySelector('#slide_two');
@@ -24,6 +25,10 @@ onload = _ => {
 	title.hidden = true;
 	img.style.opacity = 1;
 	img.hidden = false;
+
+
+	hint.style.opacity = 1;
+	hint.hidden = false;
 	
 	pageOne.hidden = true;
 	pageOne.style.opacity = 0;
@@ -59,9 +64,12 @@ window.addEventListener('wheel', e=>{
 		img.width = Math.floor(imgInitialWidth * (30-currentDelta) / 30);
 		img.height = Math.floor(imgInitialHeight * (30-currentDelta) / 30);
 		img.style.opacity = (30-currentDelta/2) / 30;
+		hint.style.opacity = (30-currentDelta/2) / 30;
 	} else {
 		img.style.opacity = 0;
-		img.hidden = true;	
+		img.hidden = true;
+		hint.style.opacity = 0;
+		hint.hidden = true;	
 	}
 
 	

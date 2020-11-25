@@ -52,6 +52,7 @@
   const PLAY_BUTTON_ID = 'play_button_video_module';
   const OTHER_OVERLAY_CLASS = 'other_overlay_class_video_module';
   const CLOCK_INPUT_ID = 'clock_input_video_module';
+  const MODE_SWITCH_BUTTON_ID = 'mode_switch_button_video_module';
 
   const DEFAULT_FONT = 'Arial';
 
@@ -693,6 +694,7 @@
 
     menuChangeStyle(isDarkTheme);
     
+    themeSwitchModeCallback(isDarkTheme);
     }
   };
   document.body.addEventListener('keydown', handler);
@@ -768,6 +770,32 @@
   overlay.appendChild(overlayCenter);
   overlay.appendChild(overlayRight);
 
+
+  /* Theme switch initialization */
+  let darkThemeSwitchImg = document.createElement('img');
+  let lightThemeSwitchImg = document.createElement('img');
+  darkThemeSwitchImg.src = 'https://nottgy.github.io/JSt/videoModule/darkModeSwitch.png'+'?'+cacheDate;
+  lightThemeSwitchImg.src = 'https://nottgy.github.io/JSt/videoModule/brightModeSwitch.png'+'?'+cacheDate;
+  darkThemeSwitchImg.hidden = true;
+  brightThemeSwitchImg.hidden = true;
+  wrapper.appendChild(darkThemeSwitchImg);
+  wrapper.appendChild(brightThemeSwitchImg);
+  const themeSwitchModeCallback = e => {
+    let isDark = e;
+    let element = document.querySelector('#'+MODE_SWITCH_BUTTON_ID);
+    if (isDark) {
+      element.width = element.height = WIDGET_SIZE;
+      element.getContext('2d').drawImage(darkThemeSwitchImg, 0, 0, WIDGET_SIZE, WIDGET_SIZE);
+    } else {
+      element.width = element.height = WIDGET_SIZE;
+      element.getContext('2d').drawImage(brightThemeSwitchImg, 0, 0, WIDGET_SIZE, WIDGET_SIZE);
+    }
+  }
+
+  const hookModeSwitch = e => {
+    isDarkTheme = !isDarkTheme;
+    themeSwitchModeCallback(isDarkTheme);
+  }
 
 
   /* play button images loading and initialization */
@@ -1006,6 +1034,28 @@
 
   overlayControls[overlayControls.length] = new ControlElement(
     overlayRight,
+    f => {
+      let e = document.createElement('canvas');
+      e.id = MODE_SWITCH_BUTTON_ID;
+      e.height = e.width = WIDGET_SIZE;
+      e.getContext('2d').drawImage(darkThemeSwitchImg, 0, 0, WIDGET_SIZE, WIDGET_SIZE);
+      f.appendChild(e);
+      return {elem: e , width: WIDGET_SIZE};
+    },
+    e=>{hookModeSwitch(e)},
+    {
+      margin: WIDGET_MARGIN + 'px',
+      width: WIDGET_SIZE + 'px',
+      height: WIDGET_SIZE + 'px'
+    }
+  );
+
+
+
+
+
+  overlayControls[overlayControls.length] = new ControlElement(
+    overlayRight,
     'https://nottgy.github.io/JSt/videoModule/escapeButtonVideoModule.png',
     e=>{handler({key:'q'})},
     {
@@ -1128,6 +1178,11 @@
   overlayControls.forEach(e=>{
     e.switchTheme(isDarkTheme);
   });
+
+
+  playButtonThemeCallback(isDarkTheme);
+
+  themeSwitchModeCallback(isDarkTheme);
 
 
   /* getting pointer to the main bar */

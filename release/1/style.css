@@ -16,13 +16,11 @@ body {
 #hint{
 	margin: 0 auto;	
 	color: #FFF;
-	font: Arial;
 	font-size: 20px;
 	text-align: center;
 }
 
 #name_of_product {
-	font: Arial;
 	font-size: 200px;
 	color: #FFF;
 	margin: 0 auto;
@@ -35,47 +33,41 @@ body {
 #slide_one {
 	width: 75%;
 	color: #FFF;
-	font: Arial;
-	font-size: 30px;
+	font-size: 20px;
 	margin: 0 auto;
 }
 
 #slide_two {
 	width: 75%;
 	color: #FFF;
-	font: Arial;
-	font-size: 30px;
+	font-size: 20px;
 	margin: 0 auto;
 }
 
 #slide_three {
 	width: 75%;
 	color: #FFF;
-	font: Arial;
-	font-size: 30px;
+	font-size: 20px;
 	margin: 0 auto;
 }
 
 #slide_four {
 	color: #FFF;
-	font: Arial;
-	font-size: 30px;
+	font-size: 20px;
 	margin: 0 auto;
 }
 
 #slide_five {
 	width: 75%;
 	color: #000;
-	font: Arial;
-	font-size: 30px;
+	font-size: 20px;
 	margin: 0 auto;
 }
 
 #slide_six {
 	width: 75%;
 	color: #000;
-	font: Arial;
-	font-size: 30px;
+	font-size: 20px;
 	margin: 0 auto;
 }
 

@@ -16,7 +16,7 @@ body {
 #hint{
 	margin: 0 auto;	
 	color: #FFF;
-	font-size: 20px;
+	font-size: 30px;
 	text-align: center;
 }
 
@@ -33,41 +33,41 @@ body {
 #slide_one {
 	width: 75%;
 	color: #FFF;
-	font-size: 20px;
+	font-size: 30px;
 	margin: 0 auto;
 }
 
 #slide_two {
 	width: 75%;
 	color: #FFF;
-	font-size: 20px;
+	font-size: 30px;
 	margin: 0 auto;
 }
 
 #slide_three {
 	width: 75%;
 	color: #FFF;
-	font-size: 20px;
+	font-size: 30px;
 	margin: 0 auto;
 }
 
 #slide_four {
 	color: #FFF;
-	font-size: 20px;
+	font-size: 30px;
 	margin: 0 auto;
 }
 
 #slide_five {
 	width: 75%;
 	color: #000;
-	font-size: 20px;
+	font-size: 30px;
 	margin: 0 auto;
 }
 
 #slide_six {
 	width: 75%;
 	color: #000;
-	font-size: 20px;
+	font-size: 30px;
 	margin: 0 auto;
 }
 

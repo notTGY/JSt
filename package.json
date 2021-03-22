@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/notTGY/JSt/issues"
   },
-  "homepage": "https://github.com/notTGY/JSt#readme"
+  "homepage": "https://github.com/notTGY/JSt#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

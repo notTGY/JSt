@@ -2,12 +2,17 @@ let vid
 let weWereOpen = false
 let wrapper
 let doWeContinue = false
+
 let roomUUID
 
 const imageRelPath = "imgs/icon.png"
 
+let refreshInterval
 
 function init(root) {
+
+  refreshInterval = setInterval(refresh, 5000)
+
   root.classList.add('container')
   chrome.storage.sync.get(['backgroundColor'], e => {
     root.style.backgroundColor = e['backgroundColor']
@@ -36,11 +41,16 @@ function init(root) {
     canvas.height = screenW / videoRatio
   }
 
+  let settings = {}
+
+
   chrome.storage.sync.get(null, e => {
-    const settings = e
+    settings = e
     displayAllControls(root, vid, settings)
   })
 
+  const timebarStyles = document.createElement('style')
+  root.append(timebarStyles)
 
   doWeContinue = true
   update()
@@ -48,7 +58,21 @@ function init(root) {
   function update() {
     ctx.drawImage(vid, 0, 0, canvas.width, canvas.height)
 
-
+    if (document.querySelector('.timebar')) {
+      const timebar = document.querySelector('.timebar')
+      timebar.value = vid.currentTime
+      const percentage = 100 * vid.currentTime / vid.duration
+      timebarStyles.innerHTML = `
+  .timebar::-webkit-slider-runnable-track{
+    height: 4px;
+    background: linear-gradient(to right, 
+    ${settings.timebarColor||"#fff"} 0%, 
+    ${settings.timebarColor||"#fff"} ${percentage}%, 
+    ${settings.controlsColor||"#fff"} ${percentage}%, 
+    ${settings.controlsColor||"#fff"} 100%);
+  }
+  `
+    }
 
     if (doWeContinue) {
       requestAnimationFrame(update)
@@ -59,6 +83,7 @@ function init(root) {
 
 
 function del() {
+  clearInterval(refreshInterval)
   doWeContinue = false
 }
 
@@ -119,3 +144,27 @@ chrome.runtime.onMessage.addListener(msg => {
     popupButtonCallback(url)
   }
 })
+
+const refresh = e => {
+  if (!roomUUID) {
+    return 0
+  }
+
+  fetch(`https://nottgy.api.stdlib.com/yo@dev/?method=get&room=${roomUUID}`)
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      const data = json
+      const time = (new Date()).getTime()
+      if (data.playing) {
+        vid.currentTime = data.vidCurTime + data.playbackRate * (time - data.curTime) /1000
+        if (!isVideoPlaying(vid)) {
+          vid.play()
+        }
+      } else {
+        vid.currentTime = data.vidCurTime
+        vid.pause()
+      }
+      vid.playbackRate = data.playbackRate
+    })
+}

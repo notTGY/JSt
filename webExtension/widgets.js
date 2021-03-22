@@ -32,6 +32,7 @@ let maxBottomMargin = 70
 let isHiding = 0
 const hidingTime = 5000
 
+
 function displayAllControls(root, vid, settings) {
   const {
     animationColor,
@@ -64,12 +65,10 @@ function displayAllControls(root, vid, settings) {
   connectionButton.addEventListener('click', e => {
     connectionInput.value = newUuid()
     roomUUID = connectionInput.value
-    connectToRoom(roomUUID)
   })
 
   connectionInput.addEventListener('change', e => {
     roomUUID = connectionInput.value
-    connectToRoom(roomUUID)
   })
 
   connectionPopup.style.display = 'none'
@@ -106,7 +105,6 @@ function displayAllControls(root, vid, settings) {
   }
 
   root.onclick = e => {
-    console.log(e.clientY, window.visualViewport.height, curBottomMargin, maxBottomMargin)
     if (e.clientY > window.visualViewport.height - curBottomMargin - maxBottomMargin) return
     if (isVideoPlaying(vid)) {
       vid.pause()
@@ -114,12 +112,14 @@ function displayAllControls(root, vid, settings) {
       const animElem = document.createElement('div')
       animElem.innerHTML = playButton.second
       fancyAnimation(centerAnimationDiv, animElem)
+      sendData(false)
     } else {
       vid.play()
       playButton.elem.innerHTML = playButton.second
       const animElem = document.createElement('div')
       animElem.innerHTML = playButton.first
       fancyAnimation(centerAnimationDiv, animElem)
+      sendData(true)
     }
   }
 
@@ -135,23 +135,27 @@ function displayAllControls(root, vid, settings) {
         const animElem = document.createElement('div')
         animElem.innerHTML = playButton.second
         fancyAnimation(centerAnimationDiv, animElem)
+        sendData(false)
       } else {
         vid.play()
         playButton.elem.innerHTML = playButton.second
         const animElem = document.createElement('div')
         animElem.innerHTML = playButton.first
         fancyAnimation(centerAnimationDiv, animElem)
+        sendData(false)
       }
     } else if (e.code == 'ArrowUp') {
       vid.volume += .05
       const animElem = document.createElement('div')
       animElem.innerHTML = Math.floor(100*vid.volume)+'%'
       fancyAnimation(centerAnimationDiv, animElem)
+      sendData(isVideoPlaying(vid))
     } else if (e.code == 'ArrowDown') {
       vid.volume -= .05
       const animElem = document.createElement('div')
       animElem.innerHTML = Math.floor(100*vid.volume)+'%'
       fancyAnimation(centerAnimationDiv, animElem)
+      sendData(isVideoPlaying(vid))
     } else if (e.code == 'ArrowLeft') {
       vid.currentTime -= 5
       if (vid.currentTime < 0) {
@@ -162,6 +166,7 @@ function displayAllControls(root, vid, settings) {
         <path d="M16 2 L2 16 16 30 16 16 30 30 30 2 16 16 Z" />
       </svg>`
       fancyAnimation(centerAnimationDiv, animElem)
+      sendData(isVideoPlaying(vid))
     } else if (e.code == 'ArrowRight') {
       vid.currentTime += 5
       if (vid.currentTime > vid.duration) {
@@ -172,6 +177,7 @@ function displayAllControls(root, vid, settings) {
         <path d="M16 2 L30 16 16 30 16 16 2 30 2 2 16 16 Z" /> 
       </svg>`
       fancyAnimation(centerAnimationDiv, animElem)
+      sendData(isVideoPlaying(vid))
     }
   }
 
@@ -194,6 +200,15 @@ function displayAllControls(root, vid, settings) {
   timebar.step = 1
 
   topPartOfContainingDiv.append(timebar)
+
+
+  timebar.addEventListener('input', e => {
+    vid.currentTime = timebar.value
+    const percentage = timebar.value / vid.duration
+
+    sendData(isVideoPlaying(vid))
+  })
+
 
   const bottomPartOfContainingDiv = document.createElement('div')
   bottomPartOfContainingDiv.classList.add('bottom-part-of-containing-div')
@@ -219,12 +234,14 @@ function displayAllControls(root, vid, settings) {
         const animElem = document.createElement('div')
         animElem.innerHTML = obj.second
         fancyAnimation(centerAnimationDiv, animElem)
+        sendData(false)
       } else {
         vid.play()
         obj.elem.innerHTML = obj.second
         const animElem = document.createElement('div')
         animElem.innerHTML = obj.first
         fancyAnimation(centerAnimationDiv, animElem)
+        sendData(true)
       }
     },
     {
@@ -264,14 +281,17 @@ function displayAllControls(root, vid, settings) {
     cursor: pointer;
   }
   .timebar::-webkit-slider-thumb {
+    margin-top: -3px;
     -webkit-appearance: none;
     border: 0;
     border-radius: 50%;
-    width: 10px;
-    height: 10px;
+    width:10px;
+    height:10px;
+    border: 1px solid #ccc;
     background: ${controlsColor};
     cursor: pointer;
-  }`
+  }
+  `
   root.append(styleInjector)
 
   soundSlider.addEventListener('change', e => {
@@ -345,6 +365,8 @@ function displayAllControls(root, vid, settings) {
       animElem.style.textAlign = 'center'
       animElem.innerHTML = `x${vid.playbackRate}`
       fancyAnimation(centerAnimationDiv, animElem)
+
+      sendData(isVideoPlaying(vid))
     },
     {
       color: controlsColor,
@@ -366,6 +388,8 @@ function displayAllControls(root, vid, settings) {
       animElem.style.textAlign = 'center'
       animElem.innerHTML = `x${vid.playbackRate}`
       fancyAnimation(centerAnimationDiv, animElem)
+
+      sendData(isVideoPlaying(vid))
     },
     {
       color: controlsColor,
@@ -476,14 +500,6 @@ function animation(animationContainerDiv, elem) {
   }
 }
 
-function newUuid() {
-  return '1';
-}
-
-function connectToRoom(roomUUID) {
-  return 0;
-}
-
 function soundSliderAnimationAppear(elem) {
   if (isStretching == -1) return 0
   elem.style.width = curSliderWidth+'px'
@@ -535,4 +551,23 @@ function startShowingAnimation(elem) {
     }
   }
   requestAnimationFrame(e => startShowingAnimation(elem))
+}
+
+
+function newUuid() {
+  return '1'
+}
+
+
+
+
+function sendData(playState) {
+  if (!roomUUID) {
+    return 0
+  }
+  const time = (new Date()).getTime()
+  const data = {vidCurTime: vid.currentTime, curTime: time, playbackRate: vid.playbackRate, playing: playState}
+  fetch(`https://nottgy.api.stdlib.com/yo@dev/?method=send&room=${roomUUID}&data=${JSON.stringify(data)}`)
+    .then(response => response.json())
+    .then(json => console.log(json))
 }

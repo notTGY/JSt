@@ -1,0 +1,19 @@
+{
+  "name": "jst",
+  "version": "2.0.0",
+  "description": "",
+  "main": "/server/index.js",
+  "scripts": {
+    "start": "node ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/notTGY/JSt.git"
+  },
+  "author": "TGY",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/notTGY/JSt/issues"
+  },
+  "homepage": "https://github.com/notTGY/JSt#readme"
+}

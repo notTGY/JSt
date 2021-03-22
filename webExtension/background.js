@@ -36,4 +36,7 @@ chrome.storage.sync.get(null, e => {
   if (e.interfaceBackgroundColor === undefined) {
     chrome.storage.sync.set({interfaceBackgroundColor: '#333'}, () => {})
   }
+  if (e.timebarColor === undefined) {
+    chrome.storage.sync.set({timebarColor: 'blue'}, () => {})
+  }
 })

@@ -167,10 +167,8 @@
 
 .timebar{
   width:100%;
-  align-items: center;
-  display: flex;
-  height:4px;
   -webkit-appearance: none;
+  height:4px;
   outline: none;
 }
 

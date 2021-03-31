@@ -12,31 +12,44 @@ chrome.contextMenus.create({
   }
 )
 
+fetch(`https://nottgy.api.stdlib.com/yo@dev/?method=path`)
+  .then(response => response.json())
+  .then(json => {
+    if (!json.error) {
+      chrome.storage.sync.set({apiURL: json}, () => {})
+    } else {
+      console.log('server error')
+      chrome.storage.sync.set({apiURL: 'error'}, () => {})
+    }
+  }).catch(e => {
+  chrome.storage.sync.set({apiURL: 'error'}, () => {})
+})
+
 
 chrome.storage.sync.get(null, e => {
   console.log(e)
   if (e.backgroundColor === undefined) {
-    chrome.storage.sync.set({backgroundColor: '#333'}, () => {})
+    chrome.storage.sync.set({backgroundColor: '#333333'}, () => {})
   }
   if (e.controlsColor === undefined) {
-    chrome.storage.sync.set({controlsColor: '#fff'}, () => {})
+    chrome.storage.sync.set({controlsColor: '#ffffff'}, () => {})
   }
   if (e.animationColor === undefined) {
-    chrome.storage.sync.set({animationColor: '#fff'}, () => {})
+    chrome.storage.sync.set({animationColor: '#ffffff'}, () => {})
   }
   if (e.animationBackgroundColor === undefined) {
     chrome.storage.sync.set({animationBackgroundColor: '#333'}, () => {})
   }
   if (e.titleColor === undefined) {
-    chrome.storage.sync.set({titleColor: '#fff'}, () => {})
+    chrome.storage.sync.set({titleColor: '#ffffff'}, () => {})
   }
   if (e.interfaceColor === undefined) {
-    chrome.storage.sync.set({interfaceColor: '#fff'}, () => {})
+    chrome.storage.sync.set({interfaceColor: '#ffffff'}, () => {})
   }
   if (e.interfaceBackgroundColor === undefined) {
-    chrome.storage.sync.set({interfaceBackgroundColor: '#333'}, () => {})
+    chrome.storage.sync.set({interfaceBackgroundColor: '#333333'}, () => {})
   }
   if (e.timebarColor === undefined) {
-    chrome.storage.sync.set({timebarColor: 'blue'}, () => {})
+    chrome.storage.sync.set({timebarColor: '#3aebca'}, () => {})
   }
 })

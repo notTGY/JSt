@@ -40,7 +40,8 @@ function displayAllControls(root, vid, settings) {
     controlsColor,
     titleColor,
     interfaceColor,
-    interfaceBackgroundColor
+    interfaceBackgroundColor,
+    apiURL
   } = settings
   animationColor_g = animationColor
   animationBackgroundColor_g = animationBackgroundColor
@@ -182,7 +183,7 @@ function displayAllControls(root, vid, settings) {
   }
 
   hidingTimeout = setTimeout(e => {isHiding=1}, hidingTime)
-  startShowingAnimation(containingDiv)
+  startShowingAnimation(containingDiv, root)
 
 
 
@@ -404,7 +405,7 @@ function displayAllControls(root, vid, settings) {
         <path d="M29 16 C29 22 24 29 16 29 8 29 3 22 3 16 3 10 8 3 16 3 21 3 25 6 27 9 M20 10 L27 9 28 2" />
     </svg>`,
     obj => {
-      alert()
+      screenRotation = (screenRotation + 1) % 4
     },
     {
       color: controlsColor,
@@ -412,26 +413,28 @@ function displayAllControls(root, vid, settings) {
     }
   )
 
-
-  const goOnlineButton = new ControlElement(
-    rightPartOfContainingDiv,
-    `<svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  console.log(apiURL)
+  if (apiURL !== 'error') {
+    const goOnlineButton = new ControlElement(
+      rightPartOfContainingDiv,
+      `<svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
         <circle cx="17" cy="15" r="1" />
         <circle cx="16" cy="16" r="6" />
         <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
     </svg>`,
-    obj => {
-      if (connectionPopup.style.display == 'none') {
-        connectionPopup.style.display = 'flex'
-      } else {
-        connectionPopup.style.display = 'none'
+      obj => {
+        if (connectionPopup.style.display == 'none') {
+          connectionPopup.style.display = 'flex'
+        } else {
+          connectionPopup.style.display = 'none'
+        }
+      },
+      {
+        color: controlsColor,
+        margin: "10px"
       }
-    },
-    {
-      color: controlsColor,
-      margin: "10px"
-    }
-  )
+    )
+  }
 
   const settingsButton = new ControlElement(
     rightPartOfContainingDiv,
@@ -527,7 +530,7 @@ function soundSliderAnimationDisappear(elem) {
 }
 
 
-function startShowingAnimation(elem) {
+function startShowingAnimation(elem, root) {
   if (isHiding == 1) {
     elem.style.marginBottom = curBottomMargin+'px'
     if (curBottomMargin > -maxBottomMargin) {
@@ -537,10 +540,13 @@ function startShowingAnimation(elem) {
       curBottomMargin = -maxBottomMargin
       elem.style.marginBottom = curBottomMargin+'px'
       elem.style.display = 'none'
+      root.style.cursor = 'none'
+
     }
   }
   if (isHiding == -1) {
     elem.style.display = 'flex'
+    root.style.cursor = 'auto'
     elem.style.marginBottom = curBottomMargin+'px'
     if (curBottomMargin < 0) {
       curBottomMargin += maxBottomMargin/20
@@ -550,7 +556,7 @@ function startShowingAnimation(elem) {
       elem.style.marginBottom = curBottomMargin+'px'
     }
   }
-  requestAnimationFrame(e => startShowingAnimation(elem))
+  requestAnimationFrame(e => startShowingAnimation(elem, root))
 }
 
 
@@ -562,12 +568,12 @@ function newUuid() {
 
 
 function sendData(playState) {
-  if (!roomUUID) {
+  if (!roomUUID || apiURL === 'error') {
     return 0
   }
   const time = (new Date()).getTime()
   const data = {vidCurTime: vid.currentTime, curTime: time, playbackRate: vid.playbackRate, playing: playState}
-  fetch(`https://nottgy.api.stdlib.com/yo@dev/?method=send&room=${roomUUID}&data=${JSON.stringify(data)}`)
+  fetch(`${apiURL}?method=send&room=${roomUUID}&data=${JSON.stringify(data)}`)
     .then(response => response.json())
     .then(json => console.log(json))
 }

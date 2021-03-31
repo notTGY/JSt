@@ -9,9 +9,11 @@ const imageRelPath = "imgs/icon.png"
 
 let refreshInterval
 
-function init(root) {
+let apiURL
 
-  refreshInterval = setInterval(refresh, 5000)
+let screenRotation = 0
+
+function init(root) {
 
   root.classList.add('container')
   chrome.storage.sync.get(['backgroundColor'], e => {
@@ -47,6 +49,10 @@ function init(root) {
   chrome.storage.sync.get(null, e => {
     settings = e
     displayAllControls(root, vid, settings)
+    apiURL = settings.apiURL
+    if (apiURL !== 'error') {
+      refreshInterval = setInterval(refresh, 5000)
+    }
   })
 
   const timebarStyles = document.createElement('style')
@@ -56,6 +62,8 @@ function init(root) {
   update()
 
   function update() {
+    canvas.style.transform = `rotate(${90*screenRotation}deg)`
+
     ctx.drawImage(vid, 0, 0, canvas.width, canvas.height)
 
     if (document.querySelector('.timebar')) {
@@ -150,7 +158,7 @@ const refresh = e => {
     return 0
   }
 
-  fetch(`https://nottgy.api.stdlib.com/yo@dev/?method=get&room=${roomUUID}`)
+  fetch(`${apiURL}?method=get&room=${roomUUID}`)
     .then(response => response.json())
     .then(json => {
       console.log(json)

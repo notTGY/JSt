@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "JSt",
   "version": "0.0.1",
-  "description": "Let's you watch any kind of video with friends.",
+  "description": "Lets you watch any kind of video with friends.",
   "applications": {
     "gecko": {
       "id": "JSt",

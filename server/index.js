@@ -10,7 +10,12 @@ app.get('/', (req, res) => {
   const {query} = req
   console.log(query)
   if (query.method === 'send') {
-    storage[query.room] = JSON.parse(query.data)
+    const data = JSON.parse(query.data)
+    let emojis = []
+    if (storage[query.room]) emojis = storage[query.room].emojis
+    if (data.newEmoji) emojis.push(data.newEmoji)
+    const newData = {vidCurTime: data.vidCurTime, curTime: data.curTime, playbackRate: data.playbackRate, playing: data.playing, emojis}
+    storage[query.room] = data
     res.json({message: "ok"})
     res.status(200)
   } else if (query.method === 'get') {

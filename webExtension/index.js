@@ -13,6 +13,10 @@ let apiURL
 
 let screenRotation = 0
 
+let displayedEmojis = []
+let allEmojis = []
+
+
 function init(root) {
 
   root.classList.add('container')
@@ -65,6 +69,22 @@ function init(root) {
     canvas.style.transform = `rotate(${90*screenRotation}deg)`
 
     ctx.drawImage(vid, 0, 0, canvas.width, canvas.height)
+    ctx.font = '5rem"'
+    emojisOnScreen.forEach((item, i) => {
+      let text
+      if (item.type === 'fun') {
+        text = '😀'
+      } else if (item.type === 'love') {
+      	text = '😍'
+      } else if (item.type === 'cringe') {
+      	text = '😲'
+      } else if (item.type === 'nice') {
+      	text = '😊'
+      }
+      ctx.fillText(text, item.x, item.y)
+      item.y -= 3
+      if (item.y < 0) emojisOnScreen.splice(i, 1)
+    })
 
     if (document.querySelector('.timebar')) {
       const timebar = document.querySelector('.timebar')
@@ -86,6 +106,16 @@ function init(root) {
       const timeDisplay = document.querySelector('.current-video-time') 
       const text = toTime(vid.currentTime | 0) + ' / ' + toTime(vid.duration | 0) 
       timeDisplay.innerText = text.length<20?text:'stream'
+    }
+
+    if (allEmojis.length) {
+      allEmojis.forEach(item => {
+        if (displayedEmojis.includes(item.id)) return
+        if (item.timestamp <= vid.currentTime) {
+          displayEmoji(item.type)
+          displayedEmojis.push(item.id)
+        }
+      })
     }
 
     if (doWeContinue) {
@@ -162,11 +192,17 @@ const receivingPort = chrome.runtime.connect({name: 'receiving port'})
 receivingPort.onMessage.addListener(json => {
   console.log(json)
   const data = json
+
+
+  if (data.emojis) allEmojis = data.emojis
+
+
   const time = (new Date()).getTime()
+  const goodTime = data.vidCurTime + data.playbackRate * (time - data.curTime) /1000
   if (data.playing) {
-    const goodTime = data.vidCurTime + data.playbackRate * (time - data.curTime) /1000
     if (Math.abs(vid.currentTime-goodTime) > 2000) vid.currentTime = goodTime
     if (!isVideoPlaying(vid)) {
+      vid.currentTime = goodTime
       vid.play()
     }
   } else {
@@ -195,4 +231,12 @@ function toTime(seconds) {
   minutes = minutes - 60 * hours
   if (minutes < 10) minutes = '0' + minutes
   return hours + ':' + minutes + ':' + seconds
+}
+
+
+let emojisOnScreen = [{type: 'cringe', x: 100, y: window.visualViewport.height - 200, id: Math.random()}]
+
+function displayEmoji(type) {
+  let newEmoji = {type, x: 100, y: window.visualViewport.height - 200, id: Math.random()}
+  emojisOnScreen.push(newEmoji)
 }

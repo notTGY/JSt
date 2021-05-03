@@ -59,6 +59,7 @@ function displayAllControls(root, vid, settings) {
   connectionInput.style.color = interfaceColor
   connectionInput.style.backgroundColor = interfaceBackgroundColor
   connectionInput.placeholder = "enter room token here..."
+  if (roomUUID) connectionInput.value = roomUUID
   const connectionButton = document.createElement('button')
   connectionButton.style.backgroundColor = interfaceBackgroundColor
   connectionButton.style.color = interfaceColor
@@ -489,6 +490,21 @@ function displayAllControls(root, vid, settings) {
         margin: "10px"
       }
     )
+    const emojiButton = new ControlElement(
+      rightPartOfContainingDiv,
+      `<svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <circle cx="17" cy="15" r="1" />
+        <circle cx="16" cy="16" r="6" />
+        <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
+    </svg>`,
+      obj => {
+        sendEmoji('fun')
+      },
+      {
+        color: controlsColor,
+        margin: "10px"
+      }
+    )
   }
 
   const settingsButton = new ControlElement(
@@ -637,6 +653,18 @@ function sendData(playState) {
   }
   const time = (new Date()).getTime()
   const data = {vidCurTime: vid.currentTime, curTime: time, playbackRate: vid.playbackRate, playing: playState}
+  const params = {apiURL, roomUUID, data, type: 'send data'}
+  sendingPort.postMessage(params)
+}
+
+function sendEmoji(type) {
+  if (!roomUUID || apiURL === 'error') {
+    return 0
+  }
+  const emojiData = {type, timestamp: vid.currentTime, id: Math.floor(Math.random() * (10 ** 8))}
+  const playState = isVideoPlaying(vid)
+  const time = (new Date()).getTime()
+  const data = {vidCurTime: vid.currentTime, curTime: time, playbackRate: vid.playbackRate, playing: playState, newEmoji: emojiData}
   const params = {apiURL, roomUUID, data, type: 'send data'}
   sendingPort.postMessage(params)
 }

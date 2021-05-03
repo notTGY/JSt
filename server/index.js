@@ -15,9 +15,9 @@ app.get('/', (req, res) => {
     res.status(200)
     res.json({message: "ok"})
   } else if (query.method === 'get') {
+    if (!storage[query.room]) return
     res.json(storage[query.room])
     res.status(200)
-    res.json({message: "ok"})
   }
 })
 

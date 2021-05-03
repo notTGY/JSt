@@ -91,7 +91,6 @@ function init(root) {
 
 
 function del() {
-  clearInterval(refreshInterval)
   doWeContinue = false
 }
 
@@ -159,7 +158,10 @@ const refresh = e => {
   }
 
   fetch(`${apiURL}?method=get&room=${roomUUID}`)
-    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+      response.json()
+    })
     .then(json => {
       console.log(json)
       const data = json

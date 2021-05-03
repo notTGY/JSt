@@ -107,6 +107,7 @@ function displayAllControls(root, vid, settings) {
 
   root.onclick = e => {
     if (e.clientY > window.visualViewport.height - curBottomMargin - maxBottomMargin) return
+    if (connectionPopup.style.display === 'flex') return
     if (isVideoPlaying(vid)) {
       vid.pause()
       playButton.elem.innerHTML = playButton.first
@@ -179,6 +180,10 @@ function displayAllControls(root, vid, settings) {
       </svg>`
       fancyAnimation(centerAnimationDiv, animElem)
       sendData(isVideoPlaying(vid))
+    } else if (e.code == 'Enter') {
+      if (!(connectionPopup.style.display === 'flex')) return
+      connectionPopup.style.display = 'none'
+      roomUUID = connectionInput.value
     }
   }
 

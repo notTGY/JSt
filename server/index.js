@@ -14,13 +14,12 @@ app.get('/', (req, res) => {
     setTimeout(e => {delete(storage[query.room])}, 10000)
     res.json({message: "ok"})
     res.status(200)
-    return res
   } else if (query.method === 'get') {
-    if (!storage[query.room]) return
+    if (!(storage[query.room])) return res.status(404)
     res.json(storage[query.room])
     res.status(200)
-    return res
   }
+  console.log('closing request')
 })
 
 const port = process.env.PORT || 3000

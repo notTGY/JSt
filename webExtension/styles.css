@@ -183,3 +183,17 @@
 .timebar:hover{
   outline: none;
 }
+
+.current-video-time{
+  font-size: 1.5rem;
+  transition: 0.5s;
+}
+
+.timebar-popup-time{
+  font-size: 1.5rem;
+  position: fixed;
+  padding: 2px;
+  border-radius: 2px;
+  display: none;
+  border: 1px solid red;
+}

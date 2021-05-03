@@ -53,3 +53,25 @@ chrome.storage.sync.get(null, e => {
     chrome.storage.sync.set({timebarColor: '#3aebca'}, () => {})
   }
 })
+
+
+chrome.runtime.onConnect.addListener(port => {
+  if (port.name === 'sending port') {
+    port.onMessage.addListener(message => {
+      const {apiURL, roomUUID, data} = message
+      fetch(`${apiURL}?method=send&room=${roomUUID}&data=${JSON.stringify(data)}`)
+        .then(response => response.json())
+        .then(json => port.postMessage(json))
+    })
+
+  } else if (port.name === 'receiving port') {
+
+    port.onMessage.addListener(message => {
+      const {apiURL, roomUUID} = message
+      fetch(`${apiURL}?method=get&room=${roomUUID}`)
+        .then(response => {console.log(response); return response.json()})
+        .then(json => port.postMessage(json))
+    })
+
+  }
+})  

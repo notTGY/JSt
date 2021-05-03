@@ -11,7 +11,6 @@ app.get('/', (req, res) => {
   console.log(query)
   if (query.method === 'send') {
     storage[query.room] = JSON.parse(query.data)
-    setTimeout(e => {delete(storage[query.room])}, 10000)
     res.json({message: "ok"})
     res.status(200)
   } else if (query.method === 'get') {

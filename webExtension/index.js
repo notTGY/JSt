@@ -82,6 +82,12 @@ function init(root) {
   `
     }
 
+    if (document.querySelector('.current-video-time')) {
+      const timeDisplay = document.querySelector('.current-video-time') 
+      const text = toTime(vid.currentTime | 0) + ' / ' + toTime(vid.duration | 0) 
+      timeDisplay.innerText = text.length<20?text:'stream'
+    }
+
     if (doWeContinue) {
       requestAnimationFrame(update)
     }
@@ -152,29 +158,41 @@ chrome.runtime.onMessage.addListener(msg => {
   }
 })
 
+const receivingPort = chrome.runtime.connect({name: 'receiving port'})
+receivingPort.onMessage.addListener(json => {
+  console.log(json)
+  const data = json
+  const time = (new Date()).getTime()
+  if (data.playing) {
+    const goodTime = data.vidCurTime + data.playbackRate * (time - data.curTime) /1000
+    if (Math.abs(vid.currentTime-goodTime) > 2000) vid.currentTime = goodTime
+    if (!isVideoPlaying(vid)) {
+      vid.play()
+    }
+  } else {
+    vid.currentTime = data.vidCurTime
+    vid.pause()
+  }
+  vid.playbackRate = data.playbackRate
+})
+
 const refresh = e => {
   if (!roomUUID) {
     return 0
   }
 
-  fetch(`${apiURL}?method=get&room=${roomUUID}`)
-    .then(response => {
-      console.log(response)
-      response.json()
-    })
-    .then(json => {
-      console.log(json)
-      const data = json
-      const time = (new Date()).getTime()
-      if (data.playing) {
-        vid.currentTime = data.vidCurTime + data.playbackRate * (time - data.curTime) /1000
-        if (!isVideoPlaying(vid)) {
-          vid.play()
-        }
-      } else {
-        vid.currentTime = data.vidCurTime
-        vid.pause()
-      }
-      vid.playbackRate = data.playbackRate
-    })
+  const params = {apiURL, roomUUID}
+  receivingPort.postMessage(params) 
+}
+
+function toTime(seconds) {
+  let minutes = Math.floor(seconds / 60)
+  seconds = seconds - 60 * minutes
+  if (seconds < 10) seconds = '0' + seconds
+  if (minutes < 60) return minutes + ':' + seconds
+
+  let hours = Math.floor(minutes / 60)
+  minutes = minutes - 60 * hours
+  if (minutes < 10) minutes = '0' + minutes
+  return hours + ':' + minutes + ':' + seconds
 }

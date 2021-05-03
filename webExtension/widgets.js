@@ -32,6 +32,7 @@ let maxBottomMargin = 70
 let isHiding = 0
 const hidingTime = 5000
 
+let isTimebarPopupTimeShown = false
 
 function displayAllControls(root, vid, settings) {
   const {
@@ -54,6 +55,7 @@ function displayAllControls(root, vid, settings) {
   connectionPopup.style.backgroundColor = interfaceBackgroundColor
   const connectionInput = document.createElement('input')
   connectionInput.classList.add('connection-input')
+  connectionInput.autofocus = true
   connectionInput.style.color = interfaceColor
   connectionInput.style.backgroundColor = interfaceBackgroundColor
   connectionInput.placeholder = "enter room token here..."
@@ -62,9 +64,13 @@ function displayAllControls(root, vid, settings) {
   connectionButton.style.color = interfaceColor
   connectionButton.innerHTML = "random"
   connectionButton.classList.add('connection-button')
+  
+  connectionPopup.onclick = e => {
+    e.stopPropagation()
+  }
 
   connectionButton.addEventListener('click', e => {
-    connectionInput.value = newUuid()
+    connectionInput.value = newUuid(connectionInput.value)
     roomUUID = connectionInput.value
   })
 
@@ -107,7 +113,10 @@ function displayAllControls(root, vid, settings) {
 
   root.onclick = e => {
     if (e.clientY > window.visualViewport.height - curBottomMargin - maxBottomMargin) return
-    if (connectionPopup.style.display === 'flex') return
+    if (connectionPopup.style.display === 'flex') {
+      connectionPopup.style.display = 'none'
+      return
+    }
     if (isVideoPlaying(vid)) {
       vid.pause()
       playButton.elem.innerHTML = playButton.first
@@ -205,8 +214,43 @@ function displayAllControls(root, vid, settings) {
   timebar.max = vid.duration
   timebar.step = 1
 
+
+  const timebarPopupTime = document.createElement('div')
+  timebarPopupTime.classList.add('timebar-popup-time')
+  timebarPopupTime.style.color = animationColor
+  timebarPopupTime.style.borderColor = animationColor
+  timebarPopupTime.style.background = animationBackgroundColor
+  timebarPopupTime.innerText = 'test'
+  topPartOfContainingDiv.append(timebarPopupTime)
+
   topPartOfContainingDiv.append(timebar)
 
+
+  timebar.addEventListener('mouseleave', e => {
+    timebarPopupTime.style.display = 'none'
+    isTimebarPopupTimeShown = false
+  })
+
+  const hoverCallback = e => {
+    timebarPopupTime.style.display = 'block'
+    isTimebarPopupTimeShown = true
+    const offsetLeft = timebar.offsetLeft
+    const offsetWidth = timebar.offsetWidth
+    const relX = e.clientX - offsetLeft
+    const percentage = relX / offsetWidth
+    let timeToShow 
+    if (vid.duration < 3600 * 100) timeToShow = vid.duration * percentage
+    else timeToShow = vid.currentTime * percentage
+
+    let textToShow = toTime(timeToShow | 0)
+    if (vid.duration >= 3600 * 100) textToShow = '-' + textToShow
+
+    timebarPopupTime.innerText = textToShow
+    timebarPopupTime.style.left = e.clientX + 10 + 'px'
+  }
+
+  timebar.addEventListener('mousemove', hoverCallback)
+  timebar.addEventListener('mouseover', hoverCallback)
 
   timebar.addEventListener('input', e => {
     vid.currentTime = timebar.value
@@ -352,6 +396,12 @@ function displayAllControls(root, vid, settings) {
 
 
   soundContainerDiv.append(soundSlider)
+  
+
+  const timeDisplay = document.createElement('div')
+  timeDisplay.classList.add('current-video-time')
+  timeDisplay.style.color = controlsColor
+  leftPartOfContainingDiv.append(timeDisplay)
 
 
 
@@ -565,12 +615,21 @@ function startShowingAnimation(elem, root) {
 }
 
 
-function newUuid() {
-  return '1'
+function newUuid(prev) {
+  if (prev == '') return 'POSOSI'
+  let res = ''
+  for (let i = 0; i < 6; i++) {
+    const rand = Math.random() * 26
+    const letter = String.fromCharCode('A'.charCodeAt(0)+rand)
+    res += letter
+  }
+  return res
 }
 
 
 
+const sendingPort = chrome.runtime.connect({name: 'sending port'})
+sendingPort.onMessage.addListener(e => console.log(e))
 
 function sendData(playState) {
   if (!roomUUID || apiURL === 'error') {
@@ -578,7 +637,6 @@ function sendData(playState) {
   }
   const time = (new Date()).getTime()
   const data = {vidCurTime: vid.currentTime, curTime: time, playbackRate: vid.playbackRate, playing: playState}
-  fetch(`${apiURL}?method=send&room=${roomUUID}&data=${JSON.stringify(data)}`)
-    .then(response => response.json())
-    .then(json => console.log(json))
+  const params = {apiURL, roomUUID, data, type: 'send data'}
+  sendingPort.postMessage(params)
 }

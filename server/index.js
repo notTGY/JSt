@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   if (query.method === 'send') {
     const data = JSON.parse(query.data)
     let emojis = []
-    if (storage[query.room]) emojis = storage[query.room].emojis
+    if (storage[query.room] && storage[query.room].emojis) emojis = storage[query.room].emojis
     if (data.newEmoji) emojis.push(data.newEmoji)
     const newData = {vidCurTime: data.vidCurTime, curTime: data.curTime, playbackRate: data.playbackRate, playing: data.playing, emojis}
     storage[query.room] = data

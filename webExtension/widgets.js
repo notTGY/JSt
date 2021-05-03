@@ -498,6 +498,7 @@ function displayAllControls(root, vid, settings) {
         <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
     </svg>`,
       obj => {
+        console.log('hi')
         sendEmoji('fun')
       },
       {

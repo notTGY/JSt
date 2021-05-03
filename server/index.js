@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
     if (storage[query.room] && storage[query.room].emojis) emojis = storage[query.room].emojis
     if (data.newEmoji) emojis.push(data.newEmoji)
     const newData = {vidCurTime: data.vidCurTime, curTime: data.curTime, playbackRate: data.playbackRate, playing: data.playing, emojis}
-    storage[query.room] = data
+    storage[query.room] = newData
     res.json({message: "ok"})
     res.status(200)
   } else if (query.method === 'get') {

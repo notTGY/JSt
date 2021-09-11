@@ -107,6 +107,19 @@
   max-lines: 1;
 }
 
+.emoji-popup{
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  right: 2vw;
+  bottom: 70px;
+  border: 1px solid red;
+  z-index: 100;
+  font-size: 32px;
+}
+
 .connection-popup{
   position: fixed;
   top: 40vh;

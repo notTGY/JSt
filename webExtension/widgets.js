@@ -1,3 +1,11 @@
+const emojiList = {
+  'fun': '😀',
+  'cringe': '😲',
+  'love': '😍',
+  'nice': '😊'
+}
+
+
 function ControlElement(fatherElement, svg, callback, style, secondSvg) {
   const elem = document.createElement('div')
   elem.innerHTML = svg
@@ -73,16 +81,50 @@ function displayAllControls(root, vid, settings) {
   connectionButton.addEventListener('click', e => {
     connectionInput.value = newUuid(connectionInput.value)
     roomUUID = connectionInput.value
+    if (roomUUID) emojiButton.style.display = 'flex'
+    else emojiButton.style.display = 'none'
   })
 
   connectionInput.addEventListener('change', e => {
     roomUUID = connectionInput.value
+    if (roomUUID) emojiButton.style.display = 'flex'
+    else emojiButton.style.display = 'none'
   })
 
   connectionPopup.style.display = 'none'
   connectionPopup.append(connectionInput)
   connectionPopup.append(connectionButton)
   root.append(connectionPopup)
+
+  const emojiPopup = document.createElement('div')
+  emojiPopup.classList.add('emoji-popup')
+  emojiPopup.style.color = interfaceColor
+  emojiPopup.style.backgroundColor = interfaceBackgroundColor
+  emojiPopup.style.borderColor = interfaceColor
+
+
+  for (emojiType in emojiList) {
+    (function (emojiType) {
+      new ControlElement(
+        emojiPopup,
+        emojiList[emojiType],
+        obj => {
+          sendEmoji(emojiType)
+          console.log(emojiType)
+        },
+        {
+          color: controlsColor,
+          margin: "10px"
+        }
+      )
+    })(emojiType)
+  }
+
+  emojiPopup.onclick = e => {
+    e.stopPropagation()
+  }
+  emojiPopup.style.display = 'none'
+  root.append(emojiPopup)
 
 
   const titlePlaceholder = document.createElement('div')
@@ -116,6 +158,10 @@ function displayAllControls(root, vid, settings) {
     if (e.clientY > window.visualViewport.height - curBottomMargin - maxBottomMargin) return
     if (connectionPopup.style.display === 'flex') {
       connectionPopup.style.display = 'none'
+      return
+    }
+    if (emojiPopup.style.display === 'flex') {
+      emojiPopup.style.display = 'none'
       return
     }
     if (isVideoPlaying(vid)) {
@@ -469,6 +515,7 @@ function displayAllControls(root, vid, settings) {
     }
   )
 
+  let emojiButton
   console.log(apiURL)
   if (apiURL !== 'error') {
     const goOnlineButton = new ControlElement(
@@ -490,24 +537,26 @@ function displayAllControls(root, vid, settings) {
         margin: "10px"
       }
     )
-    const emojiButton = new ControlElement(
+    emojiButton = new ControlElement(
+
       rightPartOfContainingDiv,
-      `<svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <circle cx="17" cy="15" r="1" />
-        <circle cx="16" cy="16" r="6" />
-        <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
-    </svg>`,
+      `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 16 L30 2 16 30 12 20 Z M30 2 L12 20" />
+</svg>`,
       obj => {
-        console.log('hi')
-        sendEmoji('fun')
+        if (emojiPopup.style.display == 'none') {
+          emojiPopup.style.display = 'flex'
+        } else {
+          emojiPopup.style.display = 'none'
+        }
       },
       {
         color: controlsColor,
-        margin: "10px"
+        margin: "10px",
+        display: 'none'
       }
-    )
+    ).elem
   }
-
   const settingsButton = new ControlElement(
     rightPartOfContainingDiv,
     `<svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">

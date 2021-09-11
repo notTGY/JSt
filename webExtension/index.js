@@ -1,3 +1,4 @@
+const DELAY = 1000
 let vid
 let weWereOpen = false
 let wrapper
@@ -55,7 +56,7 @@ function init(root) {
     displayAllControls(root, vid, settings)
     apiURL = settings.apiURL
     if (apiURL !== 'error') {
-      refreshInterval = setInterval(refresh, 5000)
+      refreshInterval = setInterval(refresh, DELAY)
     }
   })
 
@@ -200,7 +201,7 @@ receivingPort.onMessage.addListener(json => {
   const time = (new Date()).getTime()
   const goodTime = data.vidCurTime + data.playbackRate * (time - data.curTime) /1000
   if (data.playing) {
-    if (Math.abs(vid.currentTime-goodTime) > 2000) vid.currentTime = goodTime
+    if (Math.abs(vid.currentTime-goodTime) > DELAY/2) vid.currentTime = goodTime
     if (!isVideoPlaying(vid)) {
       vid.currentTime = goodTime
       vid.play()
@@ -234,7 +235,7 @@ function toTime(seconds) {
 }
 
 
-let emojisOnScreen = [{type: 'cringe', x: 100, y: window.visualViewport.height - 200, id: Math.random()}]
+let emojisOnScreen = []
 
 function displayEmoji(type) {
   let newEmoji = {type, x: 100, y: window.visualViewport.height - 200, id: Math.random()}

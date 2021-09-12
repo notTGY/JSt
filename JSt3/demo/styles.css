@@ -1,0 +1,30 @@
+html{
+  margin: 0;
+  background: radial-gradient(#555, #000);
+  height: 100vh;
+}
+
+#JSt-pill {
+  width: 800px;
+  height: 150px;
+  position: fixed;
+  top: 50px;
+  left: calc(50vw - 400px);
+  border-radius: 75px;
+  border: 2px solid #aaa;
+  background-image: linear-gradient(#bbbbbb 75%, #fff);
+}
+
+#JSt-message {
+  margin-left: 75px;
+  margin-right: 75px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 150px;
+  font-family: monospace;
+  font-size: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}

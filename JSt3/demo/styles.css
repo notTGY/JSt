@@ -1,6 +1,6 @@
 html{
   margin: 0;
-  background: radial-gradient(#555, #000);
+  background: linear-gradient(33deg, #304352, #d7d2cc);
   height: 100vh;
 }
 
@@ -12,7 +12,7 @@ html{
   left: calc(50vw - 400px);
   border-radius: 75px;
   border: 2px solid #aaa;
-  background-image: linear-gradient(#bbbbbb 75%, #fff);
+  background-image: linear-gradient(#fff, #bbbbbb);
 }
 
 #JSt-message {

@@ -26,10 +26,10 @@ const sleep = (time) =>
 
 async function start() {
   await printText('HI, I\'M JSt', JStMessage)
-  await sleep(500)
-  await printText('VIDEO TOOL', JStMessage)
-  await sleep(500)
-  await printText(':)', JStMessage)
+  //await sleep(500)
+  //await printText('VIDEO TOOL', JStMessage)
+  //await sleep(500)
+  //await printText(':)', JStMessage)
 }
 
 start()

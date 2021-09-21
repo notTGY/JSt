@@ -14,12 +14,14 @@ html{
   border: 2px solid #aaa;
   background-image: linear-gradient(#fff, #bbbbbb);
   overflow: hidden;
+  box-shadow: 0px 0px 10px 4px #ccd;
+  z-index: 100;
 }
 
 #JSt-message {
-  margin-left: 75px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  position: relative;
+  margin: 0 auto;
+  top: -150px;
   height: 150px;
   width: calc(800px - 150px);
   font-family: monospace;
@@ -28,10 +30,11 @@ html{
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  z-index: 101;
 }
 
 .before-appear {
-  animation: 1.2s ease-in slideaway;
+  animation: 0.7s ease-in slideaway;
 }
 
 @keyframes slideaway {
@@ -41,4 +44,42 @@ html{
   to {
     margin-left: 800px;
   }
+}
+
+#JSt-buttons-container {
+  margin-left: 75px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 150px;
+  width: 650px;
+  width: calc(800px - 150px);
+  font-family: monospace;
+  font-size: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+  z-index: 102;
+}
+
+.JSt-button {
+  background-image: linear-gradient(#fff, #bbbbbb);
+  width: 150px;
+  height: 150px;
+  border: 0px;
+  padding: 20px;
+  transition: 0.5s;
+  color: #888;
+  z-index: 103;
+}
+
+.JSt-button:hover {
+  color: #555;
+  padding: 15px;
+}
+
+.JSt-button:active {
+  color: #333;
+  padding: 0px;
 }

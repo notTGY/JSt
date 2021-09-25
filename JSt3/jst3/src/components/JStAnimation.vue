@@ -27,13 +27,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: radial-gradient(#333, #555);
+  background-image: radial-gradient(#555, #333);
 }
 
 #icon {
   animation: 4s grow ease-out;
-  width: 500px;
-  height: 500px;
+  width: 100px;
+  height: 100px;
   margin-top: -2000px;
 }
 
@@ -48,8 +48,10 @@ export default {
     width: 500px;
     height: 500px;
   }
-  100% {
-    margin-top: -1300px;
+  80% {
+    margin-top: -200vh;
+    width: 100px;
+    height: 100px;
   }
 }
 </style>

@@ -35,6 +35,7 @@ export default {
   width: 100px;
   height: 100px;
   margin-top: -2000px;
+  max-width: 90vw;
 }
 
 @keyframes grow {

@@ -33,9 +33,9 @@ export default {
     QuickInfo,
   },
   created: function () {
-    //const clb = () => this.state = 'quick-info'
-    //setTimeout(clb, 5000)
-    //addEventListener('click', clb)
+    const clb = () => this.state = 'quick-info'
+    setTimeout(clb, 3000)
+    addEventListener('click', clb)
   }
 }
 </script>

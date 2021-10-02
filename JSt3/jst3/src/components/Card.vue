@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="card">
-      <h2 v-bind:style="{color: headerColor}">{{header}}</h2>
+      <h2
+        v-bind:style="headerGrad ? {'text-shadow': '1px 1px 1px #00000035', '-webkit-text-fill-color': 'transparent', background: headerColor, '-webkit-background-clip': 'text'} : {color: headerColor}"
+      >{{header}}</h2>
       <div v-bind:style="{color: textColor}" class="content">{{text}}</div>
     </div>
   </div>
@@ -14,6 +16,7 @@ export default {
     header: String,
     text: String,
     headerColor: String,
+    headerGrad: Boolean,
     textColor: String,
   }
 }

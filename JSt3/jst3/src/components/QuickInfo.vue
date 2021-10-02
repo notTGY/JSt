@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <main class="bg">
     <div class="header-container"><h1>JSt v3</h1></div>
     <Card
       id="c1"
@@ -7,6 +7,7 @@
       text="To download JSt simply click this card, however, you can modify by clicking the other card to provide yourself with amazing look and experience out of the box."
       headerColor="#3256c8"
       textColor="#c79"
+      @click="gdow"
     />
     <Card
       id="c2"
@@ -14,9 +15,10 @@
       text="Modify look and the feel of your JSt. You can change colors of pretty much everything, add custom widgets, password saving and more... To get to the JSt constructor click this card."
       headerColor="#7256a8"
       textColor="#7e9"
+      @click="gcon"
     />
     <footer id="copyright"><a href="https://github.com/notTGY">&copy; notTGY 2021</a></footer>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -25,6 +27,16 @@ export default {
   name: 'QuickInfo',
   components: {
     Card,
+  },
+  methods: {
+    gdow() {
+      document.location.hash = '#download'
+      document.location.reload()
+    },
+    gcon() {
+      document.location.hash = '#constructor'
+      document.location.reload()
+    }
   }
 }
 </script>

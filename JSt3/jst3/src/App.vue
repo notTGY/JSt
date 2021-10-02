@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import jstAnimation from './components/JStAnimation.vue'
-import Constructor from './components/Constructor.vue'
-import Download from './components/Download.vue'
-import QuickInfo from './components/QuickInfo.vue'
+import jstAnimation from './components/JStAnimation'
+import Constructor from './components/Constructor'
+import Download from './components/Download'
+import QuickInfo from './components/QuickInfo'
 
 export default {
   name: 'App',
@@ -33,9 +33,21 @@ export default {
     QuickInfo,
   },
   created: function () {
-    const clb = () => this.state = 'quick-info'
-    setTimeout(clb, 3000)
-    addEventListener('click', clb)
+    const watcher = () => {
+      const loc = document.location.hash.substring(1)
+      this.state = loc
+      requestAnimationFrame(watcher)
+    }
+    watcher()
+
+    if (['', '#show-animation'].includes(document.location.hash)) {
+      window.location.hash = '#show-animation'
+      const clb = () => {
+        document.location.hash = '#quick-info'
+      }
+      setTimeout(clb, 3000)
+      addEventListener('click', clb)
+    }
   }
 }
 </script>
@@ -47,6 +59,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

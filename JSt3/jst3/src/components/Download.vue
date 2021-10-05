@@ -10,6 +10,7 @@
       headerGrad="true"
       textColor="#aa8"
       v-if="isCustom"
+      noInteractive
     />
 
     <Card
@@ -19,6 +20,7 @@
       textColor="darkblue"
       headerColor="brown"
       v-if="!isCustom"
+      noInteractive
     />
 
     <img
@@ -101,7 +103,7 @@ h1 {
 
 #copyright{
   position: fixed;
-  bottom: 2rem;
+  bottom: 1rem;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -126,9 +128,9 @@ h1 {
 
 #main-card {
   position: fixed;
-  left: 25vw;
+  left: calc(50vw - 20rem);
   top: 7rem;
-  width: 50vw;
+  width: 40rem;
   height: 8rem;
   margin-top: 0rem;
   animation: scrolltop 0.5s ease-out;
@@ -137,9 +139,9 @@ h1 {
 
 #edit-jst {
   position: fixed;
-  left: 70vw;
-  top: 75vh;
-  width: 20vw;
+  right: 7rem;
+  bottom: 7rem;
+  width: 18rem;
   height: 2rem;
   margin-top: 0rem;
   animation: scrolltop 0.5s ease-out;
@@ -148,9 +150,9 @@ h1 {
 
 #guide {
   position: fixed;
-  left: 12vw;
-  top: 20rem;
-  width: 40vw;
+  left: 10rem;
+  bottom: 5rem;
+  width: 40rem;
   margin-top: 0rem;
   animation: scrolltop 0.5s ease-out;
   font-size: 1.25rem;

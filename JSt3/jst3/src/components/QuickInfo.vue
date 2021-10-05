@@ -65,23 +65,36 @@ h1 {
   position: fixed;
   animation: scrolltop 0.5s ease-out;
   margin-top: 0rem;
-  top: 23vh;
-  left: 10vw;
-  width: 30vw;
-  height: 30vh;
+  top: 10rem;
+  left: 10rem;
+  width: 30rem;
+  height: 14rem;
   color: #000;
   font-size: 1.5rem;
+  max-width: 90%;
 }
 
 #c2 {
   position: fixed;
-  animation: scrolltop 0.5s ease-out;
-  top: 38vh;
-  left: 50vw;
-  width: 35vw;
-  height: 35vh;
+  margin-top: 0rem;
+  bottom: 7rem;
+  right: 10rem;
+  width: 35rem;
+  height: 12rem;
   color: #000;
   font-size: 1.5rem;
+  max-width: 100%;
+  animation: scrolltop 0.5s ease-out;
+}
+
+@media(max-width: 500px) {
+  #c1{
+    left: 0;
+  }
+  #c2{
+    right: 2rem;
+    width: 94%;
+  }
 }
 
 @keyframes scrolltop {

@@ -7,6 +7,7 @@
     </section>
 
     <section id="constructor">
+      <h1> --- Constructor --- </h1>
       <Multiselector
         @updateState="(prop, val) => updateState(prop, val)"
         v-bind="state"
@@ -138,10 +139,22 @@ main{
 #constructor {
   position: fixed;
   background: #fff;
-  width: 40vw;
-  height: 40vh;
-  top: 50vh;
-  left: 30vw;
+  width: 40rem;
+  bottom: 5rem;
+  height: 21rem;
+  background: #ddd;
+  left: calc(50vw - 20rem);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 5px #eee;
+}
+
+#constructor>h1 {
+  background: #eee;
+  padding: 0.5rem;
+  margin: 0;
+  border-radius: 1rem;
+  margin-bottom: 5px;
+  box-shadow: 1px 1px 5px #fff;
 }
 
 #download {
@@ -155,6 +168,7 @@ main{
   border-radius: 50%;
   color: gold;
   transition: 0.5s;
+  box-shadow: 0px 0px 5px #555;
 }
 
 #download:hover {
@@ -162,6 +176,7 @@ main{
   width: calc(4rem + 8px);
   height: calc(4rem + 8px);
   margin: -4px;
+  box-shadow: 0px 0px 20px #fff;
 }
 
 #download:active {
@@ -169,5 +184,6 @@ main{
   width: calc(4rem + 16px);
   height: calc(4rem + 16px);
   margin: -8px;
+  box-shadow: 0px 0px 30px #fff;
 }
 </style>

@@ -2,6 +2,7 @@
   <main class="bg">
     <div class="header-container"><h1>Download <a v-bind:href="href">JSt</a></h1></div>
 
+    <div id="main-card-container">
     <Card
       id="main-card"
       header="Download Custom JSt"
@@ -22,13 +23,15 @@
       v-if="!isCustom"
       noInteractive
     />
+    </div>
 
     <img
       src="https://flex-hq.com/flex-screensaver.png"
       id="guide"
-      alt="drag header <Download JSt> to the bookmarklets bar"
+      alt="drag header <JSt> to the bookmarklets bar"
     />
 
+    <div id="edit-jst-container">
     <Card
       id="edit-jst"
       header="upgrade your JSt"
@@ -36,8 +39,13 @@
       headerColor="Aqua"
       @click="gcon"
     />
+    </div>
 
-    <footer id="copyright"><a href="https://github.com/notTGY">&copy; notTGY 2021</a></footer>
+    <footer id="copyright">
+      <a href="https://github.com/notTGY">
+        &copy; notTGY 2021
+      </a>
+    </footer>
   </main>
 </template>
 
@@ -126,34 +134,40 @@ h1 {
   text-shadow: 1px 1px 8px #ccc;
 }
 
+#main-card-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
 #main-card {
-  position: fixed;
-  left: calc(50vw - 20rem);
-  top: 7rem;
   width: 40rem;
+  max-width: 80vw;
   height: 8rem;
-  margin-top: 0rem;
   animation: scrolltop 0.5s ease-out;
   font-size: 1.25rem;
 }
 
+#edit-jst-container {
+  margin-top: 1rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
 #edit-jst {
-  position: fixed;
-  right: 7rem;
-  bottom: 7rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
   width: 18rem;
   height: 2rem;
-  margin-top: 0rem;
   animation: scrolltop 0.5s ease-out;
   font-size: 1.25rem;
 }
 
 #guide {
-  position: fixed;
-  left: 10rem;
-  bottom: 5rem;
-  width: 40rem;
-  margin-top: 0rem;
+  margin-top: 4rem;
+  width: 50vw;
+  max-width: 600px;
   animation: scrolltop 0.5s ease-out;
   font-size: 1.25rem;
   box-shadow: 1px 1px 25px purple;
@@ -161,5 +175,11 @@ h1 {
 
 a {
   color: purple;
+}
+
+@media(max-width: 540px) {
+  #main-card {
+    height: 20rem;
+  }
 }
 </style>

@@ -2,6 +2,7 @@
   <main class="bg">
     <div class="header-container"><h1>Download <a v-bind:href="href">JSt</a></h1></div>
 
+    <div id="main-card-container">
     <Card
       id="main-card"
       header="Download Custom JSt"
@@ -10,6 +11,7 @@
       headerGrad="true"
       textColor="#aa8"
       v-if="isCustom"
+      noInteractive
     />
 
     <Card
@@ -19,14 +21,17 @@
       textColor="darkblue"
       headerColor="brown"
       v-if="!isCustom"
+      noInteractive
     />
+    </div>
 
     <img
       src="https://flex-hq.com/flex-screensaver.png"
       id="guide"
-      alt="drag header <Download JSt> to the bookmarklets bar"
+      alt="drag header <JSt> to the bookmarklets bar"
     />
 
+    <div id="edit-jst-container">
     <Card
       id="edit-jst"
       header="upgrade your JSt"
@@ -34,8 +39,13 @@
       headerColor="Aqua"
       @click="gcon"
     />
+    </div>
 
-    <footer id="copyright"><a href="https://github.com/notTGY">&copy; notTGY 2021</a></footer>
+    <footer id="copyright">
+      <a href="https://github.com/notTGY">
+        &copy; notTGY 2021
+      </a>
+    </footer>
   </main>
 </template>
 
@@ -101,7 +111,7 @@ h1 {
 
 #copyright{
   position: fixed;
-  bottom: 2rem;
+  bottom: 1rem;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -124,34 +134,40 @@ h1 {
   text-shadow: 1px 1px 8px #ccc;
 }
 
+#main-card-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
 #main-card {
-  position: fixed;
-  left: 25vw;
-  top: 7rem;
-  width: 50vw;
+  width: 40rem;
+  max-width: 80vw;
   height: 8rem;
-  margin-top: 0rem;
   animation: scrolltop 0.5s ease-out;
   font-size: 1.25rem;
 }
 
+#edit-jst-container {
+  margin-top: 1rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
 #edit-jst {
-  position: fixed;
-  left: 70vw;
-  top: 75vh;
-  width: 20vw;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  width: 18rem;
   height: 2rem;
-  margin-top: 0rem;
   animation: scrolltop 0.5s ease-out;
   font-size: 1.25rem;
 }
 
 #guide {
-  position: fixed;
-  left: 12vw;
-  top: 20rem;
-  width: 40vw;
-  margin-top: 0rem;
+  margin-top: 4rem;
+  width: 50vw;
+  max-width: 600px;
   animation: scrolltop 0.5s ease-out;
   font-size: 1.25rem;
   box-shadow: 1px 1px 25px purple;
@@ -159,5 +175,11 @@ h1 {
 
 a {
   color: purple;
+}
+
+@media(max-width: 540px) {
+  #main-card {
+    height: 20rem;
+  }
 }
 </style>

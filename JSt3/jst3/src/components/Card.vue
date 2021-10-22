@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="card">
+    <div
+      v-bind:class="noInteractive ? 'card' : 'card ci'"
+    >
       <h2
         v-bind:style="headerGrad ? {'text-shadow': '1px 1px 1px #00000035', '-webkit-text-fill-color': 'transparent', background: headerColor, '-webkit-background-clip': 'text'} : {color: headerColor}"
       >{{header}}</h2>
@@ -17,6 +19,7 @@ export default {
     text: String,
     headerColor: String,
     headerGrad: Boolean,
+    noInteractive: Boolean,
     textColor: String,
   }
 }
@@ -28,25 +31,23 @@ export default {
   height: 100%;
   border-radius: 20px;
   background: #efefff;
-  padding: 1rem;
   transition: 0.5s;
   border: 3px solid #fff;
   box-shadow: 1px 1px 20px #000;
+  padding: 10px;
 }
-.card:hover {
-  margin-left: -0.2rem;
-  margin-top: -0.2rem;
-  padding: 1.2rem;
+.ci:hover {
   background: #cfcfdf;
   box-shadow: 1px 1px 10px #fff;
+  padding: 14px;
+  margin: -4px;
 }
 
-.card:active {
-  margin-left: -1rem;
-  margin-top: -1rem;
-  padding: 2rem;
+.ci:active {
   background: #8f8faf;
   box-shadow: 1px 1px 30px #88f;
+  padding: 20px;
+  margin: -10px;
 }
 
 h2 {

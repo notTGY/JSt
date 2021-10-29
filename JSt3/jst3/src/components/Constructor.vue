@@ -1,13 +1,13 @@
 <template>
   <main>
-    <section id="JSt-pill">
+    <section id="JSt-pill" v-bind:class="cn">
       <div id="JSt-buttons-container">
       </div>
       <p id="JSt-message"></p>
     </section>
 
     <section id="constructor">
-      <h1> --- Constructor --- </h1>
+      <h1>{{ trans('Constructor') }}</h1>
       <Multiselector
         @updateState="(prop, val) => updateState(prop, val)"
         v-bind="state"
@@ -24,6 +24,11 @@
 
 <script>
 import Multiselector from './Multiselector.vue'
+const engToRus = {
+  "Constructor":
+    "%u041A%u043E%u043D%u0441%u0442%u0440%u0443%u043A%u0442%u043E%u0440",
+}
+
 export default {
   name: 'Constructor',
   components: {
@@ -31,19 +36,32 @@ export default {
   },
   data: function() {
     return {
-      state: {}
+      state: {
+        "dimensions": "normal",
+        "color": "white",
+        "border-width": "4px",
+      },
+      cn: 'dimensions-normal color-white border-width-4px'
     }
   },
   methods: {
     updateState(prop, val) {
       const key = prop
-        .toUpperCase()
-        .replaceAll(' ', '_')
+        .toLowerCase()
+        .replaceAll(' ', '-')
       this.state[key] = val
-      console.log(this.state)
+      let cn = ''
+      for (const key in this.state) {
+        cn += `${key}-${this.state[key]} `
+      }
+      this.cn = cn
+      console.log(this.cn)
     },
     gdow() {
       document.location.hash = '#download'
+    },
+    trans(str) {
+      return unescape(engToRus[str])
     }
   },
 }
@@ -57,17 +75,77 @@ main{
 }
 
 #JSt-pill {
+  overflow: hidden;
+  z-index: 100;
+}
+
+.dimensions-normal {
   width: 800px;
   height: 150px;
   position: fixed;
   top: 50px;
   left: calc(50vw - 400px);
   border-radius: 75px;
+}
+
+.dimensions-big {
+  width: 900px;
+  height: 170px;
+  position: fixed;
+  top: 50px;
+  left: calc(50vw - 450px);
+  border-radius: 85px;
+}
+
+.dimensions-verybig {
+  width: 1000px;
+  height: 200px;
+  position: fixed;
+  top: 50px;
+  left: calc(50vw - 500px);
+  border-radius: 100px;
+}
+
+.border-width-4px {
+  box-shadow: 0px 0px 10px 4px;
+}
+
+.border-width-6px {
+  box-shadow: 0px 0px 10px 6px;
+}
+
+.border-width-10px {
+  box-shadow: 0px 0px 10px 10px;
+}
+
+.color-white {
+  color: #ccd;
   border: 2px solid #aaa;
   background-image: linear-gradient(#fff, #bbbbbb);
-  overflow: hidden;
-  box-shadow: 0px 0px 10px 4px #ccd;
-  z-index: 100;
+}
+
+.color-black {
+  color: #222;
+  border: 2px solid #333;
+  background-image: linear-gradient(#222222, #000);
+}
+
+.color-green {
+  color: #bfa;
+  border: 2px solid #7a6;
+  background-image: linear-gradient(#bfa, #8b7);
+}
+
+.color-pink {
+  color: #fab;
+  border: 2px solid #a67;
+  background-image: linear-gradient(#fab, #b78);
+}
+
+.color-blue {
+  color: #abf;
+  border: 2px solid #67a;
+  background-image: linear-gradient(#abf, #78b);
 }
 
 #JSt-message {
@@ -145,7 +223,8 @@ main{
   background: #ddd;
   left: calc(50vw - 20rem);
   border-radius: 1rem;
-  box-shadow: 1px 1px 5px #eee;
+  box-shadow: 1px 1px 5px #fff;
+  min-height: fit-content;
 }
 
 #constructor>h1 {
@@ -155,6 +234,7 @@ main{
   border-radius: 1rem;
   margin-bottom: 5px;
   box-shadow: 1px 1px 5px #fff;
+  font-size: 3rem;
 }
 
 #download {
@@ -164,9 +244,9 @@ main{
   height: 4rem;
   top: 54vh;
   left: 80vw;
-  border: 2px solid gold;
+  color: #2c3e50;
+  border: 2px solid #2c3e50;
   border-radius: 50%;
-  color: gold;
   transition: 0.5s;
   box-shadow: 0px 0px 5px #555;
 }

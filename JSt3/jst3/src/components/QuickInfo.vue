@@ -22,7 +22,6 @@
         @click="gcon"
       />
     </div>
-    <button id="go2pres" @click="gpres">Presentation</button>
     <footer id="copyright"><a href="https://github.com/notTGY">&copy; notTGY 2021</a></footer>
   </main>
   </div>
@@ -42,10 +41,6 @@ export default {
     },
     gcon() {
       document.location.hash = '#constructor'
-      document.location.reload()
-    },
-    gpres() {
-      document.location.hash = '#presentation'
       document.location.reload()
     },
   }
@@ -176,30 +171,5 @@ h1 {
 #copyright>a:active {
   color: #fff;
   text-shadow: 1px 1px 8px #ccc;
-}
-#go2pres {
-  border-radius: 5px;
-  width: 10rem;
-  height: 3rem;
-  margin-top: 5rem;
-  font-size: 1.5rem;
-  background: darkblue;
-  color: aquamarine;
-  border: 1px solid aqua;
-  transition: 0.5s;
-}
-
-#go2pres:hover {
-  width: 11rem;
-  height: 4rem;
-  margin-top: 4.5rem;
-  font-size: 1.7rem;
-}
-
-#go2pres:active {
-  width: 12rem;
-  height: 5rem;
-  margin-top: 4rem;
-  font-size: 2rem;
 }
 </style>

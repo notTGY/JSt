@@ -75,6 +75,8 @@ main{
 }
 
 #JSt-pill {
+  position: fixed;
+  top: 50px;
   overflow: hidden;
   z-index: 100;
 }
@@ -82,8 +84,6 @@ main{
 .dimensions-normal {
   width: 800px;
   height: 150px;
-  position: fixed;
-  top: 50px;
   left: calc(50vw - 400px);
   border-radius: 75px;
 }
@@ -91,8 +91,6 @@ main{
 .dimensions-big {
   width: 900px;
   height: 170px;
-  position: fixed;
-  top: 50px;
   left: calc(50vw - 450px);
   border-radius: 85px;
 }
@@ -100,8 +98,6 @@ main{
 .dimensions-verybig {
   width: 1000px;
   height: 200px;
-  position: fixed;
-  top: 50px;
   left: calc(50vw - 500px);
   border-radius: 100px;
 }

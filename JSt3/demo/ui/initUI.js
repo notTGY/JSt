@@ -35,3 +35,4 @@ export default function initUI(parentElem) {
 
   return [ jst, buttonContainer, messageContainer ]
 }
+

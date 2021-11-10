@@ -1,6 +1,7 @@
 import sub2Fullscreen from "./core/index.js"
 import {
   Button,
+  codeInput,
   displayButtons,
   displayMessage,
   generateStylesheet,
@@ -8,38 +9,63 @@ import {
   svgs,
 } from "./ui/index.js"
 
-const BUT_DEFAULT_PADDING = 30
+const BUT_PADDING = 20
 const options = {
   dimensions: "normal",
   color: "white",
   "border-width": "4px",
 }
 
-function initButtons() {
-  const jstBut = Button(
+function DefaultButtons(buttonContainer, setRoomId) {
+  const jstButton = Button(
     svgs.jstBlack,
-    e => e,
-    e => e.style.padding = BUT_DEFAULT_PADDING + 'px'
+    jstButtonCallback(buttonContainer, setRoomId),
+    e => e.style.padding = BUT_PADDING + 'px'
   )
-  const speedDown = Button(svgs.speedDown)
-  const speedUp = Button(svgs.speedUp)
 
-  return [jstBut, speedDown, speedUp]
+  return [
+    jstButton,
+    Button(svgs.speedDown),
+    Button(svgs.speedUp)
+  ]
 }
 
-async function scenario(mountElem) {
+function jstButtonCallback(
+  buttonContainer, setRoomId
+) {
+  return function onclick(e) {
+    const defaultButtons =
+      DefaultButtons(buttonContainer, setRoomId)
+    const buttons = [
+      Button(
+        svgs.jstBlack,
+        e => displayButtons(
+          buttonContainer, defaultButtons
+        ),
+        e => e.style.padding = BUT_PADDING + 'px'
+      ),
+    ]
+
+    displayButtons(buttonContainer, buttons)
+  }
+}
+
+async function scenario(mountElem, setRoomId) {
   const [
     jstPill,
     buttonContainer,
     messageContainer,
   ] = initUI(mountElem)
-  const buttons = initButtons()
   await displayMessage(
     'HI, I\'M JSt',
     messageContainer,
   )
-  displayButtons(buttonContainer, buttons)
+
+  const defaultButtons =
+    DefaultButtons(buttonContainer, setRoomId)
+  displayButtons(buttonContainer, defaultButtons)
 }
 
 const init = generateStylesheet(options)
-sub2Fullscreen(init, el => scenario(el))
+sub2Fullscreen(init, scenario)
+

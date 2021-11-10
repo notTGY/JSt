@@ -63,6 +63,8 @@ function generateStylesheet(opts) {
       pillShadow = `box-shadow: 0px 0px 10px 10px;`
   }
 
+  const uiOpacity = 0.9
+
   const sheet = `
 #JSt-pill {
   width: ${pillWidth}px;
@@ -81,6 +83,18 @@ function generateStylesheet(opts) {
 
   border: 2px solid ${borderColor};
   background-image:linear-gradient(${light},${dark});
+
+  opacity: ${uiOpacity};
+  animation: jst-pill-appear 0.5s;
+}
+
+@keyframes jst-pill-appear{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: ${uiOpacity};
+  }
 }
 
 #JSt-message {
@@ -129,6 +143,19 @@ function generateStylesheet(opts) {
   background-image:linear-gradient(${light},${dark});
   z-index: 103;
   transition: 0.5s;
+  animation: button-appear 0.5s;
+  opacity: ${uiOpacity};
+}
+
+@keyframes button-appear{
+  from {
+    opacity: 0;
+    padding: ${halfHeight}px;
+  }
+  to {
+    opacity: ${uiOpacity};
+    padding: 20px;
+  }
 }
 
 .JSt-button:hover {
@@ -150,3 +177,4 @@ function generateStylesheet(opts) {
 }
 
 export default generateStylesheet
+

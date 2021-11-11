@@ -4,7 +4,7 @@ import displayButtons from "./displayButtons.js"
 import displayMessage from "./displayMessage.js"
 import generateStylesheet from "./generateStylesheet.js"
 import initUI from "./initUI.js"
-import * as svgs from "./svgs.js"
+import svgs from "./svgs.js"
 
 export {
   Button,

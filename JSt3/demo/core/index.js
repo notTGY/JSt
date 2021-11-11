@@ -1,28 +1,31 @@
 import {
   attachAPIToVid,
   attachFullScreenCallback,
-  copy,
   findVideo,
 } from "./utils.js"
 import Api from "./api.js"
 
-const api = new Api('http://localhost:3000')
 
-function sub2Fullscreen(initFn, callback) {
+async function sub2Fullscreen(
+  domain, initFn, callback, hideCallback
+) {
   if (window.JST_INITED) return
   window.JST_INITED = true
   initFn()
+
+  const api = new Api(domain)
 
   let roomId = null
   let vid = null
   const setRoomId = newRoomId => {
     roomId = newRoomId
-    attachAPIToVid(vid, api(vid, roomId))
+    const eventListener = api(vid, roomId)
+    attachAPIToVid(vid, eventListener)
   }
 
   const onFullScreenChange = e => {
     const elem = document.fullscreenElement
-    if (!elem) return false
+    if (!elem) return hideCallback()
 
     vid = findVideo(elem)
     /**
@@ -30,9 +33,10 @@ function sub2Fullscreen(initFn, callback) {
      * attach its events (play/pause...)
      * to symwatch API (do it for each state change)
      */
-    attachAPIToVid(vid, api(vid, roomId))
+    const eventListener = api(vid, roomId)
+    attachAPIToVid(vid, eventListener)
 
-    callback(elem, setRoomId)
+    callback(elem, setRoomId, vid)
   }
 
   attachFullScreenCallback(onFullScreenChange)

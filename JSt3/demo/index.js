@@ -16,56 +16,109 @@ const options = {
   "border-width": "4px",
 }
 
-function DefaultButtons(buttonContainer, setRoomId) {
-  const jstButton = Button(
+function initButtons(
+  buttonContainer, setRoomId, vid
+) {
+  const jstButtonOpen = Button(
     svgs.jstBlack,
-    jstButtonCallback(buttonContainer, setRoomId),
+    jstButtonCallback(buttonContainer, setRoomId, vid),
     e => e.style.padding = BUT_PADDING + 'px'
   )
-
-  return [
-    jstButton,
-    Button(svgs.speedDown),
-    Button(svgs.speedUp)
+  const jstButtonClose = Button(
+    svgs.jstBlack,
+    jstButtonCallback(buttonContainer, setRoomId, vid),
+    e => e.style.padding = BUT_PADDING + 'px'
+  )
+  const speedDownButton = Button(
+    svgs.speedDown,
+    e => {
+      if (vid.playbackRate > .25)
+        vid.playbackRate -= .25
+    },
+  )
+  const speedUpButton = Button(
+    svgs.speedUp,
+    e => {
+      if (vid.playbackRate < 20)
+        vid.playbackRate += .25
+    },
+  )
+  const defaultButtons = [
+    jstButtonOpen,
+    speedDownButton,
+    speedUpButton,
+    jstButtonClose,
   ]
+  return defaultButtons
 }
 
+
 function jstButtonCallback(
-  buttonContainer, setRoomId
+  buttonContainer, setRoomId, vid
 ) {
   return function onclick(e) {
-    const defaultButtons =
-      DefaultButtons(buttonContainer, setRoomId)
+    const [
+      unused,
+      speedDown,
+      speedUp,
+      jstButton,
+    ] = initButtons(buttonContainer, setRoomId, vid)
     const buttons = [
       Button(
         svgs.jstBlack,
         e => displayButtons(
-          buttonContainer, defaultButtons
+          buttonContainer,
+          [ jstButton, speedDown, speedUp ],
         ),
         e => e.style.padding = BUT_PADDING + 'px'
       ),
+      codeInput(setRoomId),
     ]
 
     displayButtons(buttonContainer, buttons)
   }
 }
 
-async function scenario(mountElem, setRoomId) {
+async function scenario(mountElem, setRoomId, vid) {
   const [
     jstPill,
     buttonContainer,
     messageContainer,
   ] = initUI(mountElem)
+  /*
   await displayMessage(
     'HI, I\'M JSt',
     messageContainer,
   )
+  */
 
-  const defaultButtons =
-    DefaultButtons(buttonContainer, setRoomId)
-  displayButtons(buttonContainer, defaultButtons)
+  const [
+    jstButton,
+    speedDownButton,
+    speedUpButton,
+  ] = initButtons(buttonContainer, setRoomId, vid)
+  displayButtons(
+    buttonContainer,
+    [ jstButton, speedDownButton, speedUpButton ],
+  )
+}
+
+function hideJST() {
+  initUI(null, true)
 }
 
 const init = generateStylesheet(options)
-sub2Fullscreen(init, scenario)
+
+const socketIOscript =
+  document.createElement('script')
+socketIOscript.src =
+  'https://cdn.socket.io/4.3.2/socket.io.min.js'
+socketIOscript.crossorigin = 'anonymous'
+
+socketIOscript.onerror = socketIOscript.onload =
+  e => sub2Fullscreen(
+    'localhost:3000', init, scenario, hideJST
+  )
+
+document.body.append(socketIOscript)
 

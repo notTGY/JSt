@@ -134,6 +134,13 @@ function generateStylesheet(opts) {
   z-index: 102;
 }
 
+.JSt-form {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  z-index: 102;
+}
+
 .JSt-button {
   width: ${2*halfHeight}px;
   height: ${2*halfHeight}px;
@@ -145,6 +152,35 @@ function generateStylesheet(opts) {
   transition: 0.5s;
   animation: button-appear 0.5s;
   opacity: ${uiOpacity};
+}
+
+#JSt-code-input {
+  width: ${4*halfHeight}px;
+  height: ${2*halfHeight}px;
+  border: 0px;
+  padding: 20px;
+  padding-bottom: ${halfHeight/2}px;
+  padding-top: ${halfHeight/2}px;
+  background-image:linear-gradient(${light},${dark});
+  z-index: 103;
+  transition: 0.5s;
+  opacity: ${uiOpacity};
+  color: #333;
+  font-weight: 600;
+  font-family: monospace;
+  font-size: ${halfHeight}px;
+  animation: input-appear 0.5s;
+}
+
+@keyframes input-appear{
+  from {
+    opacity: 0;
+    padding: ${2*halfHeight}px;
+  }
+  to {
+    opacity: ${uiOpacity};
+    padding: 20px;
+  }
 }
 
 @keyframes button-appear{

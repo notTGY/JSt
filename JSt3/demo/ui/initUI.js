@@ -1,6 +1,15 @@
 const TIMEOUT = 5000
 
-export default function initUI(parentElem) {
+function initUI(parentElem, isHiding) {
+  if (isHiding) {
+    const node = document.querySelector('#JSt-pill')
+    if (node && node.parentNode)
+      node.parentNode.removeChild(node)
+    else
+      throw new Error('cannot unmount JSt / unmounted automatically')
+
+    return
+  }
   if (!parentElem)
     throw new Error('couldnt init on undefined elem')
   const newEl = e => document.createElement(e)
@@ -35,4 +44,6 @@ export default function initUI(parentElem) {
 
   return [ jst, buttonContainer, messageContainer ]
 }
+
+export default initUI
 

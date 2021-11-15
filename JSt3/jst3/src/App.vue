@@ -11,9 +11,6 @@
   <Download
     v-if="state === 'download'"
   />
-  <Presentation
-    v-if="state === 'presentation'"
-  />
 </template>
 
 <script>
@@ -21,7 +18,6 @@ import jstAnimation from './components/JStAnimation'
 import Constructor from './components/Constructor'
 import Download from './components/Download'
 import QuickInfo from './components/QuickInfo'
-import Presentation from './components/Presentation'
 
 export default {
   name: 'App',
@@ -35,7 +31,6 @@ export default {
     jstAnimation,
     Download,
     QuickInfo,
-    Presentation,
   },
   created: function () {
     const watcher = () => {

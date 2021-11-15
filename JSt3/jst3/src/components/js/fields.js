@@ -1,32 +1,16 @@
 export default {
   "Dimensions": [
-    "100%",
-    "150%",
-    "200%",
+    "normal",
+    "big",
+    "verybig",
   ],
-  "Color": {
-    "Pill color": [
-      "pink",
-      "violet",
-      "grey",
-      "black",
-      "teal",
-    ],
-    "Pill highlight": [
-      "pink",
-      "violet",
-      "grey",
-      "black",
-      "teal",
-    ],
-    "Pill border": [
-      "pink",
-      "violet",
-      "grey",
-      "black",
-      "teal",
-    ],
-  },
+  "Color": [
+    "white",
+    "black",
+    "green",
+    "pink",
+    "blue",
+  ],
   "Border width": [
     "4px",
     "10px",

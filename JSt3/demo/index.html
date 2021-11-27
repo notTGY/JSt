@@ -2,6 +2,11 @@
 <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
-  <video src="./demo.mp4" width=400 controls />
+  <main>
+    <video src="./demo.mp4" width=400 controls></video>
+  </main>
+  <button onclick="document.querySelector('video').requestFullscreen()">
+    Open fullscreen
+  </button>
   <script type=module src="./index.js"></script>
 </body>

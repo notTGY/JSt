@@ -66,6 +66,17 @@ function generateStylesheet(opts) {
   const uiOpacity = 0.9
 
   const sheet = `
+.JSt-video-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.JSt-video-wrapper>video {
+  width: 100%;
+  height: 100%;
+}
+
 #JSt-pill {
   width: ${pillWidth}px;
   height: ${2*halfHeight}px;

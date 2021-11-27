@@ -3,7 +3,6 @@ import {
   Button,
   codeInput,
   displayButtons,
-  displayMessage,
   generateStylesheet,
   initUI,
   svgs,
@@ -80,17 +79,14 @@ function jstButtonCallback(
 }
 
 async function scenario(mountElem, setRoomId, vid) {
+  const initRes = initUI(mountElem)
+  if (!initRes) return
+
   const [
     jstPill,
     buttonContainer,
     messageContainer,
-  ] = initUI(mountElem)
-  /*
-  await displayMessage(
-    'HI, I\'M JSt',
-    messageContainer,
-  )
-  */
+  ] = initRes
 
   const [
     jstButton,

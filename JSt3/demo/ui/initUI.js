@@ -6,12 +6,50 @@ function initUI(parentElem, isHiding) {
     if (node && node.parentNode)
       node.parentNode.removeChild(node)
     else
-      throw new Error('cannot unmount JSt / unmounted automatically')
+      return 0
 
+    const wrapper = document.querySelector('.JSt-video-wrapper')
+    if (wrapper) {
+      wrapper.parentNode.append(
+        wrapper.children.item(0)
+      )
+      wrapper.remove()
+    }
     return
   }
   if (!parentElem)
     throw new Error('couldnt init on undefined elem')
+
+  /**
+   * Special case where native video opens
+   * https://stackoverflow.com/questions/6838104/pure-javascript-method-to-wrap-content-in-a-div
+   */
+  if (parentElem.nodeName === 'VIDEO') {
+    const wrapper = document.createElement('div')
+    wrapper.classList.add('JSt-video-wrapper')
+    parentElem.parentNode.appendChild(wrapper)
+
+    const callback = () => {
+      if (wrapper.requestFullscreen)
+        return wrapper.requestFullscreen()
+      if (wrapper.mozRequestFullScreen)
+        return wrapper.mozRequestFullScreen()
+      if (wrapper.webkitRequestFullScreen)
+        return wrapper.webkitRequestFullScreen()
+    }
+
+    const openWrapper = () => {
+      wrapper.appendChild(parentElem)
+      window.removeEventListener('click', openWrapper)
+      window.removeEventListener('keydown', openWrapper)
+      setTimeout(callback, 200)
+    }
+
+    window.addEventListener('click', openWrapper)
+    window.addEventListener('keydown', openWrapper)
+    return 0
+  }
+
   const newEl = e => document.createElement(e)
   const jst = newEl('section')
   const buttonContainer = newEl('div')

@@ -1,0 +1,14 @@
+{
+  "name": "jst3",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build.js"
+  },
+  "author": "notTGY",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "esbuild": "^0.14.23"
+  }
+}

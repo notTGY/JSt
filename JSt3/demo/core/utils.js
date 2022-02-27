@@ -20,9 +20,8 @@ function findVideo(possibleRoot) {
     document.body.querySelectorAll('video')
   if (pageVid.length < 1) 
     throw new Error('haven\'t found any videos')
-  if (pageVid.length > 1)
-    console.log('found more than 1 vid, using first')
 
+  // if found more than 1 vid, using first
   return pageVid[0]
 }
 

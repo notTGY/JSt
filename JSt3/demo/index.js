@@ -113,7 +113,7 @@ socketIOscript.crossorigin = 'anonymous'
 
 socketIOscript.onerror = socketIOscript.onload =
   e => sub2Fullscreen(
-    'localhost:3000', init, scenario, hideJST
+    'symwatch.herokuapp.com', init, scenario, hideJST
   )
 
 document.body.append(socketIOscript)

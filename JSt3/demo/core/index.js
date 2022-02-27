@@ -13,7 +13,7 @@ async function sub2Fullscreen(
   window.JST_INITED = true
   initFn()
 
-  const api = new Api(domain)
+  const api = await Api(domain)
 
   let roomId = null
   let vid = null

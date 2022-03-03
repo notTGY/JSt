@@ -1,6 +1,12 @@
+import { ReactNode } from 'react'
 import styles from './Card.module.css'
 
-const Card = (props) => {
+type CardProps = {
+  children: ReactNode,
+  className?: string,
+}
+
+const Card = (props: CardProps) => {
   const { children, className } = props
 
   const cn = `${className} ${styles.card}`

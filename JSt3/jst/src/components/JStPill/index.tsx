@@ -1,9 +1,15 @@
+import { ReactNode } from 'react'
 import styles from './JStPill.module.css'
 
-const capitalize = str =>
+const capitalize = (str: string) =>
   str[0].toUpperCase() + str.substring(1)
 
-const JStPill = (props) => {
+type JStPillProps = {
+  children: ReactNode,
+  classes?: Record<string, string>,
+}
+
+const JStPill = (props: JStPillProps) => {
   const { classes, children } = props
 
   let cn = `${styles.JStPill}`
@@ -13,7 +19,6 @@ const JStPill = (props) => {
       const value = classes[prop]
 
       const style = `${prop}${capitalize(value)}`
-      console.log(style)
       cn += ` ${styles[style]}`
     }
   }

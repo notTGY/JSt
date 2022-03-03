@@ -1,0 +1,137 @@
+.JStPill {
+  position: fixed;
+  top: 50px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.dimensionsNormal {
+  width: 800px;
+  height: 150px;
+  left: calc(50vw - 400px);
+  border-radius: 75px;
+}
+
+.dimensionsBig {
+  width: 900px;
+  height: 170px;
+  left: calc(50vw - 450px);
+  border-radius: 85px;
+}
+
+.dimensionsVeryBig {
+  width: 1000px;
+  height: 200px;
+  left: calc(50vw - 500px);
+  border-radius: 100px;
+}
+
+.borderWidth4px {
+  box-shadow: 0px 0px 10px 4px;
+}
+
+.borderWidth6px {
+  box-shadow: 0px 0px 10px 6px;
+}
+
+.borderWidth10px {
+  box-shadow: 0px 0px 10px 10px;
+}
+
+.colorWhite {
+  color: #ccd;
+  border: 2px solid #aaa;
+  background-image: linear-gradient(#fff, #bbbbbb);
+}
+
+.colorBlack {
+  color: #222;
+  border: 2px solid #333;
+  background-image: linear-gradient(#222222, #000);
+}
+
+.colorGreen {
+  color: #bfa;
+  border: 2px solid #7a6;
+  background-image: linear-gradient(#bfa, #8b7);
+}
+
+.colorPink {
+  color: #fab;
+  border: 2px solid #a67;
+  background-image: linear-gradient(#fab, #b78);
+}
+
+.colorBlue {
+  color: #abf;
+  border: 2px solid #67a;
+  background-image: linear-gradient(#abf, #78b);
+}
+
+.JStMessage {
+  position: relative;
+  margin: 0 auto;
+  top: -150px;
+  height: 150px;
+  width: calc(800px - 150px);
+  font-family: monospace;
+  font-size: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 101;
+  color: #567;
+}
+
+.beforeAppear {
+  animation: 0.7s ease-in slideaway;
+}
+
+@keyframes slideaway {
+  from {
+    margin-left: 75px;
+  }
+  to {
+    margin-left: 800px;
+  }
+}
+
+.JStButtonsContainer {
+  margin-left: 75px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 150px;
+  width: 650px;
+  width: calc(800px - 150px);
+  font-family: monospace;
+  font-size: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+  z-index: 102;
+}
+
+.JStButton {
+  background-image: linear-gradient(#fff, #bbbbbb);
+  width: 150px;
+  height: 150px;
+  border: 0px;
+  padding: 20px;
+  transition: 0.5s;
+  color: #888;
+  z-index: 103;
+}
+
+.JStButton:hover {
+  color: #555;
+  padding: 15px;
+}
+
+.JStButton:active {
+  color: #333;
+  padding: 0px;
+}
+

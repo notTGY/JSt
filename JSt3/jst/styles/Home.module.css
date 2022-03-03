@@ -1,23 +1,4 @@
-<template>
-  <div id="blackdrop">
-    <img id="icon" :src="icon"/>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'jstAnimation',
-  data: function () {
-    return {
-      icon: require('../assets/jst-gold.svg')
-    }
-  }
-}
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-#blackdrop {
+.blackdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -30,12 +11,12 @@ export default {
   background-image: radial-gradient(#555, #333);
 }
 
-#icon {
-  animation: 4s grow ease-out;
+.icon {
   width: 100px;
   height: 100px;
   margin-top: -2000px;
   max-width: 90vw;
+  animation: 4s grow ease-out;
 }
 
 @keyframes grow {
@@ -55,4 +36,4 @@ export default {
     height: 100px;
   }
 }
-</style>
+

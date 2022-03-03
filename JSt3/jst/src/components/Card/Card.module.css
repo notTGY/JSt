@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 90%;
+  padding: 1rem;
+  font-size: 1.4rem;
+  background: #ccc;
+  border-radius: 1rem;
+  max-width: 768px;
+  color: #345;
+}
+

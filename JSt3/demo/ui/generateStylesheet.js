@@ -123,7 +123,7 @@ function generateStylesheet(opts) {
   align-items: center;
   justify-content: flex-start;
 
-  color: #333;
+  color: #567;
   font-family: monospace;
   font-size: ${halfHeight}px;
 }

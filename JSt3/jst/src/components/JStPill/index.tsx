@@ -30,6 +30,7 @@ const JStPill = (props: JStPillProps) => {
           node =>
             node && node.setAttribute('href', `javascript:${jstCode}`)
         }>
+          <div className={styles.wrapper}>
           <section className={cn}>
             <div className={styles.JStButtonsContainer}>
             </div>
@@ -37,6 +38,7 @@ const JStPill = (props: JStPillProps) => {
               {children}
             </div>
           </section>
+          </div>
         </a>
       }
     </JstCodeContext.Consumer>

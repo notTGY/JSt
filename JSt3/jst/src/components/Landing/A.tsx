@@ -3,6 +3,7 @@ import JStPill from 'src/components/JStPill'
 import Blobs from 'src/components/Blobs'
 import SubscribeForm from 'src/components/SubscribeForm'
 import ShortInfo from 'src/components/ShortInfo'
+import Download from 'src/components/Download'
 
 type Props = {
   landingType?: string,
@@ -26,6 +27,9 @@ const A = (props: Props) => {
         <h1 className={styles.h1}>JSt</h1>
       </JStPill>
       <ShortInfo/>
+      <Download
+        className={styles.marginTop}
+      />
       <SubscribeForm
         landingType={landingType}
         className={styles.marginTop}

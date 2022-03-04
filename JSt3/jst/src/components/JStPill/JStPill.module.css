@@ -1,29 +1,33 @@
-.JStPill {
+.wrapper {
   position: fixed;
   top: 50px;
-  overflow: hidden;
   z-index: 100;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.JStPill {
   opacity: 0.9;
+  aspect-ratio: 800 / 150;
+  max-width: 95%;
 }
 
 .dimensionsNormal {
   width: 800px;
   height: 150px;
-  left: calc(50vw - 400px);
   border-radius: 75px;
 }
 
 .dimensionsBig {
   width: 900px;
   height: 170px;
-  left: calc(50vw - 450px);
   border-radius: 85px;
 }
 
 .dimensionsVeryBig {
   width: 1000px;
   height: 200px;
-  left: calc(50vw - 500px);
   border-radius: 100px;
 }
 
@@ -73,8 +77,8 @@
   position: relative;
   margin: 0 auto;
   top: -150px;
+  left: 50px;
   height: 150px;
-  width: calc(800px - 150px);
   font-family: monospace;
   font-size: 100px;
   display: flex;

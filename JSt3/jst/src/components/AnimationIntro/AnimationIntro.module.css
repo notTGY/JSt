@@ -16,7 +16,7 @@
   height: 100px;
   margin-top: -2000px;
   max-width: 90vw;
-  animation: 4s grow ease-out;
+  animation: 1.5s grow ease-out;
 }
 
 @keyframes grow {
@@ -36,4 +36,5 @@
     height: 100px;
   }
 }
+
 

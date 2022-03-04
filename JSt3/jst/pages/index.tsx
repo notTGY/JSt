@@ -23,7 +23,7 @@ const Home = (props: HomeProps) => {
 
     const timeout = setTimeout(() => {
       setIsLanding(true)
-    }, 3000)
+    }, 1500)
     return () => {
       clearTimeout(timeout)
     }

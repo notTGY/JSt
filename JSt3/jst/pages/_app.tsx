@@ -1,8 +1,9 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import Script from 'next/script'
 
-const websiteTitle = 'JSt3 - плеер для совместного просмотра видео'
+const websiteTitle = 'JSt - плеер для совместного просмотра видео'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +13,22 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>{websiteTitle}</title>
       </Head>
       <Component {...pageProps} />
+      <Script
+        src="https://www.googleoptimize.com/optimize.js?id=OPT-NMTLJNN"
+        strategy="afterInteractive"
+      ></Script>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-17KH9B32S4"
+        strategy="afterInteractive"
+      ></Script>
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-17KH9B32S4');
+        `}
+      </Script>
     </>
   )
 }

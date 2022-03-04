@@ -9,20 +9,35 @@
   justify-content: center;
   align-items: center;
   background-image: radial-gradient(#555, #333);
+  animation: 0.5s fade;
+  opacity: 0;
+}
+
+@keyframes fade{
+  from {opacity: 1}
+  to {opacity: 0}
 }
 
 .backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
   background: linear-gradient(33deg,#304352,#d7d2cc);
   height: 100%;
   z-index: 1;
-  padding-top: 300px;
+  width: 100vw;
+  height: 100vh;
+}
+
+.main {
+  padding-top: 270px;
 }
 
 .h1 {
   font-size: 100px;
 }
 
-.h2 {
-  font-size: 1.5rem;
+.marginTop {
+  margin-top: 3rem;
 }
 

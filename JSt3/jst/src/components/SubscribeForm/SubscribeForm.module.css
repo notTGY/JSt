@@ -1,0 +1,54 @@
+.h2 {
+  font-size: 1.5rem;
+  margin-block-start: 0.1em;
+}
+
+.input {
+  font-size: 1.4rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  color: #345;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid #757575;
+  box-shadow: 0 0 3px #aaa;
+  max-width: 320px;
+}
+
+.button {
+  font-size: 1.4rem;
+  color: #fff;
+  background: linear-gradient(135deg, #6B02FF 0%, #985BEF 100%);
+  box-shadow: 0 0 5px #985BEF;
+  padding: 1rem;
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: none;
+  max-width: 320px;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background: linear-gradient(100deg, #6B02FF 0%, #985BEF 100%);
+}
+
+.button:active {
+  background: linear-gradient(100deg, #6B02FF 0%, #985BEF 100%);
+  animation: 0.2s shake;
+}
+
+@keyframes shake {
+  from { }
+  50% {
+    transform: rotate(6deg);
+  }
+  to { }
+}
+
+.flex {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

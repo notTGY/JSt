@@ -1,5 +1,4 @@
 const { build } = require('esbuild')
-const { readFileSync, writeFileSync } = require('fs')
 
 async function start() {
   try {
@@ -9,15 +8,7 @@ async function start() {
       minify: true,
       outfile: 'index.js',
     })
-  } catch(e) {
-    console.log(e)
-    return
-  }
-
-  try {
-    const file = readFileSync('index.js', 'utf8')
-    const text = `<a href=javascript:${encodeURI(file)} > JSt3 </a>`
-    writeFileSync('index.html', text)
+    console.log('compiled successfully!')
   } catch(e) {
     console.log(e)
     return

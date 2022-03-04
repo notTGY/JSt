@@ -8,8 +8,16 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #88f;
   text-decoration: none;
+}
+
+a:hover {
+  color: #55a;
+}
+
+a:active {
+  color: #338;
 }
 
 * {

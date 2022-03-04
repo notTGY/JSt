@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import JstCodeContext from 'src/contexts/JstCode'
 import styles from './JStPill.module.css'
 
 const capitalize = (str: string) =>
@@ -13,7 +14,6 @@ const JStPill = (props: JStPillProps) => {
   const { classes, children } = props
 
   let cn = `${styles.JStPill}`
-  console.log(classes)
   if (classes) {
     for (const prop in classes) {
       const value = classes[prop]
@@ -24,13 +24,22 @@ const JStPill = (props: JStPillProps) => {
   }
 
   return (
-    <section className={cn}>
-      <div className={styles.JStButtonsContainer}>
-      </div>
-      <p className={styles.JStMessage}>
-        {children}
-      </p>
-    </section>
+    <JstCodeContext.Consumer>
+      {jstCode =>
+        <a ref={
+          node =>
+            node && node.setAttribute('href', `javascript:${jstCode}`)
+        }>
+          <section className={cn}>
+            <div className={styles.JStButtonsContainer}>
+            </div>
+            <div className={styles.JStMessage}>
+              {children}
+            </div>
+          </section>
+        </a>
+      }
+    </JstCodeContext.Consumer>
   )
 }
 

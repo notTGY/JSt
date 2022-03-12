@@ -107,7 +107,7 @@ const SubscribeForm = (props: SubscribeFormProps) => {
     </>
   )
   return (
-    <Card className={className}>
+    <Card className={`${className} ${styles.popup}`}>
       { state === 'input' ? FormJsx : '' }
       { state === 'loading' ? LoadingJsx : '' }
       { state === 'success' ? SuccessJsx : '' }

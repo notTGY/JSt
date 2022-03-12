@@ -99,6 +99,10 @@ function generateStylesheet(opts) {
   animation: jst-pill-appear 0.5s;
 }
 
+#JSt-pill:hover {
+  opacity: 1;
+}
+
 @keyframes jst-pill-appear{
   from {
     opacity: 0;
@@ -160,7 +164,7 @@ function generateStylesheet(opts) {
   color: #888;
   background-image:linear-gradient(${light},${dark});
   z-index: 103;
-  transition: 0.5s;
+  transition: 0.2s;
   animation: button-appear 0.5s;
   opacity: ${uiOpacity};
 }
@@ -169,7 +173,7 @@ function generateStylesheet(opts) {
   width: ${4*halfHeight}px;
   height: ${2*halfHeight}px;
   border: 0px;
-  padding: 20px;
+  padding: 0px;
   padding-bottom: ${halfHeight/2}px;
   padding-top: ${halfHeight/2}px;
   background-image:linear-gradient(${light},${dark});
@@ -207,12 +211,32 @@ function generateStylesheet(opts) {
 
 .JSt-button:hover {
   color: #555;
-  padding: 15px;
+  padding: 5px;
 }
 
 .JSt-button:active {
   color: #333;
-  padding: 0px;
+  padding: 20px;
+}
+
+#JSt-version {
+  width: ${pillWidth - 2*halfHeight}px;
+  height: ${2*halfHeight}px;
+
+  position: relative;
+  top: -${4*halfHeight}px;
+  margin: 0 auto;
+
+  z-index: 102;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  color: #5678;
+  font-family: monospace;
+  font-size: 0.6rem;
 }
     `
 

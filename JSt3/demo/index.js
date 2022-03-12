@@ -42,11 +42,22 @@ function initButtons(
         vid.playbackRate += .25
     },
   )
+
+  const bugButton = Button(
+    svgs.bug,
+    e => {
+      window.open(
+        'https://jstplayer.com/feedback?from=app',
+        '_blank',
+      )
+    },
+  )
   const defaultButtons = [
     jstButtonOpen,
     speedDownButton,
     speedUpButton,
     jstButtonClose,
+    bugButton,
   ]
   return defaultButtons
 }
@@ -61,13 +72,14 @@ function jstButtonCallback(
       speedDown,
       speedUp,
       jstButton,
+      bugButton,
     ] = initButtons(buttonContainer, setRoomId, vid)
     const buttons = [
       Button(
         svgs.jstBlack,
         e => displayButtons(
           buttonContainer,
-          [ jstButton, speedDown, speedUp ],
+          [ jstButton, speedDown, speedUp, bugButton ],
         ),
         e => e.style.padding = BUT_PADDING + 'px'
       ),
@@ -92,10 +104,12 @@ async function scenario(mountElem, setRoomId, vid) {
     jstButton,
     speedDownButton,
     speedUpButton,
+    unused,
+    bugButton,
   ] = initButtons(buttonContainer, setRoomId, vid)
   displayButtons(
     buttonContainer,
-    [ jstButton, speedDownButton, speedUpButton ],
+    [ jstButton, speedDownButton, speedUpButton, bugButton ],
   )
 }
 

@@ -4,7 +4,6 @@
 }
 
 .card {
-  animation-delay: 0.4s;
   animation: slideup 0.5s;
 }
 

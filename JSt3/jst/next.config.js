@@ -6,7 +6,10 @@ const nextConfig = {
     path: '/',
   },
   exportPathMap: async function() {
-    return { '/': { page: '/' } }
+    return { 
+      '/': { page: '/' },
+      '/feedback': { page: '/feedback' },
+    }
   },
 }
 

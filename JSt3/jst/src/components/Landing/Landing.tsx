@@ -18,6 +18,8 @@ const Landing = (props: LandingProps) => {
     classes, setClasses
   ] = useState(defaultClasses)
 
+  console.log(landingType)
+
   if (landingType === 'A')
     return (
       <A

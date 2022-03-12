@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import AnimationIntro from 'src/components/AnimationIntro'
 import Landing from 'src/components/Landing'
 import JstCodeContext from 'src/contexts/JstCode'
 
@@ -10,26 +9,18 @@ type HomeProps = {
 
 const Home = (props: HomeProps) => {
   const { jstCode } = props
-  const [ isLanding, setIsLanding ] = useState(false)
+
+  /*
+  const choices = ['A', 'B']
+  const rand = Math.random()
+  const choice = Math.floor(choices.length * rand)
+  */
+
   const [
     landingType, setLandingType
-  ] = useState('A')
+  ] = useState('B')
 
-  useEffect(() => {
-    const choices = ['A', 'B']
-    const rand = Math.random()
-    const choice = Math.floor(choices.length * rand)
-    setLandingType(choices[choice])
 
-    const timeout = setTimeout(() => {
-      setIsLanding(true)
-    }, 1500)
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [])
-
-  if (!isLanding) return <AnimationIntro/>
   return (
     <JstCodeContext.Provider value={jstCode}>
       <Landing

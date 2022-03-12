@@ -52,3 +52,18 @@
   align-items: center;
 }
 
+.popup {
+  animation: slideup 0.5s;
+}
+
+@keyframes slideup {
+  from {
+    transform: translate(0, 20px);
+    opacity: 0.5;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+

@@ -1,4 +1,4 @@
-const TIMEOUT = 5000
+const TIMEOUT = 2000
 
 function initUI(parentElem, isHiding) {
   if (isHiding) {
@@ -54,13 +54,23 @@ function initUI(parentElem, isHiding) {
   const jst = newEl('section')
   const buttonContainer = newEl('div')
   const messageContainer = newEl('p')
+  const versionContainer = newEl('span')
 
   jst.id = 'JSt-pill'
   buttonContainer.id = 'JSt-button-container'
   messageContainer.id = 'JSt-message'
+  versionContainer.id = 'JSt-version'
+
+  versionContainer.innerText =
+    typeof __version === 'undefined'
+      ? versionContainer.innerText = `dev`
+      : `alpha ${__version}`
 
   jst.append(buttonContainer)
   jst.append(messageContainer)
+  jst.append(versionContainer)
+
+
   parentElem.append(jst)
 
   jst.onclick = e => e.stopPropagation()

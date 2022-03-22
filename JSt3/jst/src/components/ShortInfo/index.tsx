@@ -1,13 +1,13 @@
 import styles from './ShortInfo.module.css'
 import Card from 'src/components/Card'
 const cardHeader = `
-Плеер для совместного просмотра видео.
+Video sharing player.
 `
 
 const cardText = `
-JSt предоставляет синхронный просмотр любого видео в интернете с минимальной задержкой. 🎥
-Также можно ускоряться до произвольной скорости (🏎️преодолеть барьер x2).
-Дизайн можно составить из пяти эргономичных цветов, трёх вариаций для размера и эффекта свечения! 🖌️🎨
+JSt provides shared access to every video in the internet with no watching delay. 🎥
+Also it lets you speed up unlimetedly (🏎️surpass x2 barrier).
+Design can be composed of five ergonomic colors and three variations of size! 🖌️🎨
 `
 
 type ShortInfoProps = {

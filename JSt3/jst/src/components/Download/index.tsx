@@ -3,19 +3,19 @@ import styles from './Download.module.css'
 import Card from 'src/components/Card'
 
 const cardHeader = `
-Как установить JSt (Desktop)
+How to install JSt (Desktop)
 `
 
 const firstP = `
-Всё довольно просто - перетащи пилюлю в закладки как показано на первой гифке.
+It's quite easy - just drag pill onto bookmarks bar, like shown on the gif below.
 `
 
 const secondP = `
-После этого на странице с видео нажми на закладку, чтобы активировать JSt (2 гифка).
+To activate JSt click bookmark on the video page (like on second gif).
 `
 
 const thirdP = `
-Если панель закладок не отображается, перейди в Настройки браузера -> Внешний вид -> Показывать панель закладок -> ✅.
+If bookmarks bar is not showing, you can turn it on at Browser settings -> Appearance -> Show bookmars bar -> ✅.
 `
 
 type DownloadProps = {
@@ -38,6 +38,7 @@ const Download = (props: DownloadProps) => {
           width="800"
           height="200"
           className={styles.picture}
+          alt="Downloading JSt by dragging pill onto bookmarks bar"
         />
         <p>
           {secondP}
@@ -47,6 +48,7 @@ const Download = (props: DownloadProps) => {
           width="800"
           height="250"
           className={styles.picture}
+          alt="Using JSt player on youtube"
         />
         <p>
           {thirdP}

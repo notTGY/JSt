@@ -153,7 +153,7 @@ function generateStylesheet(opts) {
   margin: 0;
   display: flex;
   align-items: center;
-  z-index: 102;
+  z-index: 400;
 }
 
 .JSt-button {
@@ -163,7 +163,7 @@ function generateStylesheet(opts) {
   padding: 20px;
   color: #888;
   background-image:linear-gradient(${light},${dark});
-  z-index: 103;
+  z-index: 500;
   transition: 0.2s;
   animation: button-appear 0.5s;
   opacity: ${uiOpacity};
@@ -177,7 +177,7 @@ function generateStylesheet(opts) {
   padding-bottom: ${halfHeight/2}px;
   padding-top: ${halfHeight/2}px;
   background-image:linear-gradient(${light},${dark});
-  z-index: 103;
+  z-index: 500;
   transition: 0.5s;
   opacity: ${uiOpacity};
   color: #333;

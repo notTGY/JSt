@@ -2,22 +2,22 @@ import { useState, BaseSyntheticEvent } from 'react'
 import Card from 'src/components/Card'
 import styles from './SubscribeForm.module.css'
 
-const formHeader = 'Подписаться на обновления'
-const emailLabel = 'Почта: '
+const formHeader = 'Subscribe to newsletter'
+const emailLabel = 'Email: '
 const emailPlaceholder = 'email@email.com*'
-const sendText = 'подписаться'
+const sendText = 'sub'
 
-const loadingText = 'Подписываемся...'
+const loadingText = 'In the process of subscribing...'
 
-const successText = 'Всё прошло отлично👍. Если хочешь - можешь поделиться😉'
-const shareText = 'поделиться'
+const successText = 'Everything went well 👍. You can share this page, if you want 😉'
+const shareText = 'share'
 
-const failText = 'Что-то пошло не так, попробуй ввести другую почту 🙏'
-const tryAgainText = 'попробовать ещё раз'
+const failText = 'Something went wrong, try entering another email address 🙏'
+const tryAgainText = 'try again'
 
 const shareData = {
   title: 'JSt',
-  text: 'JSt - плеер для совместного просмотра видео',
+  text: 'JSt - video share player',
   url: 'https://jstplayer.com?from=sub_share',
 }
 

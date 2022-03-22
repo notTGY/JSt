@@ -24,19 +24,31 @@ async function sub2Fullscreen(
   }
 
   const onFullScreenChange = e => {
-    const elem = document.fullscreenElement
-    if (!elem) return hideCallback()
+    const mus = document.querySelector('audio')
 
-    vid = findVideo(elem)
-    /**
-     * Each time we get new (possibly new) video elem
-     * attach its events (play/pause...)
-     * to symwatch API (do it for each state change)
-     */
-    const eventListener = api(vid, roomId)
-    attachAPIToVid(vid, eventListener)
+    if (mus) {
+      const eventListener = api(mus, roomId)
+      attachAPIToVid(mus, eventListener)
+      vid = mus
 
-    callback(elem, setRoomId, vid)
+      callback(document.body, setRoomId, mus)
+    } else {
+      const elem = document.fullscreenElement
+      if (!elem) return hideCallback()
+
+      vid = findVideo(elem)
+      /**
+       * Each time we get new (possibly new)
+       * video elem
+       * attach its events (play/pause...)
+       * to symwatch API
+       * (do it for each state change)
+       */
+      const eventListener = api(vid, roomId)
+      attachAPIToVid(vid, eventListener)
+
+      callback(elem, setRoomId, vid)
+    }
   }
 
   attachFullScreenCallback(onFullScreenChange)

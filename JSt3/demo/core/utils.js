@@ -6,9 +6,9 @@ function attachAPIToVid(vid, api) {
     'pause',
     'ratechange',
     'seeked',
-  ].forEach(eventName =>
+  ].forEach(eventName => {
     vid.addEventListener(eventName, api)
-  )
+  })
 }
 
 function findVideo(possibleRoot) {
@@ -18,15 +18,20 @@ function findVideo(possibleRoot) {
 
   const pageVid = 
     document.body.querySelectorAll('video')
-  if (pageVid.length < 1) 
-    throw new Error('haven\'t found any videos')
+
+  const mus = document.querySelector('audio')
+  if (mus) return mus
+
 
   // if found more than 1 vid, using first
   return pageVid[0]
 }
 
 function attachFullScreenCallback(fn) {
-  [
+  const mus = document.querySelector('audio')
+  if (mus) return fn(mus)
+
+  ;[
     'fullscreenchange',
     'webkitfullscreenchange',
     'mozfullscreenchange',

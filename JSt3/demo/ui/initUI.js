@@ -87,6 +87,7 @@ function initUI(parentElem, isHiding) {
   }
   resetTimeout()
   document.addEventListener('click', resetTimeout)
+  document.addEventListener('mousedown', resetTimeout)
   document.addEventListener('mousemove', resetTimeout)
   document.addEventListener('keydown', resetTimeout)
 

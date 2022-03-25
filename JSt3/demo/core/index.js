@@ -17,6 +17,8 @@ async function sub2Fullscreen(
 
   let roomId = null
   let vid = null
+  const getRoomId = () => roomId
+
   const setRoomId = newRoomId => {
     roomId = newRoomId
     const eventListener = api(vid, roomId)
@@ -31,7 +33,9 @@ async function sub2Fullscreen(
       attachAPIToVid(mus, eventListener)
       vid = mus
 
-      callback(document.body, setRoomId, mus)
+      callback(
+        document.body, getRoomId, setRoomId, mus,
+      )
     } else {
       const elem = document.fullscreenElement
       if (!elem) return hideCallback()
@@ -47,7 +51,7 @@ async function sub2Fullscreen(
       const eventListener = api(vid, roomId)
       attachAPIToVid(vid, eventListener)
 
-      callback(elem, setRoomId, vid)
+      callback(elem, getRoomId, setRoomId, vid)
     }
   }
 

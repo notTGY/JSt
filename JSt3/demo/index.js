@@ -16,16 +16,20 @@ const options = {
 }
 
 function initButtons(
-  buttonContainer, setRoomId, vid
+  buttonContainer, getRoomId, setRoomId, vid
 ) {
   const jstButtonOpen = Button(
     svgs.jstBlack,
-    jstButtonCallback(buttonContainer, setRoomId, vid),
+    jstButtonCallback(
+      buttonContainer, getRoomId, setRoomId, vid
+    ),
     e => e.style.padding = BUT_PADDING + 'px'
   )
   const jstButtonClose = Button(
     svgs.jstBlack,
-    jstButtonCallback(buttonContainer, setRoomId, vid),
+    jstButtonCallback(
+      buttonContainer, getRoomId, setRoomId, vid
+    ),
     e => e.style.padding = BUT_PADDING + 'px'
   )
   const speedDownButton = Button(
@@ -64,7 +68,7 @@ function initButtons(
 
 
 function jstButtonCallback(
-  buttonContainer, setRoomId, vid
+  buttonContainer, getRoomId, setRoomId, vid
 ) {
   return function onclick(e) {
     const [
@@ -73,7 +77,9 @@ function jstButtonCallback(
       speedUp,
       jstButton,
       bugButton,
-    ] = initButtons(buttonContainer, setRoomId, vid)
+    ] = initButtons(
+      buttonContainer, getRoomId, setRoomId, vid
+    )
     const buttons = [
       Button(
         svgs.jstBlack,
@@ -83,14 +89,16 @@ function jstButtonCallback(
         ),
         e => e.style.padding = BUT_PADDING + 'px'
       ),
-      codeInput(setRoomId),
+      codeInput(setRoomId, getRoomId),
     ]
 
     displayButtons(buttonContainer, buttons)
   }
 }
 
-async function scenario(mountElem, setRoomId, vid) {
+async function scenario(
+  mountElem, getRoomId, setRoomId, vid,
+) {
   const initRes = initUI(mountElem)
   if (!initRes) return
 
@@ -106,7 +114,9 @@ async function scenario(mountElem, setRoomId, vid) {
     speedUpButton,
     unused,
     bugButton,
-  ] = initButtons(buttonContainer, setRoomId, vid)
+  ] = initButtons(
+    buttonContainer, getRoomId, setRoomId, vid,
+  )
   displayButtons(
     buttonContainer,
     [ jstButton, speedDownButton, speedUpButton, bugButton ],

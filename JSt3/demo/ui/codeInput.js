@@ -1,6 +1,6 @@
 import svgs from "./svgs.js"
 
-function codeInput(setRoomId) {
+function codeInput(setRoomId, getRoomId) {
   return function () {
     const el = document.createElement('form')
     const submitEl = document.createElement('button')
@@ -18,13 +18,16 @@ function codeInput(setRoomId) {
     ></input>
     `
 
+    const inputEl =
+      el.querySelector('#JSt-code-input')
+
+    inputEl.value = getRoomId()
+
     submitEl.classList.add('JSt-button')
     submitEl.innerHTML = svgs.checkmark
 
     el.onsubmit = e => {
       e.preventDefault()
-      const inputEl =
-        el.querySelector('#JSt-code-input')
       setRoomId(inputEl.value)
     }
 

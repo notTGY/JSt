@@ -11,7 +11,7 @@ import {
 const BUT_PADDING = 20
 const options = {
   dimensions: "normal",
-  color: "white",
+  color: "trans",
   "border-width": "4px",
 }
 

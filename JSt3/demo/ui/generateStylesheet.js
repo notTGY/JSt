@@ -15,38 +15,63 @@ function generateStylesheet(opts) {
       pillWidth = 1000
   }
 
-  let dark, light, borderColor, shadowColor
+  let dark, light, borderColor, shadowColor,
+    color, colorFade, colorDark
   switch(opts.color) {
     case undefined:
+    case 'trans':
+      shadowColor = '#c8c8c8a0'
+      borderColor = '#c8c8c8a0'
+      light = '#ffffffa0'
+      dark = '#eeeeeea0'
+      color = '#fff'
+      colorFade = '#ccc'
+      colorDark = '#999'
+      break;
     case 'white':
       shadowColor = '#ccd'
       borderColor = '#aaa'
       light = '#fff'
       dark = '#bbbbbb'
+      color = '#888'
+      colorFade = '#555'
+      colorDark = '#333'
       break;
     case 'black':
       shadowColor = '#222'
       borderColor = '#333'
       light = '#222222'
       dark = '#000'
+      color = '#888'
+      colorFade = '#555'
+      colorDark = '#333'
       break;
     case 'green':
       shadowColor = '#bfa'
       borderColor = '#7a6'
       light = '#bfa'
       dark = '#8b7'
+      color = '#888'
+      colorFade = '#555'
+      colorDark = '#333'
       break;
     case 'pink':
       shadowColor = '#fab'
       borderColor = '#a67'
       light = '#fab'
       dark = '#b78'
+      color = '#888'
+      colorFade = '#555'
+      colorDark = '#333'
       break;
     case 'blue':
       shadowColor = '#abf'
       borderColor = '#67a'
       light = '#abf'
       dark = '#78b'
+      color = '#888'
+      colorFade = '#555'
+      colorDark = '#333'
       break;
   }
 
@@ -94,6 +119,7 @@ function generateStylesheet(opts) {
 
   border: 2px solid ${borderColor};
   background-image:linear-gradient(${light},${dark});
+  backdrop-filter: blur(15px);
 
   opacity: ${uiOpacity};
   animation: jst-pill-appear 0.5s;
@@ -127,7 +153,7 @@ function generateStylesheet(opts) {
   align-items: center;
   justify-content: flex-start;
 
-  color: #567;
+  color: ${colorDark};
   font-family: monospace;
   font-size: ${halfHeight}px;
 }
@@ -161,8 +187,8 @@ function generateStylesheet(opts) {
   height: ${2*halfHeight}px;
   border: 0px;
   padding: 20px;
-  color: #888;
-  background-image:linear-gradient(${light},${dark});
+  color: ${color};
+  background: transparent;
   z-index: 500;
   transition: 0.2s;
   animation: button-appear 0.5s;
@@ -176,11 +202,11 @@ function generateStylesheet(opts) {
   padding: 0px;
   padding-bottom: ${halfHeight/2}px;
   padding-top: ${halfHeight/2}px;
-  background-image:linear-gradient(${light},${dark});
+  background: transparent;
   z-index: 500;
   transition: 0.5s;
   opacity: ${uiOpacity};
-  color: #333;
+  color: ${color};
   font-weight: 600;
   font-family: monospace;
   font-size: ${halfHeight}px;
@@ -210,12 +236,12 @@ function generateStylesheet(opts) {
 }
 
 .JSt-button:hover {
-  color: #555;
+  color: ${colorFade};
   padding: 5px;
 }
 
 .JSt-button:active {
-  color: #333;
+  color: ${colorDark};
   padding: 20px;
 }
 
@@ -234,7 +260,7 @@ function generateStylesheet(opts) {
   align-items: flex-end;
   justify-content: flex-end;
 
-  color: #5678;
+  color: ${color};
   font-family: monospace;
   font-size: 0.6rem;
 }

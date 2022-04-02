@@ -22,7 +22,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background: linear-gradient(33deg,#304352,#d7d2cc);
+  background: #646566;
   height: 100%;
   z-index: 1;
   width: 100vw;

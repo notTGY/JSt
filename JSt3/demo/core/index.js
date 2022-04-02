@@ -60,3 +60,36 @@ async function sub2Fullscreen(
 
 export default sub2Fullscreen
 
+/**
+ * core takes care of incoming messages from ui and
+ * backend and routes everything around
+ *
+ * usage:
+ * const core = __initCore()
+ * chrome.runtime.onConnect.addListener(port => {
+ *   if (port.name === 'jst') {
+ *     core.connectPort(port.postMessage)
+ *     port.onMessage.addListener(core.onUIMessage)
+ *   }
+ * })
+ */
+export function __initCore(settings) {
+  let portPostMessage = null
+
+  return {
+    /**
+     * when button gets clicked/video state change
+     * this function gets callbacked with msg
+     * that contains current state
+     */
+    onUIMessage(msg) {
+    },
+    /**
+     * Just connect port for communication
+     */
+    connectPort(__port) {
+      portPostMessage = __port
+    },
+  }
+}
+

@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
 
-const websiteTitle = 'JSt - плеер для совместного просмотра видео'
+const websiteTitle = 'JSt - video sharing player'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

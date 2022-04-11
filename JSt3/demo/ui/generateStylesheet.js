@@ -24,9 +24,9 @@ function generateStylesheet(opts) {
       borderColor = '#c8c8c8a0'
       light = '#ffffffa0'
       dark = '#eeeeeea0'
-      color = '#fff'
-      colorFade = '#ccc'
-      colorDark = '#999'
+      color = '#e090df'
+      colorFade = '#a44cd3'
+      colorDark = '#8800c7'
       break;
     case 'white':
       shadowColor = '#ccd'

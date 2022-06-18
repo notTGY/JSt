@@ -23,7 +23,6 @@ export function getStaticProps() {
   const file = path.resolve(
     __dirname, '../../../../JSt/index.js'
   )
-  console.log(file)
   const jstCode = fs.readFileSync(file, 'utf8')
   return { props: { jstCode } }
 }

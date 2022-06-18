@@ -1,19 +1,20 @@
+const { resolve } = require('path')
 const { build } = require('esbuild')
 const { readFileSync, writeFileSync } = require('fs')
 
 async function start() {
   try {
-    const version = readFileSync('./.version', 'utf8')
+    const version = readFileSync(resolve(__dirname, './.version'), 'utf8')
     const newVersion = Number(version) + 1
     await build({
-      entryPoints: ['demo/index.js'],
+      entryPoints: [resolve(__dirname, 'demo/index.js')],
       bundle: true,
       minify: true,
-      outfile: 'index.js',
+      outfile: resolve(__dirname, 'index.js'),
       logLevel: 'info',
       define: { __version: version },
     })
-    writeFileSync('./.version', newVersion.toString())
+    writeFileSync(resolve(__dirname, './.version'), newVersion.toString())
   } catch(e) {
     console.log(e)
     return

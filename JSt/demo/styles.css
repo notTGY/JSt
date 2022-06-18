@@ -3,3 +3,5 @@ html{
   background: linear-gradient(33deg, #304352, #d7d2cc);
   height: 100vh;
 }
+
+body { margin: 0; }

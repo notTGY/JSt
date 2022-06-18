@@ -22,7 +22,6 @@ function findVideo(possibleRoot) {
   const mus = document.querySelector('audio')
   if (mus) return mus
 
-
   // if found more than 1 vid, using first
   return pageVid[0]
 }

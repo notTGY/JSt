@@ -127,18 +127,56 @@ function hideJST() {
   initUI(null, true)
 }
 
-const init = generateStylesheet(options)
+function start() {
+  const init = generateStylesheet(options)
 
-const socketIOscript =
-  document.createElement('script')
-socketIOscript.src =
-  'https://cdn.socket.io/4.3.2/socket.io.min.js'
-socketIOscript.crossorigin = 'anonymous'
+  const socketIOscript =
+    document.createElement('script')
+  socketIOscript.src =
+    'https://cdn.socket.io/4.3.2/socket.io.min.js'
+  socketIOscript.crossorigin = 'anonymous'
 
-socketIOscript.onerror = socketIOscript.onload =
-  e => sub2Fullscreen(
-    'symwatch.herokuapp.com', init, scenario, hideJST
-  )
+  socketIOscript.onerror = socketIOscript.onload =
+    e => sub2Fullscreen(
+      'symwatch.herokuapp.com', init, scenario, hideJST
+    )
 
-document.body.append(socketIOscript)
+  document.body.append(socketIOscript)
+    
+  // highlight iframes to open videos deep inside
+  const iframes = [...document.querySelectorAll('iframe')]
+  iframes.forEach(iframe => {
+    const dimensions = iframe.getBoundingClientRect()
+    if (
+      dimensions.width === 0
+      || dimensions.height === 0
+    ) return
+    console.log(dimensions)
+    const button = document.createElement('button')
+    button.style.position = 'absolute'
+    button.style.top = dimensions.top
+    button.style.left = dimensions.left
+    button.style.width = dimensions.width
+    button.style.height = dimensions.height
+    button.onclick = (e) => {
+      window.open(iframe.src)
+      e.stopPropagation()
+    }
+    button.oncontextmenu = (e) => {
+      e.preventDefault()
+      button.remove()
+      return false
+    }
+    button.style.background = 'transparent'
+    button.style.border = '2px solid #e090df'
+    button.style.boxShadow = '0 0 10px 4px #e090df'
+    iframe.parentElement.append(button)
+    console.log(iframe)
+  })
+  console.log('started')
+}
+
+start()
+
+export default start
 

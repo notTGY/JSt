@@ -138,27 +138,7 @@ function generateStylesheet(opts) {
   }
 }
 
-#JSt-message {
-  width: ${pillWidth - 2*halfHeight}px;
-  height: ${2*halfHeight}px;
-
-  position: relative;
-  top: -${2*halfHeight}px;
-  margin: 0 auto;
-
-  z-index: 101;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-
-  color: ${colorDark};
-  font-family: monospace;
-  font-size: ${halfHeight}px;
-}
-
-#JSt-button-container {
+.JSt-button-container {
   margin-top: 0px;
   margin-bottom: 0px;
   margin-left: ${halfHeight}px;
@@ -191,8 +171,11 @@ function generateStylesheet(opts) {
   background: transparent;
   z-index: 500;
   transition: 0.2s;
-  animation: button-appear 0.5s;
   opacity: ${uiOpacity};
+}
+
+.JSt-button-padding {
+  padding: 20px!important;
 }
 
 #JSt-code-input {
@@ -210,29 +193,6 @@ function generateStylesheet(opts) {
   font-weight: 600;
   font-family: monospace;
   font-size: ${halfHeight}px;
-  animation: input-appear 0.5s;
-}
-
-@keyframes input-appear{
-  from {
-    opacity: 0;
-    padding: ${2*halfHeight}px;
-  }
-  to {
-    opacity: ${uiOpacity};
-    padding: 20px;
-  }
-}
-
-@keyframes button-appear{
-  from {
-    opacity: 0;
-    padding: ${halfHeight}px;
-  }
-  to {
-    opacity: ${uiOpacity};
-    padding: 20px;
-  }
 }
 
 .JSt-button:hover {
@@ -245,12 +205,12 @@ function generateStylesheet(opts) {
   padding: 20px;
 }
 
-#JSt-version {
+.JSt-version {
   width: ${pillWidth - 2*halfHeight}px;
   height: ${2*halfHeight}px;
 
   position: relative;
-  top: -${4*halfHeight}px;
+  top: -${2*halfHeight}px;
   margin: 0 auto;
 
   z-index: 102;
@@ -264,13 +224,18 @@ function generateStylesheet(opts) {
   font-family: monospace;
   font-size: 0.6rem;
 }
-    `
 
-  return function putStylesheet() {
-    const style = document.createElement('style')
-    style.innerHTML = sheet
-    document.head.append(style)
-  }
+.JSt-iframe-button {
+  position: absolute!important;
+  background: transparent;
+  border: 2px solid #e090df;
+  box-shadow: 0 0 10px 4px #e090df;
+}
+`
+
+  const style = document.createElement('style')
+  style.innerHTML = sheet
+  document.head.append(style)
 }
 
 export default generateStylesheet

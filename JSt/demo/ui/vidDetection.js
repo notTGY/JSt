@@ -1,17 +1,4 @@
-function attachAPIToVid(vid, api) {
-  if (!vid) return  
-  
-  [
-    'playing',
-    'pause',
-    'ratechange',
-    'seeked',
-  ].forEach(eventName => {
-    vid.addEventListener(eventName, api)
-  })
-}
-
-function findVideo(possibleRoot) {
+export function findVideo(possibleRoot) {
   const insideVid =
     possibleRoot.querySelector('video')
   if (insideVid) return insideVid
@@ -26,8 +13,9 @@ function findVideo(possibleRoot) {
   return pageVid[0]
 }
 
-function attachFullScreenCallback(fn) {
+export function attachFullScreenCallback(fn) {
   const mus = document.querySelector('audio')
+  // if mus - its already fullscreen
   if (mus) return fn(mus)
 
   ;[
@@ -40,9 +28,16 @@ function attachFullScreenCallback(fn) {
   )
 }
 
-export {
-  attachAPIToVid,
-  attachFullScreenCallback,
-  findVideo,
+export function attachCallbackToVidChange(vid, fn) {
+  if (!vid) return  
+  
+  ;[
+    'playing',
+    'pause',
+    'ratechange',
+    'seeked',
+  ].forEach(eventName => {
+    vid.addEventListener(eventName, fn)
+  })
 }
 

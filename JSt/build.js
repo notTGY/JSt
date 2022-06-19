@@ -7,7 +7,7 @@ async function start() {
     const version = readFileSync(resolve(__dirname, './.version'), 'utf8')
     const newVersion = Number(version) + 1
     await build({
-      entryPoints: [resolve(__dirname, 'demo/index.js')],
+      entryPoints: [resolve(__dirname, 'demo/newScenario.js')],
       bundle: true,
       minify: true,
       outfile: resolve(__dirname, 'index.js'),
@@ -21,5 +21,34 @@ async function start() {
   }
 }
 
+async function exstension() {
+  try {
+    const version = readFileSync(resolve(__dirname, './.version'), 'utf8')
+    const newVersion = Number(version) + 1
+    await Promise.all([
+      build({
+        entryPoints: [resolve(__dirname, 'demo/backgroundScenario.js')],
+        bundle: true,
+        minify: true,
+        outfile: resolve(__dirname, 'background.js'),
+        logLevel: 'info',
+        define: { __version: version },
+      }),
+      build({
+        entryPoints: [resolve(__dirname, 'demo/uiScenario.js')],
+        bundle: true,
+        minify: true,
+        outfile: resolve(__dirname, 'ui.js'),
+        logLevel: 'info',
+        define: { __version: version },
+      })
+    ])
+  } catch(e) {
+    console.log(e)
+    return
+  }
+}
+
 start()
+exstension()
 

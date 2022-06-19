@@ -1,13 +1,14 @@
-import Button from "./button.js"
-import codeInput from "./codeInput.js"
-import displayButtons from "./displayButtons.js"
-import displayMessage from "./displayMessage.js"
 import generateStylesheet from "./generateStylesheet.js"
-import mountUI from "./initUI.js"
 import svgs from "./svgs.js"
+import highlightIframes from "./highlightIframes.js"
+import {
+  attachFullScreenCallback,
+  attachCallbackToVidChange,
+  findVideo,
+} from "./vidDetection.js"
+import { setState, getState } from "./state.js"
+import { mount, unmount } from "./App/index.js"
 
-
-const initUI = mountUI
 
 /**
  * UI part of the application handles messages from
@@ -21,8 +22,12 @@ const initUI = mountUI
  * ui.connectPort(port.postMessage)
  *
  */
-function __initUI(settings) {
-  let portPostMessage = null
+function __initUI(options) {
+  let port = null
+  let vid = null
+  let roomId = null
+
+  const getRoomId = () => roomId
 
   return {
     /**
@@ -34,6 +39,7 @@ function __initUI(settings) {
      * video
      */
     onIncomingMessage(msg) {
+      setState(msg, vid)
     },
     /**
      * here we connect sending function in order to
@@ -41,19 +47,62 @@ function __initUI(settings) {
      * in order to change others' video state
      */
     connectPort(__port) {
-      portPostMessage = __port
+      port = __port
+      // here we endup after connected to backgroud
+      if (window.JST) return
+      window.JST = 1
+
+      // connect styles
+      generateStylesheet(options)
+      
+      // highlight iframes to open videos deep inside
+      highlightIframes()
+
+      // listen for fullscreen event to attach to vid
+      const onFSchange = e => {
+        const mus = document.querySelector('audio')
+        let elem
+
+        if (mus) {
+          vid = mus
+          elem = document.body
+        } else {
+          elem = document.fullscreenElement
+          if (!elem) return unmount()
+          vid = findVideo(elem)
+        }
+        /**
+         * Each time we get new (possibly new)
+         * video elem
+         * attach its events (play/pause...)
+         * to symwatch API
+         * (do it for each state change)
+         */
+        attachCallbackToVidChange(vid, () =>
+          port.postMessage({
+            roomId, data: getState(vid)
+          })
+        )
+
+        // when roomId changes
+        const setRoomId = newRoomId => {
+          roomId = newRoomId
+          attachCallbackToVidChange(vid, () =>
+            port.postMessage({
+              roomId, data: getState(vid)
+            })
+          )
+        }
+
+        // display pill app
+        mount(elem, getRoomId, setRoomId, vid)
+      }
+
+      attachFullScreenCallback(onFSchange)
+
     },
   }
 }
 
-export {
-  Button,
-  codeInput,
-  displayButtons,
-  displayMessage,
-  generateStylesheet,
-  initUI,
-  svgs,
-  __initUI,
-}
+export { __initUI }
 

@@ -1,68 +1,6 @@
-import {
-  attachAPIToVid,
-  attachFullScreenCallback,
-  findVideo,
-} from "./utils.js"
-import Api from "./api.js"
-
-
-async function sub2Fullscreen(
-  domain, initFn, callback, hideCallback
-) {
-  if (window.JST_INITED) return
-  window.JST_INITED = true
-  initFn()
-
-  const api = await Api(domain)
-
-  let roomId = null
-  let vid = null
-  const getRoomId = () => roomId
-
-  const setRoomId = newRoomId => {
-    roomId = newRoomId
-    const eventListener = api(vid, roomId)
-    attachAPIToVid(vid, eventListener)
-  }
-
-  const onFullScreenChange = e => {
-    const mus = document.querySelector('audio')
-
-    if (mus) {
-      const eventListener = api(mus, roomId)
-      attachAPIToVid(mus, eventListener)
-      vid = mus
-
-      callback(
-        document.body, getRoomId, setRoomId, mus,
-      )
-    } else {
-      const elem = document.fullscreenElement
-      if (!elem) return hideCallback()
-
-      vid = findVideo(elem)
-      /**
-       * Each time we get new (possibly new)
-       * video elem
-       * attach its events (play/pause...)
-       * to symwatch API
-       * (do it for each state change)
-       */
-      const eventListener = api(vid, roomId)
-      attachAPIToVid(vid, eventListener)
-
-      callback(elem, getRoomId, setRoomId, vid)
-    }
-  }
-
-  attachFullScreenCallback(onFullScreenChange)
-}
-
-export default sub2Fullscreen
-
 /**
  * core takes care of incoming messages from ui and
- * backend and routes everything around
+ * backend
  *
  * usage:
  * const core = __initCore()
@@ -73,8 +11,76 @@ export default sub2Fullscreen
  *   }
  * })
  */
-export function __initCore(settings) {
-  let portPostMessage = null
+export function __initCore(io, options) {
+  const REST_API_TIMEOUT = 5000
+  const PROTOCOL = 'https'
+  const { domain } = options
+
+  let port = null
+  let type = null
+  let API = null
+  let roomId = null
+  let interval = null
+
+  function restAPI(rawRoomId) {
+    if (!rawRoomId) return e => e
+    const roomId = rawRoomId.toUpperCase()
+
+
+    if (interval) clearInterval(interval)
+    interval = setInterval(() => {
+      fetch(
+        `${
+          PROTOCOL
+        }://${
+          domain
+        }/?method=get&room=${
+          roomId
+        }`
+      ).then(res => res.json())
+       .then(data => port.postMessage(data))
+    }, REST_API_TIMEOUT)
+
+    return data => {
+      if (data) fetch(
+        `${
+          PROTOCOL
+        }://${
+          domain
+        }/?method=send&room=${
+          roomId
+        }&data=${
+          data
+        }`
+      )
+    }
+  }
+
+  let wsAPI
+
+  (async () => {
+    try {
+      const socket = await io(`https://${domain}/`)
+      wsAPI = (rawRoomId) => {
+        if (!rawRoomId) return e => e
+        const roomId = rawRoomId.toUpperCase()
+
+        let lastChange = 0
+        socket.on('message', message => {
+            port.postMessage(JSON.parse(message))
+        })
+
+        return data => {
+          if (data)
+            socket.send(`${roomId} ${data}`)
+        }
+      }
+      type = 'socket'
+    } catch(e) {
+      console.log(e)
+      type = 'rest'
+    }
+  })()
 
   return {
     /**
@@ -83,12 +89,19 @@ export function __initCore(settings) {
      * that contains current state
      */
     onUIMessage(msg) {
+      const { roomId: newRoomId, data } = msg
+      if (newRoomId != roomId) {
+        roomId = newRoomId
+        if (type === 'socket') API = wsAPI(roomId)
+        else  API = restAPI(roomId)
+      }
+      if (API) API(data)
     },
     /**
      * Just connect port for communication
      */
     connectPort(__port) {
-      portPostMessage = __port
+      port = __port
     },
   }
 }

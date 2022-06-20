@@ -33,12 +33,20 @@ const BUG_SVG =
 </svg>
 `
 
+const SHARE_SVG =
+`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+<path d="M18 8 C18 8 24 2 27 5 30 8 29 12 24 16 19 20 16 21 14 17 M14 24 C14 24 8 30 5 27 2 24 3 20 8 16 13 12 16 11 18 15" />
+</svg>
+`
+
 
 const speedUp = SPEED_UP_SVG
 const speedDown = SPEED_DOWN_SVG
 const jstBlack = JST_BLACK_SVG
 const checkmark = CHECKMARK_SVG
 const bug = BUG_SVG
+const share = SHARE_SVG
 
 const svgs = {
   speedUp,
@@ -46,6 +54,7 @@ const svgs = {
   jstBlack,
   checkmark,
   bug,
+  share,
 }
 
 export default svgs

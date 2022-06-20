@@ -40,6 +40,20 @@ export default function app(
       },
     }
   }
+  const Share = () => {
+    return {
+      elem: 'button',
+      className: 'JSt-button',
+      text: SVGS.share,
+      click: e => {
+        const link = window.location
+        window.open(
+          `https://jstplayer.com/watch?v=${link}`,
+          '_blank',
+        )
+      },
+    }
+  }
   const CodeForm = () => {
     return {
       elem: 'form',
@@ -92,7 +106,7 @@ export default function app(
     switch (screen) {
       case 'default':
         return [
-          JSt(), SpeedDown(), SpeedUp(), Bug()
+          JSt(), SpeedDown(), SpeedUp(), Share()
         ]
       case 'code':
         return [

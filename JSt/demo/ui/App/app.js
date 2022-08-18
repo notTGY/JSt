@@ -60,12 +60,18 @@ export default function app(
       className: 'JSt-form',
       submit: e => {
         e.preventDefault()
-        setRoomId(
-          document
+        const id = document
           .querySelector('#JSt-code-input')
           .value
           .toUpperCase()
-        )
+        setRoomId(id)
+        const mover = document.querySelector('#Jitsi-mover')
+        if (mover) mover.hidden = false
+        const jitsi = document.querySelector('#Jitsi-meet')
+        if (jitsi) {
+          jitsi.hidden = false
+          jitsi.src=`https://meet.jit.si/JSt/${id}`
+        }
       },
       text: `
         <input

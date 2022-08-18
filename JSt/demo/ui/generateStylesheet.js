@@ -231,6 +231,30 @@ function generateStylesheet(opts) {
   border: 2px solid #e090df;
   box-shadow: 0 0 10px 4px #e090df;
 }
+
+#Jitsi-meet{
+  position: fixed;
+  top: 200px;
+  left: 10px;
+  width: 400px;
+  height: 400px;
+  border: none;
+  opacity: 0.6;
+  border-radius: 10px;
+  user-select: none;
+}
+#Jitsi-mover{
+  position: fixed;
+  top: 190px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: none;
+  opacity: 0.6;
+  cursor: move;
+  border-radius: 5px;
+}
 `
 
   const style = document.createElement('style')

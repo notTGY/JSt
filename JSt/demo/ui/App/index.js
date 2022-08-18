@@ -1,5 +1,6 @@
 import App from './app.js'
 const TIMEOUT = 2000
+const JITSI = false
 
 export function mount(root, getRoomId, setRoomId, vid) {
   if (!root)
@@ -35,6 +36,29 @@ export function mount(root, getRoomId, setRoomId, vid) {
     window.addEventListener('keydown', openWrapper)
     return 0
   }
+
+  // video conference
+  if (JITSI) {
+    const jitsi = document.createElement('iframe')
+    jitsi.id = 'Jitsi-meet'
+    jitsi.hidden = true
+    jitsi.allow= 'camera; microphone'
+    const mover = document.createElement('div')
+    mover.id='Jitsi-mover'
+    mover.hidden = true
+    mover.onmousedown=e=>{
+      onmousemove=e=>{
+        jitsi.style.top=e.clientY + 'px'
+        jitsi.style.left=e.clientX + 'px'
+        mover.style.top=e.clientY-10 + 'px'
+        mover.style.left=e.clientX-10 + 'px'
+      }
+      onmouseup=e=>{onmousemove=null}
+    }
+    root.append(jitsi)
+    root.append(mover)
+  }
+
   const jst = document.createElement('section')
   jst.id = 'JSt-pill'
   root.append(jst)

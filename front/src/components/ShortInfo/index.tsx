@@ -7,7 +7,6 @@ Video sharing player.
 const cardText = `
 JSt provides shared access to every video in the internet with no watching delay. 🎥
 Also it lets you speed up unlimetedly (🏎️surpass x2 barrier).
-Design can be composed of five ergonomic colors and three variations of size! 🖌️🎨
 `
 
 type ShortInfoProps = {

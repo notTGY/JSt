@@ -26,7 +26,9 @@ const LandingComponent = (props: Props) => {
       <JStPill classes={classes}>
         <h1 className={styles.h1}>JSt</h1>
       </JStPill>
-      <OneStepAway />
+      <OneStepAway 
+        className={styles.marginTop}
+      />
       <Embed 
         className={
           `${styles.marginTop} ${styles.marginBottom}`

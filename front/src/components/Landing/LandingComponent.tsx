@@ -25,7 +25,9 @@ const LandingComponent = (props: Props) => {
       <JStPill classes={classes}>
         <h1 className={styles.h1}>JSt</h1>
       </JStPill>
-      <SubscribeForm />
+      <SubscribeForm
+        className={styles.marginTop}
+      />
       <ShortInfo
         className={styles.marginTop}
       />

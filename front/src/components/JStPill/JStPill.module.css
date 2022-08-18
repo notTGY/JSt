@@ -1,6 +1,5 @@
 .wrapper {
-  position: fixed;
-  top: 50px;
+  position: relative;
   z-index: 100;
   display: flex;
   justify-content: center;

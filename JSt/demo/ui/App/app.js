@@ -5,12 +5,14 @@ import framework from './framework.js'
 export default function app(
   getRoomId, setRoomId, vid
 ) {
+  const root = document.querySelector('#JSt-pill')
+
   const SpeedUp = () => {
     return {
       elem: 'button',
       className: 'JSt-button',
-      text: SVGS.speedUp,
-      click: e => {
+      innerHTML: SVGS.speedUp,
+      onclick: e => {
         if (vid.playbackRate < 20)
           vid.playbackRate += .25
       },
@@ -20,8 +22,8 @@ export default function app(
     return {
       elem: 'button',
       className: 'JSt-button',
-      text: SVGS.speedDown,
-      click: e => {
+      innerHTML: SVGS.speedDown,
+      onclick: e => {
         if (vid.playbackRate > .25)
           vid.playbackRate -= .25
       },
@@ -31,8 +33,8 @@ export default function app(
     return {
       elem: 'button',
       className: 'JSt-button',
-      text: SVGS.bug,
-      click: e => {
+      innerHTML: SVGS.bug,
+      onclick: e => {
         window.open(
           'https://jstplayer.com/feedback?from=app',
           '_blank',
@@ -44,8 +46,8 @@ export default function app(
     return {
       elem: 'button',
       className: 'JSt-button',
-      text: SVGS.share,
-      click: e => {
+      innerHTML: SVGS.share,
+      onclick: e => {
         const link = window.location
         window.open(
           `https://jstplayer.com/watch?v=${link}`,
@@ -58,7 +60,7 @@ export default function app(
     return {
       elem: 'form',
       className: 'JSt-form',
-      submit: e => {
+      onsubmit: e => {
         e.preventDefault()
         const id = document
           .querySelector('#JSt-code-input')
@@ -72,23 +74,23 @@ export default function app(
           jitsi.hidden = false
           jitsi.src=`https://meet.jit.si/JSt/${id}`
         }
+        rerender()
       },
-      text: `
-        <input
-          minlength=6
-          maxlength=6
-          required
-          autofocus
-          id="JSt-code-input"
-          placeholder="______"
-          value=${getRoomId() ?? ''}
-        ></input>
-      `,
       children: [
+        {
+          elem: 'input',
+          minLength: 6,
+          maxLength: 6,
+          required: true,
+          autofocus: true,
+          id: 'JSt-code-input',
+          placeholder: '______',
+          value: getRoomId() ?? '',
+        },
         {
           elem: 'button',
           className: 'JSt-button',
-          text: SVGS.checkmark,
+          innerHTML: SVGS.checkmark,
         }
       ]
     }
@@ -98,13 +100,14 @@ export default function app(
     return {
       elem: 'button',
       className: 'JSt-button JSt-button-padding',
-      text: SVGS.jstBlack,
-      click: e => {
+      innerHTML: SVGS.jstBlack,
+      onclick: e => {
         if (screen === 'default') {
           screen = 'code'
         } else if (screen === 'code') {
           screen = 'default'
         }
+        rerender()
       },
     }
   }
@@ -121,24 +124,27 @@ export default function app(
     }
   }
 
-  const App = () => ([
-    {
-      elem: 'div',
-      className: 'JSt-button-container',
-      children: Buttons()
-    },
-    {
-      elem: 'span',
-      className: 'JSt-version',
-      text: (
-        typeof __version === 'undefined'
-          ? `dev`
-          : `alpha ${__version}`
-      ),
-    },
-  ])
+  const App = () => ({
+    elem: 'section',
+    children: [
+      {
+        elem: 'div',
+        className: 'JSt-button-container',
+        children: Buttons()
+      },
+      {
+        elem: 'span',
+        className: 'JSt-version',
+        innerHTML: (
+          typeof __version === 'undefined'
+            ? `dev`
+            : `alpha ${__version}`
+        ),
+      },
+    ],
+  })
 
-  const rerender = framework(
-    document.querySelector('#JSt-pill'), App
+  const rerender = framework.init(
+    root, App
   )
 }

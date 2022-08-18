@@ -20,3 +20,18 @@
   opacity: 1;
 }
 
+.claycard {
+  width: 90%;
+  padding: 2rem;
+  font-size: 1.4rem;
+  background: linear-gradient(155deg, #fff, #ccc);
+  box-shadow: 1px 1px 15px 1px #fff8,
+    inset 4px 4px 15px 2px #ccc,
+    inset -4px -4px 15px 2px #777;
+  border-radius: 1rem;
+  max-width: 768px;
+  color: #444;
+  z-index: 20;
+  overflow: hidden;
+}
+

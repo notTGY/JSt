@@ -8,8 +8,10 @@
   padding: 1rem;
   font-size: 1.4rem;
   background: linear-gradient(155deg, #fff8, #7778);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 0 5px #777;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 5px #777,
+    inset 4px 4px 25px 4px #fff8,
+    inset -4px -4px 25px 4px #ccc8;
   border-radius: 1rem;
   max-width: 768px;
   color: #345;

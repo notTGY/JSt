@@ -26,7 +26,7 @@ const Download = (props: DownloadProps) => {
   const { className } = props
 
   return (
-    <Card className={`${styles.card} ${className}`} style="glassmorphism">
+    <Card className={`${styles.card} ${className}`}>
         <h2 className={styles.h2}>
           {cardHeader}
         </h2>

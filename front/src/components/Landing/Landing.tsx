@@ -3,7 +3,6 @@ import Component from './LandingComponent'
 
 const defaultClasses = {
   'dimensions': 'normal',
-  'borderWidth': '4px',
   'color': 'white',
 }
 

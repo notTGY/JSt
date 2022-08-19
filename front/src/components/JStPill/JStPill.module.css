@@ -43,9 +43,11 @@
 }
 
 .colorWhite {
-  color: #ccd;
-  border: 2px solid #aaa;
-  background-image: linear-gradient(#fff, #bbbbbb);
+  color: #b863de;
+  background: linear-gradient(155deg, #fbf3ff, #f4e0ff);
+  box-shadow: 1px 1px 15px 2px #f4e0ff,
+    inset 4px 4px 15px 2px #e4d0ef,
+    inset -4px -4px 15px 2px #e0bbef;
 }
 
 .colorBlack {
@@ -85,7 +87,6 @@
   align-items: center;
   justify-content: flex-start;
   z-index: 101;
-  color: #567;
 }
 
 .beforeAppear {

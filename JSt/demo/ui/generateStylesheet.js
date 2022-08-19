@@ -15,79 +15,6 @@ function generateStylesheet(opts) {
       pillWidth = 1000
   }
 
-  let dark, light, borderColor, shadowColor,
-    color, colorFade, colorDark
-  switch(opts.color) {
-    case undefined:
-    case 'trans':
-      shadowColor = '#c8c8c8a0'
-      borderColor = '#c8c8c8a0'
-      light = '#ffffffa0'
-      dark = '#eeeeeea0'
-      color = '#e090df'
-      colorFade = '#a44cd3'
-      colorDark = '#8800c7'
-      break;
-    case 'white':
-      shadowColor = '#ccd'
-      borderColor = '#aaa'
-      light = '#fff'
-      dark = '#bbbbbb'
-      color = '#888'
-      colorFade = '#555'
-      colorDark = '#333'
-      break;
-    case 'black':
-      shadowColor = '#222'
-      borderColor = '#333'
-      light = '#222222'
-      dark = '#000'
-      color = '#888'
-      colorFade = '#555'
-      colorDark = '#333'
-      break;
-    case 'green':
-      shadowColor = '#bfa'
-      borderColor = '#7a6'
-      light = '#bfa'
-      dark = '#8b7'
-      color = '#888'
-      colorFade = '#555'
-      colorDark = '#333'
-      break;
-    case 'pink':
-      shadowColor = '#fab'
-      borderColor = '#a67'
-      light = '#fab'
-      dark = '#b78'
-      color = '#888'
-      colorFade = '#555'
-      colorDark = '#333'
-      break;
-    case 'blue':
-      shadowColor = '#abf'
-      borderColor = '#67a'
-      light = '#abf'
-      dark = '#78b'
-      color = '#888'
-      colorFade = '#555'
-      colorDark = '#333'
-      break;
-  }
-
-  let pillShadow
-  switch(opts["border-width"]) {
-    case undefined:
-    case '4px':
-      pillShadow = `box-shadow: 0px 0px 10px 4px;`
-      break;
-    case '6px':
-      pillShadow = `box-shadow: 0px 0px 10px 6px;`
-      break;
-    case '10px':
-      pillShadow = `box-shadow: 0px 0px 10px 10px;`
-  }
-
   const uiOpacity = 0.9
 
   const sheet = `
@@ -114,12 +41,11 @@ function generateStylesheet(opts) {
   overflow: hidden;
   z-index: 100;
 
-  ${pillShadow}
-  color: ${shadowColor};
-
-  border: 2px solid ${borderColor};
-  background-image:linear-gradient(${light},${dark});
-  backdrop-filter: blur(15px);
+  color: #b863de;
+  background: linear-gradient(155deg, #fbf3ff, #f4e0ff);
+  box-shadow: 1px 1px 15px 2px #f4e0ff,
+    inset 4px 4px 15px 2px #d4c0df,
+    inset -4px -4px 15px 2px #d0abdf;
 
   opacity: ${uiOpacity};
   animation: jst-pill-appear 0.5s;
@@ -167,11 +93,12 @@ function generateStylesheet(opts) {
   height: ${2*halfHeight}px;
   border: 0px;
   padding: 20px;
-  color: ${color};
+  color: #b863de;
   background: transparent;
   z-index: 500;
   transition: 0.2s;
   opacity: ${uiOpacity};
+  cursor: pointer;
 }
 
 .JSt-button-padding {
@@ -189,19 +116,23 @@ function generateStylesheet(opts) {
   z-index: 500;
   transition: 0.5s;
   opacity: ${uiOpacity};
-  color: ${color};
+  color: #b863de;
   font-weight: 600;
   font-family: monospace;
   font-size: ${halfHeight}px;
 }
 
+#JSt-code-input::placeholder {
+  color: #b863de;
+}
+
 .JSt-button:hover {
-  color: ${colorFade};
+  color: #a853ce;
   padding: 5px;
 }
 
 .JSt-button:active {
-  color: ${colorDark};
+  color: #9843be;
   padding: 20px;
 }
 
@@ -220,7 +151,7 @@ function generateStylesheet(opts) {
   align-items: flex-end;
   justify-content: flex-end;
 
-  color: ${color};
+  color: #b863de;
   font-family: monospace;
   font-size: 0.6rem;
 }

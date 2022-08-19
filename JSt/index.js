@@ -1,4 +1,4 @@
-(()=>{function R(t){let e,n;switch(t.dimensions){case void 0:case"normal":e=75,n=800;break;case"big":e=85,n=900;break;case"verybig":e=100,n=1e3}let a,s,d,l,o,r,i;switch(t.color){case void 0:case"trans":l="#c8c8c8a0",d="#c8c8c8a0",s="#ffffffa0",a="#eeeeeea0",o="#e090df",r="#a44cd3",i="#8800c7";break;case"white":l="#ccd",d="#aaa",s="#fff",a="#bbbbbb",o="#888",r="#555",i="#333";break;case"black":l="#222",d="#333",s="#222222",a="#000",o="#888",r="#555",i="#333";break;case"green":l="#bfa",d="#7a6",s="#bfa",a="#8b7",o="#888",r="#555",i="#333";break;case"pink":l="#fab",d="#a67",s="#fab",a="#b78",o="#888",r="#555",i="#333";break;case"blue":l="#abf",d="#67a",s="#abf",a="#78b",o="#888",r="#555",i="#333";break}let f;switch(t["border-width"]){case void 0:case"4px":f="box-shadow: 0px 0px 10px 4px;";break;case"6px":f="box-shadow: 0px 0px 10px 6px;";break;case"10px":f="box-shadow: 0px 0px 10px 10px;"}let p=.9,u=`
+(()=>{function R(t){let e,n;switch(t.dimensions){case void 0:case"normal":e=75,n=800;break;case"big":e=85,n=900;break;case"verybig":e=100,n=1e3}let o=.9,c=`
 .JSt-video-wrapper {
   display: flex;
   align-items: center;
@@ -22,14 +22,13 @@
   overflow: hidden;
   z-index: 100;
 
-  ${f}
-  color: ${l};
+  color: #b863de;
+  background: linear-gradient(155deg, #fbf3ff, #f4e0ff);
+  box-shadow: 1px 1px 15px 2px #f4e0ff,
+    inset 4px 4px 15px 2px #d4c0df,
+    inset -4px -4px 15px 2px #d0abdf;
 
-  border: 2px solid ${d};
-  background-image:linear-gradient(${s},${a});
-  backdrop-filter: blur(15px);
-
-  opacity: ${p};
+  opacity: ${o};
   animation: jst-pill-appear 0.5s;
 }
 
@@ -42,7 +41,7 @@
     opacity: 0;
   }
   to {
-    opacity: ${p};
+    opacity: ${o};
   }
 }
 
@@ -75,11 +74,12 @@
   height: ${2*e}px;
   border: 0px;
   padding: 20px;
-  color: ${o};
+  color: #b863de;
   background: transparent;
   z-index: 500;
   transition: 0.2s;
-  opacity: ${p};
+  opacity: ${o};
+  cursor: pointer;
 }
 
 .JSt-button-padding {
@@ -96,20 +96,24 @@
   background: transparent;
   z-index: 500;
   transition: 0.5s;
-  opacity: ${p};
-  color: ${o};
+  opacity: ${o};
+  color: #b863de;
   font-weight: 600;
   font-family: monospace;
   font-size: ${e}px;
 }
 
+#JSt-code-input::placeholder {
+  color: #b863de;
+}
+
 .JSt-button:hover {
-  color: ${r};
+  color: #a853ce;
   padding: 5px;
 }
 
 .JSt-button:active {
-  color: ${i};
+  color: #9843be;
   padding: 20px;
 }
 
@@ -128,7 +132,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 
-  color: ${o};
+  color: #b863de;
   font-family: monospace;
   font-size: 0.6rem;
 }
@@ -163,7 +167,7 @@
   cursor: move;
   border-radius: 5px;
 }
-`,m=document.createElement("style");m.innerHTML=u,document.head.append(m)}var v=R;var V=`<svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+`,d=document.createElement("style");d.innerHTML=c,document.head.append(d)}var v=R;var V=`<svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 21C8 21 12.6429 14 21 14C29.3571 14 34 21 34 21C34 21 29.3571 28 21 28C12.6429 28 8 21 8 21Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M23.5 1H1V41H41V26.5V18.5M27 1H41M41 1V15M41 1L27 15" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
@@ -187,4 +191,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
 <path d="M18 8 C18 8 24 2 27 5 30 8 29 12 24 16 19 20 16 21 14 17 M14 24 C14 24 8 30 5 27 2 24 3 20 8 16 13 12 16 11 18 15" />
 </svg>
-`,B=P,O=N,D=V,F=j,z=H,Z=U,G={speedUp:B,speedDown:O,jstBlack:D,checkmark:F,bug:z,share:Z},C=G;function k(){[...document.querySelectorAll("iframe")].forEach(e=>{let n=e.getBoundingClientRect();if(n&&n.width&&n.height){let a=document.createElement("button");a.classList="JSt-iframe-button",a.style.top=n.top,a.style.left=n.left,a.style.width=n.width,a.style.height=n.height,a.onclick=s=>{window.open(e.src),s.stopPropagation()},a.oncontextmenu=s=>(s.preventDefault(),a.remove(),0),e.parentElement.append(a)}})}function T(t){let e=t.querySelector("video");if(e)return e;let n=document.body.querySelectorAll("video"),a=document.querySelector("audio");return a||n[0]}function E(t){let e=document.querySelector("audio");if(e)return t(e);["fullscreenchange","webkitfullscreenchange","mozfullscreenchange","MSFullscreenChange"].forEach(n=>document.addEventListener(n,t))}function S(t,e){!t||["playing","pause","ratechange","seeked"].forEach(n=>{t.addEventListener(n,e)})}var b=0;function J(t){return t.currentTime>0&&!t.paused&&!t.ended&&t.readyState>2}function y(t){let e=new Date().getTime();if(e-b<100)return!1;b=e;let n=e,a=J(t),s=t.currentTime,d=t.playbackRate,l={playing:a,vidCurTime:s,curTime:n,playbackRate:d};return JSON.stringify(l)}function $(t,e){let{vidCurTime:n,playbackRate:a,curTime:s,playing:d}=t;if(!s||s<b)return;let l=new Date().getTime();b=l;let o=(l-s)/1e3,r=n+a*o,i=J(e);d?(Math.abs(e.currentTime-r)>500&&(e.currentTime=r),i||(e.play(),e.currentTime!==r&&(e.currentTime=r))):(e.currentTime!==n&&(e.currentTime=n),i&&e.pause()),e.playbackRate!==t.playbackRate&&(e.playbackRate=t.playbackRate)}var W=(t,e)=>{let n={$el:t,elem:t.nodeName.toLowerCase()},a,s=()=>{t.innerHTML="",n=d({},e(),t)},d=(l,o,r)=>{Array.isArray(o)&&(o={children:o}),typeof o=="string"&&(o={innerText:o}),o.elem=o.elem||"span",!l||l.elem!==o.elem?(o.$el=document.createElement(o.elem),r.append(o.$el)):(o.$el=l.$el,o.cleanup=l.cleanup);let{$el:i,elem:f,children:p,cleanup:u,...m}=o;if(u)for(let c in u)i.removeEventListener(c.substring(2),o.cleanup[c]);o.cleanup={};for(let c in m)typeof(a=m[c])>"u"||(c.indexOf("on")!=0?i[c]=a:i.addEventListener(c.substring(2),o.cleanup[c]=h=>{m[c](h)}));return p?{...o,children:p.map((c,h)=>d(l&&l.children&&l.children[h],c,i))}:o};return s(),s},M={init:W};function L(t,e,n){let a=document.querySelector("#JSt-pill"),s=()=>({elem:"button",className:"JSt-button",innerHTML:C.speedUp,onclick:c=>{n.playbackRate<20&&(n.playbackRate+=.25)}}),d=()=>({elem:"button",className:"JSt-button",innerHTML:C.speedDown,onclick:c=>{n.playbackRate>.25&&(n.playbackRate-=.25)}}),l=()=>({elem:"button",className:"JSt-button",innerHTML:C.bug,onclick:c=>{window.open("https://jstplayer.com/feedback?from=app","_blank")}}),o=()=>({elem:"button",className:"JSt-button",innerHTML:C.share,onclick:c=>{let h=window.location;window.open(`https://jstplayer.com/watch?v=${h}`,"_blank")}}),r=()=>({elem:"form",className:"JSt-form",onsubmit:c=>{c.preventDefault();let h=document.querySelector("#JSt-code-input").value.toUpperCase();e(h);let g=document.querySelector("#Jitsi-mover");g&&(g.hidden=!1);let w=document.querySelector("#Jitsi-meet");w&&(w.hidden=!1,w.src=`https://meet.jit.si/JSt/${h}`),m()},children:[{elem:"input",minLength:6,maxLength:6,required:!0,autofocus:!0,id:"JSt-code-input",placeholder:"______",value:t()??""},{elem:"button",className:"JSt-button",innerHTML:C.checkmark}]}),i="default",f=()=>({elem:"button",className:"JSt-button JSt-button-padding",innerHTML:C.jstBlack,onclick:c=>{i==="default"?i="code":i==="code"&&(i="default"),m()}}),p=()=>{switch(i){case"default":return[f(),d(),s(),o()];case"code":return[f(),r()]}},u=()=>({elem:"section",children:[{elem:"div",className:"JSt-button-container",children:p()},{elem:"span",className:"JSt-version",innerHTML:`alpha ${16}`}]}),m=M.init(a,u)}var K=2e3,Y=!1;function _(t,e,n,a){if(!t)throw new Error("couldnt init on undefined elem");if(t.nodeName==="VIDEO"){let r=document.createElement("div");r.classList.add("JSt-video-wrapper"),t.parentNode.appendChild(r);let i=()=>{if(r.requestFullscreen)return r.requestFullscreen();if(r.mozRequestFullScreen)return r.mozRequestFullScreen();if(r.webkitRequestFullScreen)return r.webkitRequestFullScreen()},f=()=>{!r||(r.appendChild(t),window.removeEventListener("click",f),window.removeEventListener("keydown",f),setTimeout(i,200))};return window.addEventListener("click",f),window.addEventListener("keydown",f),0}if(Y){let r=document.createElement("iframe");r.id="Jitsi-meet",r.hidden=!0,r.allow="camera; microphone";let i=document.createElement("div");i.id="Jitsi-mover",i.hidden=!0,i.onmousedown=f=>{onmousemove=p=>{r.style.top=p.clientY+"px",r.style.left=p.clientX+"px",i.style.top=p.clientY-10+"px",i.style.left=p.clientX-10+"px"},onmouseup=p=>{onmousemove=null}},t.append(r),t.append(i)}let s=document.createElement("section");s.id="JSt-pill",t.append(s),s.onclick=r=>r.stopPropagation();function d(){s.hidden=!0}let l;function o(){l&&clearTimeout(l),l=setTimeout(d,K),s.hidden=!1}o(),document.addEventListener("click",o),document.addEventListener("mousedown",o),document.addEventListener("mousemove",o),document.addEventListener("keydown",o),L(e,n,a)}function I(){let t=document.querySelector("#JSt-pill");if(t&&t.parentNode)t.parentNode.removeChild(t);else return 0;let e=document.querySelector(".JSt-video-wrapper");e&&(e.parentNode.append(e.children.item(0)),e.remove())}function A(t){let e=null,n=null,a=null,s=()=>a;return{onIncomingMessage(d){$(d,n)},connectPort(d){if(e=d,window.JST)return;window.JST=1,v(t),k(),E(o=>{let r=document.querySelector("audio"),i;if(r)n=r,i=document.body;else{if(i=document.fullscreenElement,!i)return I();n=T(i)}S(n,()=>e.postMessage({roomId:a,data:y(n)})),_(i,s,p=>{a=p,S(n,()=>e.postMessage({roomId:a,data:y(n)}))},n)})}}}function q(t,e){let a="https",{domain:s}=e,d=null,l=null,o=null,r=null,i=null;function f(u){if(!u)return c=>c;let m=u.toUpperCase();return i&&clearInterval(i),i=setInterval(()=>{fetch(`${a}://${s}/?method=get&room=${m}`).then(c=>c.json()).then(c=>d.postMessage(c))},5e3),c=>{c&&fetch(`${a}://${s}/?method=send&room=${m}&data=${c}`)}}let p;return(async()=>{try{let u=await t(`https://${s}/`);p=m=>{if(!m)return g=>g;let c=m.toUpperCase(),h=0;return u.on("message",g=>{d.postMessage(JSON.parse(g))}),g=>{g&&u.send(`${c} ${g}`)}},l="socket"}catch(u){console.log(u),l="rest"}})(),{onUIMessage(u){let{roomId:m,data:c}=u;m!=r&&(r=m,l==="socket"?o=p(r):o=f(r)),o&&o(c)},connectPort(u){d=u}}}var X={dimensions:"normal",color:"trans","border-width":"4px"},x=document.createElement("script");x.src="https://cdn.socket.io/4.3.2/socket.io.min.js";x.crossorigin="anonymous";x.onerror=x.onload=()=>{let t=A(X),e=q(io,{domain:"symwatch.herokuapp.com"});e.connectPort({postMessage:t.onIncomingMessage}),t.connectPort({postMessage:e.onUIMessage})};document.body.append(x);})();
+`,B=P,O=N,D=V,F=j,z=H,Z=U,G={speedUp:B,speedDown:O,jstBlack:D,checkmark:F,bug:z,share:Z},C=G;function S(){[...document.querySelectorAll("iframe")].forEach(e=>{let n=e.getBoundingClientRect();if(n&&n.width&&n.height){let o=document.createElement("button");o.classList="JSt-iframe-button",o.style.top=n.top,o.style.left=n.left,o.style.width=n.width,o.style.height=n.height,o.onclick=c=>{window.open(e.src),c.stopPropagation()},o.oncontextmenu=c=>(c.preventDefault(),o.remove(),0),e.parentElement.append(o)}})}function T(t){let e=t.querySelector("video");if(e)return e;let n=document.body.querySelectorAll("video"),o=document.querySelector("audio");return o||n[0]}function E(t){let e=document.querySelector("audio");if(e)return t(e);["fullscreenchange","webkitfullscreenchange","mozfullscreenchange","MSFullscreenChange"].forEach(n=>document.addEventListener(n,t))}function y(t,e){!t||["playing","pause","ratechange","seeked"].forEach(n=>{t.addEventListener(n,e)})}var w=0;function J(t){return t.currentTime>0&&!t.paused&&!t.ended&&t.readyState>2}function k(t){let e=new Date().getTime();if(e-w<100)return!1;w=e;let n=e,o=J(t),c=t.currentTime,d=t.playbackRate,l={playing:o,vidCurTime:c,curTime:n,playbackRate:d};return JSON.stringify(l)}function M(t,e){let{vidCurTime:n,playbackRate:o,curTime:c,playing:d}=t;if(!c||c<w)return;let l=new Date().getTime();w=l;let r=(l-c)/1e3,i=n+o*r,s=J(e);d?(Math.abs(e.currentTime-i)>500&&(e.currentTime=i),s||(e.play(),e.currentTime!==i&&(e.currentTime=i))):(e.currentTime!==n&&(e.currentTime=n),s&&e.pause()),e.playbackRate!==t.playbackRate&&(e.playbackRate=t.playbackRate)}var W=(t,e)=>{let n={$el:t,elem:t.nodeName.toLowerCase()},o,c=()=>{t.innerHTML="",n=d({},e(),t)},d=(l,r,i)=>{Array.isArray(r)&&(r={children:r}),typeof r=="string"&&(r={innerText:r}),r.elem=r.elem||"span",!l||l.elem!==r.elem?(r.$el=document.createElement(r.elem),i.append(r.$el)):(r.$el=l.$el,r.cleanup=l.cleanup);let{$el:s,elem:f,children:u,cleanup:p,...m}=r;if(p)for(let a in p)s.removeEventListener(a.substring(2),r.cleanup[a]);r.cleanup={};for(let a in m)typeof(o=m[a])>"u"||(a.indexOf("on")!=0?s[a]=o:s.addEventListener(a.substring(2),r.cleanup[a]=h=>{m[a](h)}));return u?{...r,children:u.map((a,h)=>d(l&&l.children&&l.children[h],a,s))}:r};return c(),c},_={init:W};function L(t,e,n){let o=document.querySelector("#JSt-pill"),c=()=>({elem:"button",className:"JSt-button",innerHTML:C.speedUp,onclick:a=>{n.playbackRate<20&&(n.playbackRate+=.25)}}),d=()=>({elem:"button",className:"JSt-button",innerHTML:C.speedDown,onclick:a=>{n.playbackRate>.25&&(n.playbackRate-=.25)}}),l=()=>({elem:"button",className:"JSt-button",innerHTML:C.bug,onclick:a=>{window.open("https://jstplayer.com/feedback?from=app","_blank")}}),r=()=>({elem:"button",className:"JSt-button",innerHTML:C.share,onclick:a=>{let h=window.location;window.open(`https://jstplayer.com/watch?v=${h}`,"_blank")}}),i=()=>({elem:"form",className:"JSt-form",onsubmit:a=>{a.preventDefault();let h=document.querySelector("#JSt-code-input").value.toUpperCase();e(h);let g=document.querySelector("#Jitsi-mover");g&&(g.hidden=!1);let b=document.querySelector("#Jitsi-meet");b&&(b.hidden=!1,b.src=`https://meet.jit.si/JSt/${h}`),m()},children:[{elem:"input",minLength:6,maxLength:6,required:!0,autofocus:!0,id:"JSt-code-input",placeholder:"______",value:t()??""},{elem:"button",className:"JSt-button",innerHTML:C.checkmark}]}),s="default",f=()=>({elem:"button",className:"JSt-button JSt-button-padding",innerHTML:C.jstBlack,onclick:a=>{s==="default"?s="code":s==="code"&&(s="default"),m()}}),u=()=>{switch(s){case"default":return[f(),d(),c(),r()];case"code":return[f(),i()]}},p=()=>({elem:"section",children:[{elem:"div",className:"JSt-button-container",children:u()},{elem:"span",className:"JSt-version",innerHTML:`alpha ${17}`}]}),m=_.init(o,p)}var K=2e3,Y=!1;function $(t,e,n,o){if(!t)throw new Error("couldnt init on undefined elem");if(t.nodeName==="VIDEO"){let i=document.createElement("div");i.classList.add("JSt-video-wrapper"),t.parentNode.appendChild(i);let s=()=>{if(i.requestFullscreen)return i.requestFullscreen();if(i.mozRequestFullScreen)return i.mozRequestFullScreen();if(i.webkitRequestFullScreen)return i.webkitRequestFullScreen()},f=()=>{!i||(i.appendChild(t),window.removeEventListener("click",f),window.removeEventListener("keydown",f),setTimeout(s,200))};return window.addEventListener("click",f),window.addEventListener("keydown",f),0}if(Y){let i=document.createElement("iframe");i.id="Jitsi-meet",i.hidden=!0,i.allow="camera; microphone";let s=document.createElement("div");s.id="Jitsi-mover",s.hidden=!0,s.onmousedown=f=>{onmousemove=u=>{i.style.top=u.clientY+"px",i.style.left=u.clientX+"px",s.style.top=u.clientY-10+"px",s.style.left=u.clientX-10+"px"},onmouseup=u=>{onmousemove=null}},t.append(i),t.append(s)}let c=document.createElement("section");c.id="JSt-pill",t.append(c),c.onclick=i=>i.stopPropagation();function d(){c.hidden=!0}let l;function r(){l&&clearTimeout(l),l=setTimeout(d,K),c.hidden=!1}r(),document.addEventListener("click",r),document.addEventListener("mousedown",r),document.addEventListener("mousemove",r),document.addEventListener("keydown",r),L(e,n,o)}function I(){let t=document.querySelector("#JSt-pill");if(t&&t.parentNode)t.parentNode.removeChild(t);else return 0;let e=document.querySelector(".JSt-video-wrapper");e&&(e.parentNode.append(e.children.item(0)),e.remove())}function A(t){let e=null,n=null,o=null,c=()=>o;return{onIncomingMessage(d){M(d,n)},connectPort(d){if(e=d,window.JST)return;window.JST=1,v(t),S(),E(r=>{let i=document.querySelector("audio"),s;if(i)n=i,s=document.body;else{if(s=document.fullscreenElement,!s)return I();n=T(s)}y(n,()=>e.postMessage({roomId:o,data:k(n)})),$(s,c,u=>{o=u,y(n,()=>e.postMessage({roomId:o,data:k(n)}))},n)})}}}function q(t,e){let o="https",{domain:c}=e,d=null,l=null,r=null,i=null,s=null;function f(p){if(!p)return a=>a;let m=p.toUpperCase();return s&&clearInterval(s),s=setInterval(()=>{fetch(`${o}://${c}/?method=get&room=${m}`).then(a=>a.json()).then(a=>d.postMessage(a))},5e3),a=>{a&&fetch(`${o}://${c}/?method=send&room=${m}&data=${a}`)}}let u;return(async()=>{try{let p=await t(`https://${c}/`);u=m=>{if(!m)return g=>g;let a=m.toUpperCase(),h=0;return p.on("message",g=>{d.postMessage(JSON.parse(g))}),g=>{g&&p.send(`${a} ${g}`)}},l="socket"}catch(p){console.log(p),l="rest"}})(),{onUIMessage(p){let{roomId:m,data:a}=p;m!=i&&(i=m,l==="socket"?r=u(i):r=f(i)),r&&r(a)},connectPort(p){d=p}}}var X={dimensions:"normal",color:"trans","border-width":"4px"},x=document.createElement("script");x.src="https://cdn.socket.io/4.3.2/socket.io.min.js";x.crossorigin="anonymous";x.onerror=x.onload=()=>{let t=A(X),e=q(io,{domain:"symwatch.herokuapp.com"});e.connectPort({postMessage:t.onIncomingMessage}),t.connectPort({postMessage:e.onUIMessage})};document.body.append(x);})();

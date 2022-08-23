@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="icon" href="/jst-black.svg"/>
         <title>{websiteTitle}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
       </Head>
       <Component {...pageProps} />
       <Script

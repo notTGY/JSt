@@ -18,12 +18,12 @@ socketIOscript.onerror = socketIOscript.onload =
   const ui = __initUI(options)
 
   const core = __initCore(io, {
-    domain: 'symwatch.herokuapp.com'
+    domain: 'jstplayer.com'
   })
 
   /**
    * This part is reference to how it will be used
-   * inside chrome exstension
+   * inside chrome extension
    **
   const port = chrome.runtime.connect({name: 'jst'})
   port.onMessage.addListener(ui.onIncomingMessage)

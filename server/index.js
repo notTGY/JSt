@@ -12,6 +12,7 @@ const io = require('socket.io')(server, {
 })
 
 app.use(cors())
+app.use(express.static('front/out'))
 
 let storage = {}
 
